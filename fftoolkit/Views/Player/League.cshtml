@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Player Trade Values";
+}
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').DataTable();
+
+            //$(".passing").hide();
+            //$(".rushing").hide();
+            $(".receiving").hide();
+        });
+    </script>
+
+}
+
+<link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
+
+<h2>Player Trade Values</h2>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th colspan="4" class="blank-header-cell"></th>
+            <th colspan="3" class="passing">Passing</th>
+            <th colspan="2" class="rushing">Rushing</th>
+            <th colspan="3" class="receiving">Receiving</th>
+            <th class="blank-header-cell"></th>
+        </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Pos</th>
+            <th scope="col">Team</th>
+            <th scope="col" class="passing">YARD</th>
+            <th scope="col" class="passing">TD</th>
+            <th scope="col" class="passing">INT</th>
+            <th scope="col" class="rushing">YARD</th>
+            <th scope="col" class="rushing">TD</th>
+            <th scope="col" class="receiving">YARD</th>
+            <th scope="col" class="receiving">REC</th>
+            <th scope="col" class="receiving">TD</th>
+            <th scope="col">PPG</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Leveon Bell</td>
+            <td>RB</td>
+            <td>PIT</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="rushing">0</td>
+            <td class="rushing">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>David Johnson</td>
+            <td>RB</td>
+            <td>ARI</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="rushing">0</td>
+            <td class="rushing">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Ezekiel Eliot</td>
+            <td>RB</td>
+            <td>DAL</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="rushing">0</td>
+            <td class="rushing">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <th scope="row">4</th>
+            <td>Tom Brady</td>
+            <td>QB</td>
+            <td>NE</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="rushing">0</td>
+            <td class="rushing">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td>Aaron Rodgers</td>
+            <td>QB</td>
+            <td>GB</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="rushing">0</td>
+            <td class="rushing">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <th scope="row">6</th>
+            <td>Matt Ryan</td>
+            <td>QB</td>
+            <td>ATL</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="passing">0</td>
+            <td class="rushing">0</td>
+            <td class="rushing">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td class="receiving">0</td>
+            <td>0</td>
+        </tr>
+    </tbody>
+</table>
