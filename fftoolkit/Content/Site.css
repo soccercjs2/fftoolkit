@@ -69,6 +69,15 @@ textarea {
     margin-bottom: 15px;
 }
 
+.trade {
+    cursor: pointer;
+}
+
+.trade:hover {
+    border: 1px solid Highlight;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
 .trade-filter-item-default {
     font-style: italic;
     color: #C0C0C0;
@@ -76,4 +85,27 @@ textarea {
 
 .trade-filter-item {
     cursor: pointer;
+}
+
+.trade-side-body {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+.trade-side-body-left {
+    padding-left: 1.25rem;
+}
+
+.trade-side-body-right {
+    padding-right: 1.25rem;
+}
+
+.trade-value {
+    text-align: right;
+}
+
+.total-trade-value {
+    text-align: right;
+    color: green;
+    font-weight: bold;
 }

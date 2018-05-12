@@ -61,24 +61,66 @@
     </div>
 
     <div class="col-sm-12 col-md-8 col-lg-9">
-        <div class="card trade">
-            <div class="card-body row">
-                <div class="col-md-6">
-                    asdf
-                </div>
-                <div class="col-md-6">
-                    asdf
-                </div>
-            </div>
-            <div class="card-footer row">
-                <div class="col-md-6">
-                    asdf
-                </div>
-                <div class="col-md-6">
-                    asdf
+
+        <div>
+            <div class="card">
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-4">Filter 1</div>
+                        <div class="col-sm-4">Filter 2</div>
+                        <div class="col-sm-4">Filter 3</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        @for (int i = 0; i <= 5; i++)
+        {
+            <div class="card trade">
+                <div>
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid rgba(0, 0, 0, 0.125);">
+                            <div class="trade-side-body trade-side-body-left">
+                                <div class="row">
+                                    <div class="col-sm-9">David Johnson (RB, ARI)</div>
+                                    <div class="col-sm-3 trade-value">23.54</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">Case Keenum (QB, DEN)</div>
+                                    <div class="col-sm-3 trade-value">18.22</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">Mike Evans (WR, TB)</div>
+                                    <div class="col-sm-3 trade-value">17.79</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="trade-side-body trade-side-body-right">
+                                <div class="row">
+                                    <div class="col-sm-9">Ezekiel Elliot (RB, DAL)</div>
+                                    <div class="col-sm-3 trade-value">16.10</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9">Todd Gurley (RB, LAR)</div>
+                                    <div class="col-sm-3 trade-value">21.38</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6 total-trade-value">
+                            9.82
+                        </div>
+                        <div class="col-md-6 total-trade-value">
+                            4.77
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 

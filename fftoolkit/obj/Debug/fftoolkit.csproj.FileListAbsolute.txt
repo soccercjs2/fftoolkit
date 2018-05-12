@@ -84,8 +84,6 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\bin\Microsoft.AI.DependencyColl
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\bin\Microsoft.AI.Web.xml
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\obj\Debug\fftoolkit.csproj.CoreCompileInputs.cache
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\obj\Debug\fftoolkit.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\obj\Debug\fftoolkit.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\obj\Debug\fftoolkit.pdb
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit\obj\Debug\fftoolkit.csprojResolveAssemblyReference.cache
