@@ -62,7 +62,7 @@
 
     <div class="col-sm-12 col-md-8 col-lg-9">
 
-        <div>
+        @*<div>
             <div class="card">
                 <div class="card-footer">
                     <div class="row">
@@ -72,55 +72,82 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
-        @for (int i = 0; i <= 5; i++)
-        {
-            <div class="card trade">
-                <div>
-                    <div class="row">
-                        <div class="col-md-6" style="border-right: 1px solid rgba(0, 0, 0, 0.125);">
-                            <div class="trade-side-body trade-side-body-left">
-                                <div class="row">
-                                    <div class="col-sm-9">David Johnson (RB, ARI)</div>
-                                    <div class="col-sm-3 trade-value">23.54</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-9">Case Keenum (QB, DEN)</div>
-                                    <div class="col-sm-3 trade-value">18.22</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-9">Mike Evans (WR, TB)</div>
-                                    <div class="col-sm-3 trade-value">17.79</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="trade-side-body trade-side-body-right">
-                                <div class="row">
-                                    <div class="col-sm-9">Ezekiel Elliot (RB, DAL)</div>
-                                    <div class="col-sm-3 trade-value">16.10</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-9">Todd Gurley (RB, LAR)</div>
-                                    <div class="col-sm-3 trade-value">21.38</div>
-                                </div>
-                            </div>
+        <div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-footer you-get-footer">
+                            You Get
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-md-6 total-trade-value">
-                            9.82
-                        </div>
-                        <div class="col-md-6 total-trade-value">
-                            4.77
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-footer they-get-footer">
+                            They Get
                         </div>
                     </div>
                 </div>
             </div>
-        }
+        </div>
+
+        @for (int i = 0; i <= 2; i++)
+    {
+        <div class="trade" data-toggle="modal" data-target="#tradeModal">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="trade-side">
+                        <div class="trade-players">
+                            <div>
+                                <div class="trade-player">David Johnson (RB, ARI)</div>
+                                <div class="trade-player-points">23.54</div>
+                            </div>
+                            <div>
+                                <div class="trade-player">Case Keenum (QB, DEN)</div>
+                                <div class="trade-player-points">18.22</div>
+                            </div>
+                            <div>
+                                <div class="trade-player">Mike Evans (WR, TB)</div>
+                                <div class="trade-player-points">17.79</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="trade-side">
+                        <div class="trade-players">
+                            <div>
+                                <div class="trade-player">Ezekiel Elliot (RB, DAL)</div>
+                                <div class="trade-player-points">16.10</div>
+                            </div>
+                            <div>
+                                <div class="trade-player">Todd Gurley (RB, LAR)</div>
+                                <div class="trade-player-points">21.38</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 trade-footer">
+                    +9.82 PPG
+                </div>
+                <div class="col-sm-6 trade-footer">
+                    +4.77 PPG
+                </div>
+            </div>
+        </div>
+}
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
 </div>
 
@@ -177,6 +204,63 @@
                                     Tight End
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="tradeModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Trade Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="trade trade-detail">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="trade-side">
+                                <div class="trade-players">
+                                    <div>
+                                        <div class="trade-player">David Johnson (RB, ARI)</div>
+                                        <div class="trade-player-points">23.54</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player">Case Keenum (QB, DEN)</div>
+                                        <div class="trade-player-points">18.22</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player">Mike Evans (WR, TB)</div>
+                                        <div class="trade-player-points">17.79</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="trade-side">
+                                <div class="trade-players">
+                                    <div>
+                                        <div class="trade-player">Ezekiel Elliot (RB, DAL)</div>
+                                        <div class="trade-player-points">16.10</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player">Todd Gurley (RB, LAR)</div>
+                                        <div class="trade-player-points">21.38</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 trade-footer">
+                            +9.82 PPG
+                        </div>
+                        <div class="col-sm-6 trade-footer">
+                            +4.77 PPG
                         </div>
                     </div>
                 </div>

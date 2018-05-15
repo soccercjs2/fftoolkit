@@ -37,6 +37,15 @@ textarea {
     max-width: none;
 }
 
+.trade-player {
+    display: inline-block;
+}
+
+.trade-player-points {
+    float: right;
+    display: inline-block;
+}
+
 .card-row {
     padding: 30px 0px;
 }
@@ -69,15 +78,6 @@ textarea {
     margin-bottom: 15px;
 }
 
-.trade {
-    cursor: pointer;
-}
-
-.trade:hover {
-    border: 1px solid Highlight;
-    background-color: rgba(0, 0, 0, 0.03);
-}
-
 .trade-filter-item-default {
     font-style: italic;
     color: #C0C0C0;
@@ -87,25 +87,63 @@ textarea {
     cursor: pointer;
 }
 
-.trade-side-body {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+.trade {
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin-bottom: 15px;
+    padding: 0 15px;
+    padding-top: 15px;
 }
 
-.trade-side-body-left {
-    padding-left: 1.25rem;
+.trade-detail {
+    cursor: auto;
 }
 
-.trade-side-body-right {
-    padding-right: 1.25rem;
+.trade:hover {
+    border: 2px solid Highlight;
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
-.trade-value {
-    text-align: right;
+.trade-side {
+    display: flex;
+    flex-direction: column;
 }
 
-.total-trade-value {
+.trade-side {
+    height: 100%;
+    padding-bottom: 8px;
+}
+
+.trade-players {
+    flex-grow: 1;
+}
+
+.trade-player {
+    
+}
+
+.trade-footer {
+    padding-top: 7px;
     text-align: right;
     color: green;
     font-weight: bold;
+    border-top: 2px solid rgba(0, 0, 0, 0.125);
+    background-color: rgba(0, 0, 0, 0.03);
+    padding-bottom: 15px;
+}
+
+.trade-value {
+    
+}
+
+.you-get-footer {
+    background-color: #b8daff;
+    border: 2px solid #004085;
+}
+
+.they-get-footer {
+    background-color: #c3e6cb;
+    border: 2px solid #155724;
+    border-radius: 0.25rem;
 }
