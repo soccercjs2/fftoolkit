@@ -105,6 +105,11 @@ textarea {
     background-color: rgba(0, 0, 0, 0.03);
 }
 
+.trade-detail:hover {
+    border: 2px solid rgba(0, 0, 0, 0.125);
+    background-color: white;
+}
+
 .trade-side {
     display: flex;
     flex-direction: column;
