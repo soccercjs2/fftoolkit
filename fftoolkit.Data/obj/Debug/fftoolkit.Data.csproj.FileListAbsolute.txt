@@ -1,0 +1,15 @@
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\fftoolkit.Data.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\fftoolkit.Data.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\fftoolkit.DB.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\EntityFramework.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\fftoolkit.DB.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\fftoolkit.DB.dll.config
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\EntityFramework.xml
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Debug\fftoolkit.Data.csprojResolveAssemblyReference.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Debug\fftoolkit.Data.csproj.CoreCompileInputs.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Debug\fftoolkit.Data.csproj.CopyComplete
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Debug\fftoolkit.Data.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Debug\fftoolkit.Data.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\fftoolkit.Data.dll.config
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Debug\EntityFramework.SqlServer.xml

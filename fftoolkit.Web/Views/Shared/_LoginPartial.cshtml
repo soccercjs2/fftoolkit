@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <li>
+        <a title="Manage" class="nav-link profile-icon" href="/Manage">
+            <i class="fas fa-user-circle"></i>
+        </a>
+    </li>
+    <li>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        }
+    </li>
+}
+else
+{
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "nav-link" })</li>
+}
