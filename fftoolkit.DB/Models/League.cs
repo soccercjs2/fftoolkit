@@ -11,6 +11,7 @@ namespace fftoolkit.DB.Model
 
         public string Name { get; set; }
         public string Url { get; set; }
+        public string Host { get; set; }
 
         public int Quarterbacks { get; set; }
         public int RunningBacks { get; set; }

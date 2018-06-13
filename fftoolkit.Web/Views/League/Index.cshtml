@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<fftoolkit.DB.Model.League>
+
 @{
     ViewBag.Title = "Manage Your Leagues";
 }
@@ -6,28 +7,41 @@
 <h2>Manage Your Leagues</h2>
 
 <div class="league-list list-group">
-    <div class="league-list-item list-group-item">
-        <b>League of Fantasy Greatness</b> [Yahoo]
 
-        <div class="league-list-item-link-container">
-            <a href="League/Edit">[edit]</a>
-            <a href="#">[delete]</a>
-        </div>
-    </div>                                   
-    <div class="league-list-item list-group-item">
-        <b>Team of Tacos</b> [ESPN]
+    @foreach (var league in Model)
+    {
+        <div class="league-list-item list-group-item">
+            <b>@league.Name</b> [@league.Host]
 
-        <div class="league-list-item-link-container">
-            <a href="League/Edit">[edit]</a>
-            <a href="#">[delete]</a>
+            <div class="league-list-item-link-container">
+                <a href="League/Edit/@league.LeagueId">[edit]</a>
+                <a href="League/Delete/@league.LeagueId">[delete]</a>
+            </div>
         </div>
-    </div>
-    <div class="league-list-item list-group-item">
-        <b>Super Serious Dynasty League</b> [fleaflicker]
+    }
 
-        <div class="league-list-item-link-container">
-            <a href="League/Edit">[edit]</a>
-            <a href="#">[delete]</a>
+    @*<div class="league-list-item list-group-item">
+            <b>League of Fantasy Greatness</b> [Yahoo]
+
+            <div class="league-list-item-link-container">
+                <a href="League/Edit">[edit]</a>
+                <a href="#">[delete]</a>
+            </div>
         </div>
-    </div>
+        <div class="league-list-item list-group-item">
+            <b>Team of Tacos</b> [ESPN]
+
+            <div class="league-list-item-link-container">
+                <a href="League/Edit">[edit]</a>
+                <a href="#">[delete]</a>
+            </div>
+        </div>
+        <div class="league-list-item list-group-item">
+            <b>Super Serious Dynasty League</b> [fleaflicker]
+
+            <div class="league-list-item-link-container">
+                <a href="League/Edit">[edit]</a>
+                <a href="#">[delete]</a>
+            </div>
+        </div>*@
 </div>

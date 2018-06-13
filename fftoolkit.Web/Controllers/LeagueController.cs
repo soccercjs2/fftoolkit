@@ -1,6 +1,7 @@
 ﻿using fftoolkit.DB.Context;
 using fftoolkit.DB.Model;
 using fftoolkit.Logic.Managers;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,17 @@ namespace fftoolkit.Controllers
             _context = new DataContext();
 
             UserManager userWorker = new UserManager(_context);
-            _user = userWorker.GetCurrentUser();
+            _user = userWorker.GetCurrentUser(User.Identity.GetUserId());
         }
 
         public ActionResult Index()
         {
-            return View();
+            if (_user == null)
+            {
+                throw new Exception("No user found;");
+            }
+
+            return View(_user.Leagues);
         }
 
         public ActionResult Edit()
