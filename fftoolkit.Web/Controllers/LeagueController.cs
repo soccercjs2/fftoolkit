@@ -13,37 +13,62 @@ namespace fftoolkit.Controllers
     public class LeagueController : Controller
     {
         private DataContext _context;
-        private User _user;
 
         public LeagueController()
         {
             _context = new DataContext();
-
-            UserManager userWorker = new UserManager(_context);
-            _user = userWorker.GetCurrentUser(User.Identity.GetUserId());
         }
 
         public ActionResult Index()
         {
-            if (_user == null)
+            UserManager userManager = new UserManager(_context);
+            User user = userManager.GetCurrentUser(User.Identity.GetUserId());
+
+            if (user == null)
             {
                 throw new Exception("No user found;");
             }
 
-            return View(_user.Leagues);
+            return View(user.Leagues);
         }
 
         public ActionResult Add()
         {
-            League league = new League();
-            league.UserId = _user.UserId;
+            UserManager userManager = new UserManager(_context);
+            User user = userManager.GetCurrentUser(User.Identity.GetUserId());
 
+            League league = new League();
+            league.UserId = user.UserId;
+
+            return View("Edit", league);
+        }
+
+        public ActionResult Edit(int leagueId)
+        {
+            LeagueManager leagueManager = new LeagueManager(_context);
+            League league = leagueManager.Get(leagueId) ?? throw new Exception("No league found.");
+            
             return View(league);
         }
 
-        public ActionResult Edit()
+        [HttpPost]
+        public ActionResult Edit(League league)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                LeagueManager leagueManager = new LeagueManager(_context);
+
+                if (league.LeagueId == 0)
+                    leagueManager.Add(league);
+                else
+                    leagueManager.Update(league);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(league);
+            }
         }
     }
 }

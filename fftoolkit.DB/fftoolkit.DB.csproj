@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201806151428037_adding host to league.Designer.cs">
       <DependentUpon>201806151428037_adding host to league.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806160528168_Making parameters required.cs" />
+    <Compile Include="Migrations\201806160528168_Making parameters required.Designer.cs">
+      <DependentUpon>201806160528168_Making parameters required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Player.cs" />
@@ -72,6 +76,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806151428037_adding host to league.resx">
       <DependentUpon>201806151428037_adding host to league.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806160528168_Making parameters required.resx">
+      <DependentUpon>201806160528168_Making parameters required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

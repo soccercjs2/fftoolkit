@@ -20,14 +20,12 @@ namespace fftoolkit.Logic.Managers
             _userWorker = new UserWorker(_context);
         }
 
-        public User GetCurrentUser(string userId)
+        public User GetCurrentUser(string aspUserId)
         {
-            User user = _context.Users.Where(u => u.AspNetUserId == userId).FirstOrDefault();
+            User user = _context.Users.Where(u => u.AspNetUserId == aspUserId).FirstOrDefault();
 
             if (user == null)
-            {
-                throw new Exception("No user found.");
-            }
+                _userWorker.Add(user = new User() { AspNetUserId = aspUserId });
 
             return user;
         }
