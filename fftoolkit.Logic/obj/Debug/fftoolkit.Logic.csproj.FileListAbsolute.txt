@@ -11,8 +11,8 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\fftoolkit.DB.pd
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\fftoolkit.DB.dll.config
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\EntityFramework.xml
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.csprojResolveAssemblyReference.cache
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.csproj.CoreCompileInputs.cache
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.csprojAssemblyReference.cache

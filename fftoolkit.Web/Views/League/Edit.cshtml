@@ -1,90 +1,99 @@
-﻿
+﻿@model fftoolkit.DB.Model.League
+
 @{
     ViewBag.Title = "Manage Your Leagues";
 }
 
 <h2>League of Fantasy Greatness</h2>
 
-<div class="row card-row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">League Settings</div>
-            <div class="card-body">
-                <div>
-                    <label>Name:</label>
-                    @Html.TextBox("txtName", null, new { @class = "form-control full" })
-                </div>
+@Html.BeginForm("Edit", "League", FormMethod.Post)
+{
+    <div class="row card-row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">League Settings</div>
+                <div class="card-body">
+                    <div>
+                        @Html.LabelFor(m => m.Name);
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control full" })
+                    </div>
 
-                <div>
-                    <label>Url:</label>
-                    @Html.TextBox("txtUrl", null, new { @class = "form-control full" })
+                    <div>
+                        @Html.LabelFor(m => m.Url);
+                        @Html.TextBoxFor(m => m.Url, new { @class = "form-control full" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Host);
+                        @Html.TextBoxFor(m => m.Host, new { @class = "form-control full" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Starting Lineup</div>
+                <div class="card-body">
+                    <div>
+                        @Html.LabelFor(m => m.Quarterbacks);
+                        @Html.TextBoxFor(m => m.Quarterbacks, new { @class = "form-control", @type = "number", @Value = 1 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.RunningBacks);
+                        @Html.TextBoxFor(m => m.RunningBacks, new { @class = "form-control", @type = "number", @Value = 2 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.WideReceivers);
+                        @Html.TextBoxFor(m => m.WideReceivers, new { @class = "form-control", @type = "number", @Value = 2 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.TightEnds);
+                        @Html.TextBoxFor(m => m.TightEnds, new { @class = "form-control", @type = "number", @Value = 1 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Flexes);
+                        @Html.TextBoxFor(m => m.Flexes, new { @class = "form-control", @type = "number", @Value = 1 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">Scoring Settings</div>
+                <div class="card-body">
+                    <div>
+                        @Html.LabelFor(m => m.PointsPerReception);
+                        @Html.TextBoxFor(m => m.PointsPerReception, new { @class = "form-control", @type = "number", @Value = 1 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.PointsPerPassingTouchdown);
+                        @Html.TextBoxFor(m => m.PointsPerPassingTouchdown, new { @class = "form-control", @type = "number", @Value = 4 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.PointsPerPassingYard);
+                        @Html.TextBoxFor(m => m.PointsPerPassingYard, new { @class = "form-control", @type = "number", @Value = 0.1 })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.PointsLostPerInterception);
+                        @Html.TextBoxFor(m => m.PointsLostPerInterception, new { @class = "form-control", @type = "number", @Value = 2 })
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-header">Starting Lineup</div>
-            <div class="card-body">
-                <div>
-                    <label>Quarterbacks:</label>
-                    @Html.TextBox("txtQuarterbacks", null, new { @class = "form-control", @type = "number", @Value = 1 })
-                </div>
+    <hr />
 
-                <div>
-                    <label>Running Backs:</label>
-                    @Html.TextBox("txtRunningBacks", null, new { @class = "form-control", @type = "number", @Value = 2 })
-                </div>
-
-                <div>
-                    <label>Wide Receivers:</label>
-                    @Html.TextBox("txtWideReceivers", null, new { @class = "form-control", @type = "number", @Value = 2 })
-                </div>
-
-                <div>
-                    <label>Tight Ends:</label>
-                    @Html.TextBox("txtTightEnds", null, new { @class = "form-control", @type = "number", @Value = 1 })
-                </div>
-
-                <div>
-                    <label>Flex Players:</label>
-                    @Html.TextBox("txtFlexPlayers", null, new { @class = "form-control", @type = "number", @Value = 1 })
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
-
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-header">Scoring Settings</div>
-            <div class="card-body">
-                <div>
-                    <label>Points Per Reception:</label>
-                    @Html.TextBox("txtPointsPerReception", null, new { @class = "form-control", @type = "number", @Value = 0 })
-                </div>
-                
-                <div>
-                    <label>Points Per Passing Touchdown:</label>
-                    @Html.TextBox("txtPointsPerPassingTouchdown", null, new { @class = "form-control", @type = "number", @Value = 4 })
-                </div>
-
-                <div >
-                    <label>Points Per Passing Yard:</label>
-                    @Html.TextBox("txtPassingPointsPerYard", null, new { @class = "form-control", @type = "number", @Value = 0.1 })
-                </div>
-
-                <div>
-                    <label>Points Lost Per Interception:</label>
-                    @Html.TextBox("txtPointsLostPerInterception", null, new { @class = "form-control", @type = "number", @Value = 2 })
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<hr />
-
-<div class="row">
-    <input type="submit" value="Save" class="btn btn-primary" />
-</div>
+}

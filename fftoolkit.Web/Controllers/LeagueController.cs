@@ -33,6 +33,14 @@ namespace fftoolkit.Controllers
             return View(_user.Leagues);
         }
 
+        public ActionResult Add()
+        {
+            League league = new League();
+            league.UserId = _user.UserId;
+
+            return View(league);
+        }
+
         public ActionResult Edit()
         {
             return View();

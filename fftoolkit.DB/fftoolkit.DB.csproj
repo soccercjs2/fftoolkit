@@ -52,6 +52,10 @@
     <Compile Include="Migrations\201806120059289_initial db creation.Designer.cs">
       <DependentUpon>201806120059289_initial db creation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806151428037_adding host to league.cs" />
+    <Compile Include="Migrations\201806151428037_adding host to league.Designer.cs">
+      <DependentUpon>201806151428037_adding host to league.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Player.cs" />
@@ -65,6 +69,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806120059289_initial db creation.resx">
       <DependentUpon>201806120059289_initial db creation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806151428037_adding host to league.resx">
+      <DependentUpon>201806151428037_adding host to league.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
