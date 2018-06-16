@@ -124,6 +124,6 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\fftoolkit.Logic.pdb
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\fftoolkit.Data.dll.config
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\fftoolkit.DB.dll.config
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\fftoolkit.Logic.dll.config
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csprojAssemblyReference.cache
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csproj.CoreCompileInputs.cache
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csproj.CopyComplete
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csprojAssemblyReference.cache
