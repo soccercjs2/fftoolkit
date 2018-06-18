@@ -41,6 +41,16 @@ textarea {
     max-width: none;
 }
 
+.player-filter {
+    text-align: right;
+    padding-right: 15px;
+    padding-bottom: 5px;
+}
+
+.player-filter-label {
+    padding: 4px 8px;
+}
+
 .trade-player {
     display: inline-block;
 }
@@ -56,6 +66,11 @@ textarea {
 
 .league-list {
     width: 100%;
+    margin-bottom: 15px;
+}
+
+.add-link {
+    margin-left: 10px;
 }
 
 .league-list-item {
@@ -76,6 +91,10 @@ textarea {
     background-color: white !important;
     color: white !important;
     border: 0px !important;
+}
+
+.button-container {
+    padding: 0px 15px;
 }
 
 .card {

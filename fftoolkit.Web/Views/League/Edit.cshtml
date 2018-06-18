@@ -7,7 +7,11 @@
 <h2>League of Fantasy Greatness</h2>
 
 @using (Html.BeginForm("Edit", "League", FormMethod.Post))
-{ 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.LeagueId)
+    @Html.HiddenFor(m => m.UserId)
+
     <div class="row card-row">
         <div class="col-md-6">
             <div class="card">
@@ -40,31 +44,31 @@
                 <div class="card-body">
                     <div>
                         @Html.LabelFor(m => m.Quarterbacks);
-                        @Html.TextBoxFor(m => m.Quarterbacks, new { @class = "form-control", @type = "number", @Value = 1 })
+                        @Html.TextBoxFor(m => m.Quarterbacks, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(m => m.Quarterbacks, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.RunningBacks);
-                        @Html.TextBoxFor(m => m.RunningBacks, new { @class = "form-control", @type = "number", @Value = 2 })
+                        @Html.TextBoxFor(m => m.RunningBacks, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(m => m.RunningBacks, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.WideReceivers);
-                        @Html.TextBoxFor(m => m.WideReceivers, new { @class = "form-control", @type = "number", @Value = 2 })
+                        @Html.TextBoxFor(m => m.WideReceivers, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(m => m.WideReceivers, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.TightEnds);
-                        @Html.TextBoxFor(m => m.TightEnds, new { @class = "form-control", @type = "number", @Value = 1 })
+                        @Html.TextBoxFor(m => m.TightEnds, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(m => m.TightEnds, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.Flexes);
-                        @Html.TextBoxFor(m => m.Flexes, new { @class = "form-control", @type = "number", @Value = 1 })
+                        @Html.TextBoxFor(m => m.Flexes, new { @class = "form-control", @type = "number" })
                         @Html.ValidationMessageFor(m => m.Flexes, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -77,25 +81,25 @@
                 <div class="card-body">
                     <div>
                         @Html.LabelFor(m => m.PointsPerReception);
-                        @Html.TextBoxFor(m => m.PointsPerReception, new { @class = "form-control", @type = "number", @Value = 1 })
+                        @Html.TextBoxFor(m => m.PointsPerReception, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PointsPerReception, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.PointsPerPassingTouchdown)
-                        @Html.TextBoxFor(m => m.PointsPerPassingTouchdown, new { @class = "form-control", @type = "number", @Value = 4 })
+                        @Html.TextBoxFor(m => m.PointsPerPassingTouchdown, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PointsPerPassingTouchdown, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.PointsPerPassingYard);
-                        @Html.TextBoxFor(m => m.PointsPerPassingYard, new { @class = "form-control", @type = "number", @Value = 0.1 })
+                        @Html.TextBoxFor(m => m.PointsPerPassingYard, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PointsPerPassingYard, "", new { @class = "text-danger" })
                     </div>
 
                     <div>
                         @Html.LabelFor(m => m.PointsLostPerInterception);
-                        @Html.TextBoxFor(m => m.PointsLostPerInterception, new { @class = "form-control", @type = "number", @Value = 2 })
+                        @Html.TextBoxFor(m => m.PointsLostPerInterception, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PointsLostPerInterception, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -105,7 +109,9 @@
 
     <hr />
 
-    <div class="row">
+    <div class="row button-container">
+        <input type="submit" value="Cancel" class="btn btn-secondary" />
+        <div>&nbsp;</div>
         <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 }

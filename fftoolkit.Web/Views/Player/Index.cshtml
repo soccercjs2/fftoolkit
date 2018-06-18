@@ -1,30 +1,25 @@
-﻿
+﻿@model IEnumerable<fftoolkit.DB.Model.League>
+
 @{
     ViewBag.Title = "Player Trade Values";
 }
 
 <h2>Player Trade Values</h2>
 
-<div class="league-list list-group">
-    <div class="league-list-item list-group-item">
-        <b>League of Fantasy Greatness</b> [Yahoo]
+<hr />
 
-        <div class="league-list-item-link-container">
-            <a href="Player/League">[view]</a>
-        </div>
-    </div>
-    <div class="league-list-item list-group-item">
-        <b>Team of Tacos</b> [ESPN]
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="league-list list-group">
+        @foreach (var league in Model)
+        {
+            <div class="league-list-item list-group-item">
+                <b>@league.Name</b> [@league.Host]
 
-        <div class="league-list-item-link-container">
-            <a href="Player/League">[view]</a>
-        </div>
+                <div class="league-list-item-link-container">
+                    <a href="Player/League/@league.LeagueId">[view]</a>
+                </div>
+            </div>
+        }
     </div>
-    <div class="league-list-item list-group-item">
-        <b>Super Serious Dynasty League</b> [fleaflicker]
-
-        <div class="league-list-item-link-container">
-            <a href="Player/League">[view]</a>
-        </div>
-    </div>
-</div>
+}

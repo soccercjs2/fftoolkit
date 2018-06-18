@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<fftoolkit.DB.Model.League>
 
 @{
-    /**/
-
     ViewBag.Title = "Manage Your Leagues";
 }
 
@@ -25,10 +23,8 @@
             </div>
         }
     </div>
-
-    <hr />
 }
 
 <div>
-    @Html.ActionLink("[+ Add New League]", "Add")
+    @Html.ActionLink("[+ Add New League]", "Add", null, new { @class = "add-link" })
 </div>

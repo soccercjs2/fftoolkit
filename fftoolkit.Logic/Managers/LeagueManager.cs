@@ -34,5 +34,10 @@ namespace fftoolkit.Logic.Managers
         {
             _leaguerWorker.Update(league);
         }
+
+        public void Delete(int leagueId)
+        {
+            _leaguerWorker.Delete(leagueId);
+        }
     }
 }

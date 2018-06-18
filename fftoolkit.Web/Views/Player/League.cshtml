@@ -1,4 +1,5 @@
-﻿
+﻿@model IList<fftoolkit.DB.Model.Player>
+
 @{
     ViewBag.Title = "Player Trade Values";
 }
@@ -7,12 +8,58 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.table').DataTable();
+            var table = $('.table').DataTable({
 
-            //$(".passing").hide();
-            //$(".rushing").hide();
-            $(".receiving").hide();
+                //sorting
+                "order": [[12, "desc"]],
+                "bPaginate": false,
+                "bLengthChange": false,
+                "bFilter": true,
+                "bInfo": false,
+                "bAutoWidth": false,
+
+                columnDefs: [
+                    { targets: [1, 2, 3], "orderable": false },
+                ]
+            });
+
+            table.column(0, { search: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
         });
+
+        $("#ddlPositions").on('change', function () {
+
+            var table = $('.table').DataTable();
+            var positionQuery = this.value.split("/").join("|");
+
+            table.columns(2).search(positionQuery, true).draw();
+
+            table.column(0, { search: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+
+            if (positionQuery == "") {
+                $(".passing").show();
+                $(".rushing").show();
+                $(".receiving").show();
+            }
+            else if (positionQuery == "QB") {
+                $(".passing").show();
+                $(".rushing").show();
+                $(".receiving").hide();
+            }
+            else if (positionQuery == "WR" || positionQuery == "TE") {
+                $(".passing").hide();
+                $(".rushing").hide();
+                $(".receiving").show();
+            }
+            else {
+                $(".passing").hide();
+                $(".rushing").show();
+                $(".receiving").show();
+            }
+        })
     </script>
 
 }
@@ -20,6 +67,19 @@
 <link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
 
 <h2>Player Trade Values</h2>
+
+<div class="player-filter">
+    <div class="inline-control player-filter-label">Position:</div>
+    <select class="form-control form-control-sm inline-control" id="ddlPositions">
+        <option value="">Any</option>
+        <option>QB</option>
+        <option>RB</option>
+        <option>WR</option>
+        <option>TE</option>
+        <option>RB/WR</option>
+        <option>RB/WR/TE</option>
+    </select>
+</div>
 
 <table class="table table-striped">
     <thead class="thead-dark">
@@ -40,102 +100,32 @@
             <th scope="col" class="passing">INT</th>
             <th scope="col" class="rushing">YARD</th>
             <th scope="col" class="rushing">TD</th>
-            <th scope="col" class="receiving">YARD</th>
             <th scope="col" class="receiving">REC</th>
+            <th scope="col" class="receiving">YARD</th>
             <th scope="col" class="receiving">TD</th>
             <th scope="col">PPG</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Leveon Bell</td>
-            <td>RB</td>
-            <td>PIT</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="rushing">0</td>
-            <td class="rushing">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>David Johnson</td>
-            <td>RB</td>
-            <td>ARI</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="rushing">0</td>
-            <td class="rushing">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Ezekiel Eliot</td>
-            <td>RB</td>
-            <td>DAL</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="rushing">0</td>
-            <td class="rushing">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <th scope="row">4</th>
-            <td>Tom Brady</td>
-            <td>QB</td>
-            <td>NE</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="rushing">0</td>
-            <td class="rushing">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <th scope="row">5</th>
-            <td>Aaron Rodgers</td>
-            <td>QB</td>
-            <td>GB</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="rushing">0</td>
-            <td class="rushing">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <th scope="row">6</th>
-            <td>Matt Ryan</td>
-            <td>QB</td>
-            <td>ATL</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="passing">0</td>
-            <td class="rushing">0</td>
-            <td class="rushing">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td class="receiving">0</td>
-            <td>0</td>
-        </tr>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var player = Model[i];
+
+            <tr>
+                <td></td>
+                <td>@player.Name</td>
+                <td>@player.Position</td>
+                <td>@player.Team</td>
+                <td class="passing">@Html.DisplayFor(m => m[i].PassingYards)</td>
+                <td class="passing">@Html.DisplayFor(m => m[i].PassingTouchdowns)</td>
+                <td class="passing">@Html.DisplayFor(m => m[i].Interceptions)</td>
+                <td class="rushing">@Html.DisplayFor(m => m[i].RushingYards)</td>
+                <td class="rushing">@Html.DisplayFor(m => m[i].RushingTouchdowns)</td>
+                <td class="receiving">@Html.DisplayFor(m => m[i].Receptions)</td>
+                <td class="receiving">@Html.DisplayFor(m => m[i].ReceivingYards)</td>
+                <td class="receiving">@Html.DisplayFor(m => m[i].ReceivingTouchdowns)</td>
+                <td>@Html.DisplayFor(m => m[i].FantasyPoints)</td>
+            </tr>
+        }
     </tbody>
 </table>

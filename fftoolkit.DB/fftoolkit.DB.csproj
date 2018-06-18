@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201806160528168_Making parameters required.Designer.cs">
       <DependentUpon>201806160528168_Making parameters required.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806162001028_adding validator for decimal fields.cs" />
+    <Compile Include="Migrations\201806162001028_adding validator for decimal fields.Designer.cs">
+      <DependentUpon>201806162001028_adding validator for decimal fields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Player.cs" />
@@ -80,6 +84,12 @@
     <EmbeddedResource Include="Migrations\201806160528168_Making parameters required.resx">
       <DependentUpon>201806160528168_Making parameters required.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806162001028_adding validator for decimal fields.resx">
+      <DependentUpon>201806162001028_adding validator for decimal fields.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Create Some Players.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

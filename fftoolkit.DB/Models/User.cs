@@ -9,6 +9,7 @@ namespace fftoolkit.DB.Model
     {
         [Required]
         public int UserId { get; set; }
+
         [Required]
         public string AspNetUserId { get; set; }
 

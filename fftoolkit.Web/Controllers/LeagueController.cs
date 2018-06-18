@@ -37,16 +37,27 @@ namespace fftoolkit.Controllers
             UserManager userManager = new UserManager(_context);
             User user = userManager.GetCurrentUser(User.Identity.GetUserId());
 
-            League league = new League();
-            league.UserId = user.UserId;
+            League league = new League()
+            {
+                UserId = user.UserId,
+                Quarterbacks = 1,
+                RunningBacks = 2,
+                WideReceivers = 2,
+                TightEnds = 1,
+                Flexes = 1,
+                PointsPerReception = 1,
+                PointsPerPassingTouchdown = 4,
+                PointsPerPassingYard = 0.25M,
+                PointsLostPerInterception = 2
+            };
 
             return View("Edit", league);
         }
 
-        public ActionResult Edit(int leagueId)
+        public ActionResult Edit(int id)
         {
             LeagueManager leagueManager = new LeagueManager(_context);
-            League league = leagueManager.Get(leagueId) ?? throw new Exception("No league found.");
+            League league = leagueManager.Get(id) ?? throw new Exception("No league found.");
             
             return View(league);
         }
@@ -69,6 +80,14 @@ namespace fftoolkit.Controllers
             {
                 return View(league);
             }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            LeagueManager leagueManager = new LeagueManager(_context);
+            leagueManager.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
