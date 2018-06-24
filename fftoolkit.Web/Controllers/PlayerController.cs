@@ -4,6 +4,7 @@ using fftoolkit.Logic.Managers;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,6 +35,20 @@ namespace fftoolkit.Controllers
 
         public ActionResult League(int id)
         {
+            //_context.Database.ExecuteSqlCommand("TRUNCATE TABLE Player");
+            //ProjectionsManager projectionsManager = new ProjectionsManager();
+            //List<Player> projections = projectionsManager.GetProjections();
+            //_context.Players.AddRange(projections);
+
+            //try
+            //{
+            //    _context.SaveChanges();
+            //}
+            //catch (DbEntityValidationException dbEx)
+            //{
+            //    var asdf = "asdf";
+            //}
+
             LeagueManager leagueManager = new LeagueManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);
 

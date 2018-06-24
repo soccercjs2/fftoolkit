@@ -16,3 +16,8 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.pdb
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.csprojAssemblyReference.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\Newtonsoft.Json.xml

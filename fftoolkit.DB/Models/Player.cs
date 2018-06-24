@@ -67,5 +67,43 @@ namespace fftoolkit.DB.Model
         [NotMapped]
         [DisplayFormat(DataFormatString = "{0:0.#######}")]
         public decimal FantasyPoints { get; set; }
+
+        [NotMapped]
+        public int GamesPlayed { get; set; }
+
+        public Player() { }
+        public Player(Player player)
+        {
+            Name = player.Name;
+            Position = player.Position;
+            Team = player.Team;
+            PassingYards = player.PassingYards;
+            PassingTouchdowns = player.PassingTouchdowns;
+            RushingYards = player.RushingYards;
+            RushingTouchdowns = player.RushingTouchdowns;
+            Receptions = player.Receptions;
+            ReceivingYards = player.ReceivingYards;
+            ReceivingTouchdowns = player.ReceivingTouchdowns;
+            FantasyPoints = player.FantasyPoints;
+            GamesPlayed = player.GamesPlayed;
+        }
+
+        public override int GetHashCode()
+        {
+            return String.Format("{0}{1}{2}", Name, Position, Team).GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || this.GetType() != obj.GetType())
+            {
+                return false;
+            }
+            else
+            {
+                Player player = (Player)obj;
+                return (player.Name == Name) && (player.Position == Position) && (player.Team == Team);
+            }
+        }
     }
 }

@@ -14,3 +14,4 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.cspro
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addinghosttoleague.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.Makingparametersrequired.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addingvalidatorfordecimalfields.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.csprojAssemblyReference.cache
