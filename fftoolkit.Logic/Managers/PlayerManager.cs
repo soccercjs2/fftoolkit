@@ -31,6 +31,8 @@ namespace fftoolkit.Logic.Managers
             List<Player> players = _playerWorker.Get().ToList();
             players.ForEach(p => p.FantasyPoints = CalculateFantasyPoints(p, league));
 
+            players = players.Where(p => p.FantasyPoints >= 5).ToList();
+
             return players;
         }
 

@@ -39,15 +39,7 @@ namespace fftoolkit.Controllers
             //ProjectionsManager projectionsManager = new ProjectionsManager();
             //List<Player> projections = projectionsManager.GetProjections();
             //_context.Players.AddRange(projections);
-
-            //try
-            //{
-            //    _context.SaveChanges();
-            //}
-            //catch (DbEntityValidationException dbEx)
-            //{
-            //    var asdf = "asdf";
-            //}
+            //_context.SaveChanges();
 
             LeagueManager leagueManager = new LeagueManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);

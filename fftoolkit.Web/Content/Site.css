@@ -177,6 +177,15 @@ textarea {
     color: red;
 }
 
+/* --- TABLE STYLES --- */
+.table {
+    border-collapse: collapse !important;
+}
+
+.even .fantasy-points {
+    background-color: rgba(209, 231, 255, 1);
+}
+
 /* --- TRADE HOVER STYLES --- */
 .trade:hover .card {
     background-color: rgba(0, 0, 0, 0.03);

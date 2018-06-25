@@ -14,14 +14,7 @@ namespace fftoolkit.Logic.Managers
         public List<Player> GetProjections()
         {
             ScraperManager scraperManager = new ScraperManager();
-
-            int week = GetCurrentWeek();
-            if (week == 0) { return scraperManager.ScrapeFantasyPros(0); }
-            else { return CalculateProjections(week, scraperManager); }
-        }
-
-        private List<Player> CalculateProjections(int nextWeek, ScraperManager scraperManager)
-        {
+            
             //assemble weekly projections
             List<List<Player>> projections = new List<List<Player>>();
             List<Player> beginSeasonProjections = null;
@@ -30,6 +23,8 @@ namespace fftoolkit.Logic.Managers
             int year = GetCurrentYear();
             int currentWeek = GetCurrentWeek();
             int startWeek = currentWeek - 5;
+
+            if (currentWeek == 0) { return scraperManager.ScrapeFantasyPros(0); }
 
             if (startWeek <= 0) { beginSeasonProjections = scraperManager.ScrapeFantasyPros(0); }
 
@@ -51,7 +46,7 @@ namespace fftoolkit.Logic.Managers
 
         private int GetCurrentWeek()
         {
-            return 2;
+            return 0;
         }
 
         private List<Player> MergeProjections(List<List<Player>> projectionsByWeek)
@@ -85,38 +80,21 @@ namespace fftoolkit.Logic.Managers
                 }
             }
 
-            //not adding up right!!! rodgers has 2000 yards when should have 1300
-
             projections = projections.Where(p => p.GamesPlayed >= 3).ToList();
 
             foreach (Player player in projections)
             {
-                player.PassingYards /= player.PassingYards;
-                player.PassingTouchdowns /= player.PassingTouchdowns;
-                player.Interceptions /= player.Interceptions;
-                player.RushingYards /= player.RushingYards;
-                player.RushingTouchdowns /= player.RushingTouchdowns;
-                player.Receptions /= player.Receptions;
-                player.ReceivingYards /= player.ReceivingYards;
-                player.ReceivingYards /= player.ReceivingTouchdowns;
+                player.PassingYards /= player.GamesPlayed;
+                player.PassingTouchdowns /= player.GamesPlayed;
+                player.Interceptions /= player.GamesPlayed;
+                player.RushingYards /= player.GamesPlayed;
+                player.RushingTouchdowns /= player.GamesPlayed;
+                player.Receptions /= player.GamesPlayed;
+                player.ReceivingYards /= player.GamesPlayed;
+                player.ReceivingYards /= player.GamesPlayed;
             }
 
             return projections;
-        }
-
-        private Player MergePlayers(Player master, Player other)
-        {
-            Player mergedPlayer = new Player();
-            mergedPlayer.PassingYards = master.PassingYards + other.PassingYards;
-            mergedPlayer.PassingTouchdowns = master.PassingTouchdowns + other.PassingTouchdowns;
-            mergedPlayer.Interceptions = master.Interceptions + other.Interceptions;
-            mergedPlayer.RushingYards = master.RushingYards + other.RushingYards;
-            mergedPlayer.RushingTouchdowns = master.RushingTouchdowns + other.RushingTouchdowns;
-            mergedPlayer.Receptions = master.Receptions + other.Receptions;
-            mergedPlayer.ReceivingYards = master.ReceivingYards + other.ReceivingYards;
-            mergedPlayer.ReceivingYards = master.ReceivingTouchdowns + other.ReceivingTouchdowns;
-            mergedPlayer.GamesPlayed = master.GamesPlayed + other.GamesPlayed;
-            return mergedPlayer;
         }
     }
 }
