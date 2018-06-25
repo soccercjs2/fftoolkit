@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace fftoolkit.Logic.Managers
 {
-    public class ProjectionsManager
+    public class ProjectionManager
     {
-        public ProjectionsManager() { }
+        public ProjectionManager() { }
 
         public List<Player> GetProjections()
         {
@@ -34,14 +34,14 @@ namespace fftoolkit.Logic.Managers
                 else { projections.Add(scraperManager.ScrapeNfl(year, week)); }
             }
 
-            //nextWeekProjections = scraperManager.ScrapeFantasyPros(nextWeek);
+            nextWeekProjections = scraperManager.ScrapeFantasyPros(currentWeek);
 
             return MergeProjections(projections);
         }
 
         private int GetCurrentYear()
         {
-            return 2017;
+            return 2018;
         }
 
         private int GetCurrentWeek()

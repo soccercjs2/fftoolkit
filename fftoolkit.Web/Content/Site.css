@@ -114,7 +114,6 @@ textarea {
     cursor: pointer;
 }
 
-
 /* --- TRADE STYLES --- */
 .trade {
     cursor: pointer;
@@ -182,8 +181,9 @@ textarea {
     border-collapse: collapse !important;
 }
 
-.even .fantasy-points {
+.table tr:nth-child(even) .fantasy-points {
     background-color: rgba(209, 231, 255, 1);
+    /*background-color: green;*/
 }
 
 /* --- TRADE HOVER STYLES --- */

@@ -35,12 +35,6 @@ namespace fftoolkit.Controllers
 
         public ActionResult League(int id)
         {
-            //_context.Database.ExecuteSqlCommand("TRUNCATE TABLE Player");
-            //ProjectionsManager projectionsManager = new ProjectionsManager();
-            //List<Player> projections = projectionsManager.GetProjections();
-            //_context.Players.AddRange(projections);
-            //_context.SaveChanges();
-
             LeagueManager leagueManager = new LeagueManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);
 

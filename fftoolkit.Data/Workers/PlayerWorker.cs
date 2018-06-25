@@ -23,6 +23,12 @@ namespace fftoolkit.Data.Workers
             _context.SaveChanges();
         }
 
+        public void Add(List<Player> players)
+        {
+            _context.Players.AddRange(players);
+            _context.SaveChanges();
+        }
+
         public void Update(Player player)
         {
             _context.Players.Attach(player);
@@ -35,6 +41,11 @@ namespace fftoolkit.Data.Workers
             Player player = _context.Players.Find(playerId);
             _context.Players.Remove(player);
             _context.SaveChanges();
+        }
+
+        public void DeleteAll()
+        {
+            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE Player");
         }
 
         public List<Player> Get()

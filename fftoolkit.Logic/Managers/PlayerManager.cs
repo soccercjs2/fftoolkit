@@ -20,6 +20,11 @@ namespace fftoolkit.Logic.Managers
             _playerWorker = new PlayerWorker(_context);
         }
 
+        public void Add(List<Player> players)
+        {
+            _playerWorker.Add(players);
+        }
+
         public List<Player> Get()
         {
             return _playerWorker.Get();
@@ -50,6 +55,11 @@ namespace fftoolkit.Logic.Managers
                                         (player.ReceivingTouchdowns * 6);
 
             return passingPoints + rushingPoints + receivingPoints;
+        }
+
+        public void DeleteAll()
+        {
+            _playerWorker.DeleteAll();
         }
     }
 }
