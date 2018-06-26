@@ -69,6 +69,10 @@ namespace fftoolkit.DB.Model
         public decimal FantasyPoints { get; set; }
 
         [NotMapped]
+        [DisplayFormat(DataFormatString = "{0:0.##}")]
+        public decimal TradeValue { get; set; }
+
+        [NotMapped]
         public int GamesPlayed { get; set; }
 
         public Player() { }

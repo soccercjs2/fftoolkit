@@ -1,5 +1,8 @@
 ﻿using fftoolkit.DB.Model;
+using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.Scrapers;
+using fftoolkit.Logic.Tools;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +32,36 @@ namespace fftoolkit.Logic.Managers
         {
             NflScraper nflScraper = new NflScraper();
             return nflScraper.Scrape(year, week);
+        }
+
+        public LeagueWrapper ScrapeLeague(League league)
+        {
+            WebScraper scraper = new WebScraper();
+            LeagueWrapper leagueWrapper = new LeagueWrapper(league);
+            IHostParser parser = null;
+
+            //determine which scraper to use based on url
+            if (league.Url.Contains("fleaflicker.com")) { parser = new FleaflickerLeagueParser(); }
+            else if (league.Url.Contains("myfantasyleague.com")) { parser = new MFLParser(); }
+            else if (league.Url.Contains("games.espn.go.com")) { parser = new EspnParser(); }
+            else if (league.Url.Contains("football.fantasysports.yahoo.com")) { parser = new YahooParser(); }
+            else if (league.Url.Contains("fantasy.nfl.com")) { parser = new NflParser(); }
+            else if (league.Url.Contains("football.cbssports.com")) { parser = new CbsSportsParser(); }
+            else
+            {
+                //throw exceptions saying league host not supported
+            }
+
+            HtmlDocument leagueHomePage = scraper.Scrape(league.Url);
+            List<Team> teams = parser.ParseLeague(leagueHomePage, league);
+
+            foreach (Team team in teams)
+            {
+                HtmlDocument teamPage = scraper.Scrape(team.Url);
+                team.Players = parser.ParseTeam(teamPage);
+            }
+
+            return leagueWrapper;
         }
     }
 }

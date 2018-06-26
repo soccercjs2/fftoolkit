@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace fftoolkit.DB.Model
@@ -20,9 +21,6 @@ namespace fftoolkit.DB.Model
 
         [Required]
         public string Url { get; set; }
-
-        [Required]
-        public string Host { get; set; }
 
         //roster settings
 

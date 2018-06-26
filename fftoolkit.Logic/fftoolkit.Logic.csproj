@@ -53,10 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\LeagueWrapper.cs" />
+    <Compile Include="Classes\Team.cs" />
     <Compile Include="Managers\LeagueManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\ProjectionsManager.cs" />
     <Compile Include="Managers\ScraperManager.cs" />
+    <Compile Include="Managers\TradeManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Parsers\FantasyProsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
