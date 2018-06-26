@@ -21,9 +21,22 @@ namespace fftoolkit.Logic.Managers
             {
                 for (int i = 0; i < team.Players.Count; i++)
                 {
-                    team.Players[i] = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
+                    //get player with statistics that matches team's player
+                    Player match = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
+                    team.Players[i] = match;
+
+                    //remove match from players so that resulting players are waiver players
+                    players.Remove(match);
                 }
+
+                //remove players who don't have projections from team
+                team.Players.RemoveAll(p => p == null);
             }
+
+            //resulting list of players will be the waivers
+            leagueWrapper.Waivers = players;
+
+            Player waiverQb = players.Wher
 
             return players;
         }
