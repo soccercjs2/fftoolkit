@@ -61,7 +61,12 @@
     <Compile Include="Managers\ScraperManager.cs" />
     <Compile Include="Managers\TradeManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Parsers\EspnParser.cs" />
     <Compile Include="Parsers\FantasyProsParser.cs" />
+    <Compile Include="Parsers\FleaflickerLeagueParser.cs" />
+    <Compile Include="Parsers\IHostParser.cs" />
+    <Compile Include="Parsers\MFLParser.cs" />
+    <Compile Include="Parsers\YahooParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scrapers\FantasyProsScraper.cs" />
     <Compile Include="Scrapers\NflScraper.cs" />

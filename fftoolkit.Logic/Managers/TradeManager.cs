@@ -15,28 +15,36 @@ namespace fftoolkit.Logic.Managers
         public List<Player> GetTradeValues(List<Player> players, League league)
         {
             ScraperManager scraperManager = new ScraperManager();
-            LeagueWrapper leagueWrapper = scraperManager.ScrapeLeague(league);
+            List<Team> teams = scraperManager.ScrapeLeague(league);
 
-            foreach (Team team in leagueWrapper.Teams)
+            List<Player> waivers = new List<Player>(players);
+            players = new List<Player>();
+
+            foreach (Team team in teams)
             {
                 for (int i = 0; i < team.Players.Count; i++)
                 {
                     //get player with statistics that matches team's player
-                    Player match = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
-                    team.Players[i] = match;
+                    Player match = waivers.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
+                    players.Add(match);
 
                     //remove match from players so that resulting players are waiver players
-                    players.Remove(match);
+                    waivers.Remove(match);
                 }
-
-                //remove players who don't have projections from team
-                team.Players.RemoveAll(p => p == null);
             }
 
-            //resulting list of players will be the waivers
-            leagueWrapper.Waivers = players;
+            Player waiverQb = waivers.Where(p => p.Position == "QB").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
+            Player waiverRb = waivers.Where(p => p.Position == "RB").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
+            Player waiverWr = waivers.Where(p => p.Position == "WR").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
+            Player waiverTe = waivers.Where(p => p.Position == "TE").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
 
-            Player waiverQb = players.Wher
+            foreach (Player player in players)
+            {
+                if (player.Position == "QB") { player.TradeValue = player.FantasyPoints - waiverQb.FantasyPoints; }
+                else if (player.Position == "RB") { player.TradeValue = player.FantasyPoints - waiverRb.FantasyPoints; }
+                else if (player.Position == "WR") { player.TradeValue = player.FantasyPoints - waiverWr.FantasyPoints; }
+                else if (player.Position == "TE") { player.TradeValue = player.FantasyPoints - waiverTe.FantasyPoints; }
+            }
 
             return players;
         }

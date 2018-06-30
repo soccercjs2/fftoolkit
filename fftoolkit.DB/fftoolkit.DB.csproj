@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201806162001028_adding validator for decimal fields.Designer.cs">
       <DependentUpon>201806162001028_adding validator for decimal fields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806270415397_cleaning up properties.cs" />
+    <Compile Include="Migrations\201806270415397_cleaning up properties.Designer.cs">
+      <DependentUpon>201806270415397_cleaning up properties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Player.cs" />
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806162001028_adding validator for decimal fields.resx">
       <DependentUpon>201806162001028_adding validator for decimal fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806270415397_cleaning up properties.resx">
+      <DependentUpon>201806270415397_cleaning up properties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

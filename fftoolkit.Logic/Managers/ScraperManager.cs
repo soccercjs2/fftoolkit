@@ -1,5 +1,6 @@
 ﻿using fftoolkit.DB.Model;
 using fftoolkit.Logic.Classes;
+using fftoolkit.Logic.HostParsers;
 using fftoolkit.Logic.Scrapers;
 using fftoolkit.Logic.Tools;
 using HtmlAgilityPack;
@@ -34,7 +35,7 @@ namespace fftoolkit.Logic.Managers
             return nflScraper.Scrape(year, week);
         }
 
-        public LeagueWrapper ScrapeLeague(League league)
+        public List<Team> ScrapeLeague(League league)
         {
             WebScraper scraper = new WebScraper();
             LeagueWrapper leagueWrapper = new LeagueWrapper(league);
@@ -45,8 +46,8 @@ namespace fftoolkit.Logic.Managers
             else if (league.Url.Contains("myfantasyleague.com")) { parser = new MFLParser(); }
             else if (league.Url.Contains("games.espn.go.com")) { parser = new EspnParser(); }
             else if (league.Url.Contains("football.fantasysports.yahoo.com")) { parser = new YahooParser(); }
-            else if (league.Url.Contains("fantasy.nfl.com")) { parser = new NflParser(); }
-            else if (league.Url.Contains("football.cbssports.com")) { parser = new CbsSportsParser(); }
+            //else if (league.Url.Contains("fantasy.nfl.com")) { parser = new NflParser(); }
+            //else if (league.Url.Contains("football.cbssports.com")) { parser = new CbsSportsParser(); }
             else
             {
                 //throw exceptions saying league host not supported
@@ -61,7 +62,7 @@ namespace fftoolkit.Logic.Managers
                 team.Players = parser.ParseTeam(teamPage);
             }
 
-            return leagueWrapper;
+            return teams;
         }
     }
 }
