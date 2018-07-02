@@ -34,5 +34,15 @@ namespace fftoolkit.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Map()
+        {
+            return View();
+        }
+
+        public ActionResult Team()
+        {
+
+        }
     }
 }

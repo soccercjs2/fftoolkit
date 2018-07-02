@@ -68,9 +68,14 @@
     <Compile Include="Migrations\201806270415397_cleaning up properties.Designer.cs">
       <DependentUpon>201806270415397_cleaning up properties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807020511401_adding team mapping.cs" />
+    <Compile Include="Migrations\201807020511401_adding team mapping.Designer.cs">
+      <DependentUpon>201807020511401_adding team mapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\TeamMapping.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806270415397_cleaning up properties.resx">
       <DependentUpon>201806270415397_cleaning up properties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807020511401_adding team mapping.resx">
+      <DependentUpon>201807020511401_adding team mapping.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

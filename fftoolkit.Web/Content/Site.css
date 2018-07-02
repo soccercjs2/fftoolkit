@@ -182,8 +182,11 @@ textarea {
 }
 
 .table tr:nth-child(even) .fantasy-points {
+    background-color: rgba(228, 229, 231, 1);
+}
+
+.table tr:nth-child(even) .trade-value-column {
     background-color: rgba(209, 231, 255, 1);
-    /*background-color: green;*/
 }
 
 /* --- TRADE HOVER STYLES --- */
