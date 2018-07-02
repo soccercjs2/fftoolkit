@@ -26,10 +26,14 @@ namespace fftoolkit.Logic.Managers
                 {
                     //get player with statistics that matches team's player
                     Player match = waivers.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
-                    players.Add(match);
 
-                    //remove match from players so that resulting players are waiver players
-                    waivers.Remove(match);
+                    if (match != null)
+                    {
+                        players.Add(match);
+
+                        //remove match from players so that resulting players are waiver players
+                        waivers.Remove(match);
+                    }
                 }
             }
 

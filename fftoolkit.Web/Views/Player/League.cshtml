@@ -11,7 +11,7 @@
             var table = $('.table').DataTable({
 
                 //sorting
-                "order": [[12, "desc"]],
+                "order": [[13, "desc"]],
                 "bPaginate": false,
                 "bLengthChange": false,
                 "bFilter": true,
@@ -104,6 +104,7 @@
             <th scope="col" class="receiving">YARD</th>
             <th scope="col" class="receiving">TD</th>
             <th scope="col">PPG</th>
+            <th scope="col">TV</th>
         </tr>
     </thead>
     <tbody>
@@ -124,7 +125,8 @@
                 <td class="receiving">@Html.DisplayFor(m => m[i].Receptions)</td>
                 <td class="receiving">@Html.DisplayFor(m => m[i].ReceivingYards)</td>
                 <td class="receiving">@Html.DisplayFor(m => m[i].ReceivingTouchdowns)</td>
-                <td class="fantasy-points table-primary">@Html.DisplayFor(m => m[i].FantasyPoints)</td>
+                <td class="table-secondary">@Html.DisplayFor(m => m[i].FantasyPoints)</td>
+                <td class="fantasy-points table-primary">@Html.DisplayFor(m => m[i].TradeValue)</td>
             </tr>
         }
     </tbody>
