@@ -1,0 +1,29 @@
+﻿@model List<fftoolkit.DB.Models.TeamMapping>
+
+@{
+    ViewBag.Title = "Create Team Mapping for League";
+}
+
+<h2>Create Team Mapping for League</h2>
+
+@using (Html.BeginForm("CreateTeamMappingForLeague", "Admin", FormMethod.Post))
+{
+    for (int i = 0; i < Model.Count(); i++)
+    {
+        @Html.HiddenFor(tm => Model[i].OldTeam)
+        
+        <div class="row">
+            @Html.Label(Model[i].OldTeam)&nbsp;
+            @Html.Label("New Team:")&nbsp;
+            @Html.DropDownListFor(tm => Model[i].NewTeam, new SelectList(ViewBag.StandardTeams), new { @class = "form-control inline-control" })
+        </div>
+    }
+
+    <hr />
+
+    <div class="row button-container">
+        <input type="submit" value="Cancel" class="btn btn-secondary" />
+        <div>&nbsp;</div>
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}

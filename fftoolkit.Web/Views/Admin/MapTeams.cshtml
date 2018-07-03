@@ -1,17 +1,25 @@
-﻿@model IEnumerable<TeamMappingVM>
+﻿@model IEnumerable<fftoolkit.DB.Model.League>
 
 @{
-    ViewBag.Title = "Admin Tools";
+    ViewBag.Title = "Map Teams";
 }
 
 <h2>Map Teams</h2>
 
-<div class="row">
-    @Html.Label("Bad Team:")
-    @Html.TextBoxFor(m => m.BadTeam)
-</div>
+<hr />
 
-<div class="row">
-    @Html.Label("Standard Team:")
-    @Html.DropDownListFor(m => m.StandardTeams)
-</div>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="league-list list-group">
+        @foreach (var league in Model)
+        {
+            <div class="league-list-item list-group-item">
+                <b>@league.Name</b>
+
+                <div class="league-list-item-link-container">
+                    <a href="CreateTeamMappingForLeague/@league.LeagueId">[map teams]</a>
+                </div>
+            </div>
+        }
+    </div>
+}

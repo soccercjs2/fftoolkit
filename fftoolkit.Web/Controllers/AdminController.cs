@@ -1,8 +1,10 @@
 ﻿using fftoolkit.DB.Context;
 using fftoolkit.DB.Model;
 using fftoolkit.DB.Models;
+using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.Managers;
 using fftoolkit.Logic.Scrapers;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,23 +41,81 @@ namespace fftoolkit.Controllers
 
         public ActionResult MapTeams()
         {
-            AdminManager adminManager = new AdminManager(_context);
+            UserManager userManager = new UserManager(_context);
+            User user = userManager.GetCurrentUser(User.Identity.GetUserId());
 
-            List<TeamMapping> teamMappings = adminManager.GetTeamMappings();
+            if (user == null)
+            {
+                throw new Exception("No user found;");
+            }
 
-            return View(teamMappings);
+            return View(user.Leagues);
         }
 
-        public ActionResult CreateTeamMapping()
+        public ActionResult CreateTeamMappingForLeague(int id)
         {
             ScraperManager scraperManager = new ScraperManager();
+            LeagueManager leagueManager = new LeagueManager(_context);
+            AdminManager adminManager = new AdminManager(_context);
+
+            //get league
+            League league = leagueManager.Get(id);
+
+            //get standard teams from fantasy pros
             List<Player> players = scraperManager.ScrapeFantasyPros(0);
+            List<string> standardTeams = players.Select(p => p.Team).Distinct().OrderBy(t => t).ToList();
+            standardTeams.Insert(0, "");
 
-            List<string> standardTeams = players.Select(p => p.Team).Distinct().ToList();
-            ViewBag["StandardTeams"] = standardTeams;
+            ViewBag.StandardTeams = standardTeams;
 
-            TeamMapping teamMapping = new TeamMapping();
-            return View(teamMapping);
+            //get league data
+            List<Team> teams = scraperManager.ScrapeLeague(league);
+            List<string> leagueTeams = new List<string>();
+
+            //collect distinct list of teams from each team
+            foreach (Team team in teams)
+            {
+                leagueTeams.AddRange(team.Players.Select(p => p.Team).Distinct());
+            }
+
+            //collect distinct list of teams
+            leagueTeams = leagueTeams.Select(t => t).Distinct().ToList();
+
+            //get unmapped teams for the league
+            List<TeamMapping> unmappedTeams = new List<TeamMapping>();
+
+            foreach (string team in leagueTeams)
+            {
+                if (!standardTeams.Contains(team) && adminManager.GetTeam(team) == null)
+                {
+                    unmappedTeams.Add(new TeamMapping() { OldTeam = team });
+                }
+            }
+
+            return View(unmappedTeams);
+        }
+
+        [HttpPost]
+        public ActionResult CreateTeamMappingForLeague(List<TeamMapping> teamMappings)
+        {
+            if (ModelState.IsValid)
+            {
+                AdminManager adminManager = new AdminManager(_context);
+
+                foreach (TeamMapping teamMapping in teamMappings)
+                {
+                    if (teamMapping.NewTeam != "")
+                    {
+                        adminManager.CreateTeamMapping(teamMapping.OldTeam, teamMapping.NewTeam);
+                    }
+                }
+
+                return RedirectToAction("MapTeams");
+            }
+            else
+            {
+                return View(teamMappings);
+            }
         }
     }
 }
