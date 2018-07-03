@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Classes\LeagueWrapper.cs" />
     <Compile Include="Classes\Team.cs" />
+    <Compile Include="Managers\AdminManager.cs" />
     <Compile Include="Managers\LeagueManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\ProjectionsManager.cs" />

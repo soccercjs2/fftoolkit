@@ -1,0 +1,17 @@
+﻿@model IEnumerable<TeamMappingVM>
+
+@{
+    ViewBag.Title = "Admin Tools";
+}
+
+<h2>Map Teams</h2>
+
+<div class="row">
+    @Html.Label("Bad Team:")
+    @Html.TextBoxFor(m => m.BadTeam)
+</div>
+
+<div class="row">
+    @Html.Label("Standard Team:")
+    @Html.DropDownListFor(m => m.StandardTeams)
+</div>
