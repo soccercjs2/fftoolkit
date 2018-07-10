@@ -30,7 +30,7 @@ namespace fftoolkit.Controllers
         public ActionResult UpdatePlayers()
         {
             PlayerManager playerManager = new PlayerManager(_context);
-            ProjectionManager projectionsManager = new ProjectionManager();
+            ProjectionManager projectionsManager = new ProjectionManager(_context);
 
             List<Player> projections = projectionsManager.GetProjections();
             playerManager.DeleteAll();
@@ -54,9 +54,9 @@ namespace fftoolkit.Controllers
 
         public ActionResult CreateTeamMappingForLeague(int id)
         {
-            ScraperManager scraperManager = new ScraperManager();
+            ScraperManager scraperManager = new ScraperManager(_context);
             LeagueManager leagueManager = new LeagueManager(_context);
-            AdminManager adminManager = new AdminManager(_context);
+            TeamMappingManager adminManager = new TeamMappingManager(_context);
 
             //get league
             League league = leagueManager.Get(id);
@@ -100,7 +100,7 @@ namespace fftoolkit.Controllers
         {
             if (ModelState.IsValid)
             {
-                AdminManager adminManager = new AdminManager(_context);
+                TeamMappingManager adminManager = new TeamMappingManager(_context);
 
                 foreach (TeamMapping teamMapping in teamMappings)
                 {

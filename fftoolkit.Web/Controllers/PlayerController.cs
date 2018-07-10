@@ -37,7 +37,7 @@ namespace fftoolkit.Controllers
         {
             LeagueManager leagueManager = new LeagueManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);
-            TradeManager tradeManager = new TradeManager();
+            TradeManager tradeManager = new TradeManager(_context);
 
             League league = leagueManager.Get(id);
             List<Player> players = playerManager.Get(league);

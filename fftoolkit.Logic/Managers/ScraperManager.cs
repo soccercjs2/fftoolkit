@@ -1,4 +1,5 @@
-﻿using fftoolkit.DB.Model;
+﻿using fftoolkit.DB.Context;
+using fftoolkit.DB.Model;
 using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.HostParsers;
 using fftoolkit.Logic.Scrapers;
@@ -14,7 +15,12 @@ namespace fftoolkit.Logic.Managers
 {
     public class ScraperManager
     {
-        public ScraperManager() { }
+        private DataContext _context;
+
+        public ScraperManager(DataContext context)
+        {
+            _context = context ?? throw new Exception("The context cannot be null.");
+        }
 
         public List<Player> ScrapeFantasyPros(int week)
         {
@@ -32,7 +38,8 @@ namespace fftoolkit.Logic.Managers
         public List<Player> ScrapeNfl(int year, int week)
         {
             NflScraper nflScraper = new NflScraper();
-            return nflScraper.Scrape(year, week);
+            List<Player> players = ConvertPlayers(nflScraper.Scrape(year, week));
+            return players;
         }
 
         public List<Team> ScrapeLeague(League league)
@@ -59,10 +66,23 @@ namespace fftoolkit.Logic.Managers
             foreach (Team team in teams)
             {
                 HtmlDocument teamPage = scraper.Scrape(team.Url);
-                team.Players = parser.ParseTeam(teamPage);
+                team.Players = ConvertPlayers(parser.ParseTeam(teamPage));
             }
 
             return teams;
+        }
+
+        private List<Player> ConvertPlayers(List<Player> players)
+        {
+            TeamMappingManager teamMappingManager = new TeamMappingManager(_context);
+            Dictionary<string, string> teamMappings = teamMappingManager.GetTeamMappings();
+
+            foreach (Player player in players)
+            {
+                player.Team = (teamMappings.ContainsKey(player.Team)) ? teamMappings[player.Team] : player.Team;
+            }
+
+            return players;
         }
     }
 }

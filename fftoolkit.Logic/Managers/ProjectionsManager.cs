@@ -1,4 +1,5 @@
-﻿using fftoolkit.DB.Model;
+﻿using fftoolkit.DB.Context;
+using fftoolkit.DB.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,16 @@ namespace fftoolkit.Logic.Managers
 {
     public class ProjectionManager
     {
-        public ProjectionManager() { }
+        private DataContext _context;
+
+        public ProjectionManager(DataContext context)
+        {
+            _context = context ?? throw new Exception("The context cannot be null.");
+        }
 
         public List<Player> GetProjections()
         {
-            ScraperManager scraperManager = new ScraperManager();
+            ScraperManager scraperManager = new ScraperManager(_context);
             
             //assemble weekly projections
             List<List<Player>> projections = new List<List<Player>>();
@@ -31,7 +37,11 @@ namespace fftoolkit.Logic.Managers
             for (int week = startWeek; week < currentWeek; week++)
             {
                 if (week <= 0) { projections.Add(beginSeasonProjections); }
-                else { projections.Add(scraperManager.ScrapeNfl(year, week)); }
+                else
+                {
+                    List<Player> nflPlayers = scraperManager.ScrapeNfl(year, week);
+                    projections.Add(nflPlayers);
+                }
             }
 
             nextWeekProjections = scraperManager.ScrapeFantasyPros(currentWeek);

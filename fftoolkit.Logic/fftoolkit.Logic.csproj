@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Classes\LeagueWrapper.cs" />
     <Compile Include="Classes\Team.cs" />
-    <Compile Include="Managers\AdminManager.cs" />
+    <Compile Include="Managers\TeamMappingManager.cs" />
     <Compile Include="Managers\LeagueManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\ProjectionsManager.cs" />
@@ -71,7 +71,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scrapers\FantasyProsScraper.cs" />
     <Compile Include="Scrapers\NflScraper.cs" />
-    <Compile Include="Tools\PlayerConverter.cs" />
     <Compile Include="Scrapers\WebScraper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +87,8 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

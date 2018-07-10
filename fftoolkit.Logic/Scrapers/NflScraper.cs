@@ -39,12 +39,9 @@ namespace fftoolkit.Logic.Scrapers
                 //create new datarow
                 Player player = new Player();
 
-                //create fantasy pro converter
-                PlayerConverter converter = new PlayerConverter(jPlayer["name"].ToString(), jPlayer["teamAbbr"].ToString());
-
                 //set row values
-                player.Name = converter.Name;
-                player.Team = converter.Team;
+                player.Name = jPlayer["name"].ToString();
+                player.Team = jPlayer["teamAbbr"].ToString();
                 player.Position = jPlayer["position"].ToString().ToUpper();
                 player.GamesPlayed = 1;
 

@@ -9,31 +9,36 @@ using System.Threading.Tasks;
 
 namespace fftoolkit.Logic.Managers
 {
-    public class AdminManager
+    public class TeamMappingManager
     {
         private DataContext _context;
-        private AdminWorker _adminWorker;
+        private TeamMappingWorker _teamMappingWorker;
 
-        public AdminManager(DataContext context)
+        public TeamMappingManager(DataContext context)
         {
             _context = context ?? throw new Exception("The context cannot be null.");
-            _adminWorker = new AdminWorker(_context);
+            _teamMappingWorker = new TeamMappingWorker(_context);
         }
 
         public void CreateTeamMapping(string oldTeam, string newTeam)
         {
-            TeamMapping existingTeamMapping = _adminWorker.GetTeamMapping(oldTeam);
+            TeamMapping existingTeamMapping = _teamMappingWorker.GetTeamMapping(oldTeam);
 
             if (existingTeamMapping == null)
             {
-                _adminWorker.CreateTeamMapping(oldTeam, newTeam);
+                _teamMappingWorker.CreateTeamMapping(oldTeam, newTeam);
             }
         }
 
         public string GetTeam(string oldTeam)
         {
-            TeamMapping teamMapping = _adminWorker.GetTeamMapping(oldTeam);
+            TeamMapping teamMapping = _teamMappingWorker.GetTeamMapping(oldTeam);
             return (teamMapping == null) ? null : teamMapping.NewTeam;
+        }
+
+        public Dictionary<string, string> GetTeamMappings()
+        {
+            return _teamMappingWorker.GetTeamMappings().ToDictionary(tm => tm.OldTeam, tm => tm.NewTeam);
         }
     }
 }

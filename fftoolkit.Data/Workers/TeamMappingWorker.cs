@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace fftoolkit.Data.Workers
 {
-    public class AdminWorker
+    public class TeamMappingWorker
     {
         private DataContext _context;
 
-        public AdminWorker(DataContext context)
+        public TeamMappingWorker(DataContext context)
         {
             _context = context ?? throw new Exception("The context cannot be null.");
+        }
+
+        public List<TeamMapping> GetTeamMappings()
+        {
+            return _context.TeamMappings.ToList();
         }
 
         public TeamMapping GetTeamMapping(string oldTeam)

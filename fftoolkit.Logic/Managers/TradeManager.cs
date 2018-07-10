@@ -1,4 +1,5 @@
-﻿using fftoolkit.DB.Model;
+﻿using fftoolkit.DB.Context;
+using fftoolkit.DB.Model;
 using fftoolkit.Logic.Classes;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,16 @@ namespace fftoolkit.Logic.Managers
 {
     public class TradeManager
     {
-        public TradeManager() { }
+        private DataContext _context;
+
+        public TradeManager(DataContext context)
+        {
+            _context = context ?? throw new Exception("The context cannot be null.");
+        }
 
         public List<Player> GetTradeValues(List<Player> players, League league)
         {
-            ScraperManager scraperManager = new ScraperManager();
+            ScraperManager scraperManager = new ScraperManager(_context);
             List<Team> teams = scraperManager.ScrapeLeague(league);
 
             List<Player> waivers = new List<Player>(players);
