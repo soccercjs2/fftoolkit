@@ -32,8 +32,14 @@ namespace fftoolkit.Controllers
             return View(user.Leagues);
         }
 
-        public ActionResult League()
+        public ActionResult League(int id)
         {
+            LeagueManager leagueManager = new LeagueManager(_context);
+            PlayerManager playerManager = new PlayerManager(_context);
+            
+            League league = leagueManager.Get(id);
+            List<Player> players = playerManager.Get(league);
+
             return View();
         }
     }

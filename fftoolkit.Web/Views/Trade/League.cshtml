@@ -1,23 +1,8 @@
-﻿
+﻿@model fftoolkit.Web.ViewModels.TradeViewModel
+
 @{
-    ViewBag.Title = "Player Trade Values";
+    ViewBag.Title = "Find Trades";
 }
-
-@section scripts {
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.table').DataTable();
-
-            //$(".passing").hide();
-            //$(".rushing").hide();
-            $(".receiving").hide();
-        });
-    </script>
-
-}
-
-<link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
 
 <h2>Find Trades</h2>
 
@@ -25,10 +10,32 @@
     <div class="col-sm-12 col-md-4 col-lg-3 trade-filters">
         <div class="card">
             <div class="card-header">My Team</div>
-            <div class="list-group ">
-                <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                    Leveon Bell (RB, PIT)
-                </div>
+            <div class="list-group">
+                @foreach (var filter in Model.MyFilters)
+                {
+                    if (filter == null)
+                    {
+                        <span class="trade-filter-item-default">
+                            (any player/position)
+                        </span>
+                    }
+                    else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
+                    {
+                        <span>
+                            @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
+                        </span>
+                    }
+                    else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
+                    {
+                        <span>
+                            @filter.Position
+                        </span>
+                    }
+                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                        Leveon Bell (RB, PIT)
+                    </div>
+                }
+
                 <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
                     Running Back
                 </div>
