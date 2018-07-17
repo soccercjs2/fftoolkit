@@ -30,7 +30,7 @@ namespace fftoolkit.Logic.Managers
             {
                 for (int i = 0; i < team.Players.Count; i++)
                 {
-                    //get player with statistics that matches team's player
+                    //get player with attributes that matches team's player
                     Player match = waivers.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
 
                     if (match != null)
@@ -57,6 +57,29 @@ namespace fftoolkit.Logic.Managers
             }
 
             return players;
+        }
+
+        public List<Team> GetTeamsWithPlayers(List<Player> players, League league)
+        {
+
+            ScraperManager scraperManager = new ScraperManager(_context);
+            List<Team> teams = scraperManager.ScrapeLeague(league);
+
+            foreach (Team team in teams)
+            {
+                for (int i = 0; i < team.Players.Count; i++)
+                {
+                    //get player with attributes that matches team's player
+                    Player match = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
+                    team.Players[i] = match;
+                }
+
+                team.Players.RemoveAll(p => p == null);
+            }
+
+            teams.RemoveAll(t => t == null || t.Players == null || t.Players.Count == 0);
+
+            return teams;
         }
     }
 }

@@ -6,138 +6,152 @@
 
 <h2>Find Trades</h2>
 
-<div class="row">
-    <div class="col-sm-12 col-md-4 col-lg-3 trade-filters">
-        <div class="card">
-            <div class="card-header">My Team</div>
-            <div class="list-group">
-                @foreach (var filter in Model.MyFilters)
+@using (Html.BeginForm("Edit", "League", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-3 trade-filters">
+            <div class="card">
+                <div class="card-header">My Team</div>
+                <div class="list-group">
+                    @foreach (var filter in Model.MyFilters)
+                    {
+                        <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                            @if (filter == null)
+                            {
+                                <span class="trade-filter-item-default">
+                                    (any player/position)
+                                </span>
+                            }
+                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
+                            {
+                                <span>
+                                    @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
+                                </span>
+                            }
+                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
+                            {
+                                <span class="trade-filter-item-default">
+                                    @filter.Position
+                                </span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Their Team</div>
+                <div class="list-group">
+                    @foreach (var filter in Model.TheirFilters)
+                    {
+                        <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                            @if (filter == null)
+                            {
+                                <span class="trade-filter-item-default">
+                                    (any player/position)
+                                </span>
+                            }
+                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
+                            {
+                                <span>
+                                    @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
+                                </span>
+                            }
+                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
+                            {
+                                <span class="trade-filter-item-default">
+                                    @filter.Position
+                                </span>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <input type="submit" value="Find Trades" class="btn btn-primary" />
+        </div>
+
+        <div class="col-sm-12 col-md-8 col-lg-9">
+
+            <div class="trade-list">
+                @if (Model.Trades == null || Model.Trades.Count == 0)
                 {
-                    if (filter == null)
-                    {
-                        <span class="trade-filter-item-default">
-                            (any player/position)
-                        </span>
-                    }
-                    else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
-                    {
-                        <span>
-                            @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
-                        </span>
-                    }
-                    else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
-                    {
-                        <span>
-                            @filter.Position
-                        </span>
-                    }
-                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                        Leveon Bell (RB, PIT)
-                    </div>
+                    <span class="">
+                        No trades found.
+                    </span>
                 }
-
-                <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                    Running Back
-                </div>
-                <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                    <span class="trade-filter-item-default">
-                        (any player/position)
-                    </span>
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-header">Their Team</div>
-            <div class="list-group">
-                <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                    Wide Receiver
-                </div>
-                <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                    <span class="trade-filter-item-default">
-                        (any player/position)
-                    </span>
-                </div>
-                <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                    <span class="trade-filter-item-default">
-                        (any player/position)
-                    </span>
-                </div>
-            </div>
-        </div>
-        <input type="submit" value="Find Trades" class="btn btn-primary" />
-    </div>
 
-    <div class="col-sm-12 col-md-8 col-lg-9">
+            @if (Model.Trades != null && Model.Trades.Count > 0)
+            {
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            }
 
-        @for (int i = 0; i < 3; i++)
-        {
-            <div class="row trade" data-toggle="modal" data-target="#tradeModal">
-                <div class="col-md-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header you-get-header">
-                            You Get
-                        </div>
-                        <div class="card-body trade-body">
-                            <div>
-                                <div class="trade-player">Case Keenum (QB, DEN)</div>
-                                <div class="trade-player-points">18.22</div>
-                            </div>
-                            <div>
-                                <div class="trade-player">David Johnson (RB, ARI)</div>
-                                <div class="trade-player-points">23.54</div>
-                            </div>
-                            <div>
-                                <div class="trade-player">Ezekiel Elliot (RB, DAL)</div>
-                                <div class="trade-player-points">21.33</div>
+            @*@for (int i = 0; i < 3; i++)
+                {
+                    <div class="row trade" data-toggle="modal" data-target="#tradeModal">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header you-get-header">
+                                    You Get
+                                </div>
+                                <div class="card-body trade-body">
+                                    <div>
+                                        <div class="trade-player">Case Keenum (QB, DEN)</div>
+                                        <div class="trade-player-points">18.22</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player">David Johnson (RB, ARI)</div>
+                                        <div class="trade-player-points">23.54</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player">Ezekiel Elliot (RB, DAL)</div>
+                                        <div class="trade-player-points">21.33</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer trade-footer">
+                                    <div class="trade-value">
+                                        +4.77 PPG
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer trade-footer">
-                            <div class="trade-value">
-                                +4.77 PPG
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header they-get-header">
+                                    They Get
+                                </div>
+                                <div class="card-body trade-body">
+                                    <div>
+                                        <div class="trade-player">Case Keenum (QB, DEN)</div>
+                                        <div class="trade-player-points">18.22</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player">David Johnson (RB, ARI)</div>
+                                        <div class="trade-player-points">23.54</div>
+                                    </div>
+                                    <div>
+                                        <div class="trade-player"></div>
+                                        <div class="trade-player-points"></div>
+                                    </div>
+                                </div>
+                                <div class="card-footer trade-footer">
+                                    <div class="trade-value">
+                                        +4.77 PPG
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header they-get-header">
-                            They Get
-                        </div>
-                        <div class="card-body trade-body">
-                            <div>
-                                <div class="trade-player">Case Keenum (QB, DEN)</div>
-                                <div class="trade-player-points">18.22</div>
-                            </div>
-                            <div>
-                                <div class="trade-player">David Johnson (RB, ARI)</div>
-                                <div class="trade-player-points">23.54</div>
-                            </div>
-                            <div>
-                                <div class="trade-player"></div>
-                                <div class="trade-player-points"></div>
-                            </div>
-                        </div>
-                        <div class="card-footer trade-footer">
-                            <div class="trade-value">
-                                +4.77 PPG
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+                }*@
+        </div>
     </div>
-</div>
 
 <div class="modal" tabindex="-1" role="dialog" id="tradeFilterModal">
     <div class="modal-dialog" role="document">
@@ -465,3 +479,4 @@
         </div>
     </div>
 </div>
+}

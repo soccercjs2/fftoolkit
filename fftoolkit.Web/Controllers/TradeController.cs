@@ -1,6 +1,8 @@
 ﻿using fftoolkit.DB.Context;
 using fftoolkit.DB.Model;
+using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.Managers;
+using fftoolkit.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -36,11 +38,23 @@ namespace fftoolkit.Controllers
         {
             LeagueManager leagueManager = new LeagueManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);
+            TradeManager tradeManager = new TradeManager(_context);
             
             League league = leagueManager.Get(id);
             List<Player> players = playerManager.Get(league);
+            List<Team> teams = tradeManager.GetTeamsWithPlayers(players, league);
 
-            return View();
+            TradeViewModel model = new TradeViewModel(teams);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult League(TradeViewModel model)
+        {
+            PlayerManager playerManager = new PlayerManager(_context);
+
+            return View(model);
         }
     }
 }

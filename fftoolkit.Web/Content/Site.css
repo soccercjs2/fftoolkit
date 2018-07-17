@@ -69,6 +69,11 @@ textarea {
     margin-bottom: 15px;
 }
 
+.trade-list {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
 .add-link {
     margin-left: 10px;
 }
