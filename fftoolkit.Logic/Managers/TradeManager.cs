@@ -81,5 +81,102 @@ namespace fftoolkit.Logic.Managers
 
             return teams;
         }
+
+        public List<Trade> FindTrades(Team myTeam, Team theirTeam)
+        {
+            List<Trade> trades = new List<Trade>();
+
+            List<List<Player>> myPlayerCombos = GetPlayerCombinations(myTeam);
+            List<List<Player>> theirPlayerCombos = GetPlayerCombinations(theirTeam);
+
+            foreach (List<Player> myPlayers in myPlayerCombos)
+            {
+                foreach (List<Player> theirPlayers in theirPlayerCombos)
+                {
+                    Roster myOldStartingRoster = null;
+                    Roster myNewStartingRoster = null;
+                    Roster theirOldStartingRoster = null;
+                    Roster theirNewStartingRoster = null;
+
+                    decimal myDifference =
+                        (myNewStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints)) +
+                        (myNewStartingRoster.RunningBacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.RunningBacks.Sum(p => p.FantasyPoints)) +
+                        (myNewStartingRoster.WideReceivers.Sum(p => p.FantasyPoints) - myOldStartingRoster.WideReceivers.Sum(p => p.FantasyPoints)) +
+                        (myNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - myOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
+                        (myNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - myOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
+
+                    decimal theirDifference =
+                        (theirNewStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints) - theirOldStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints)) +
+                        (theirNewStartingRoster.RunningBacks.Sum(p => p.FantasyPoints) - theirOldStartingRoster.RunningBacks.Sum(p => p.FantasyPoints)) +
+                        (theirNewStartingRoster.WideReceivers.Sum(p => p.FantasyPoints) - theirOldStartingRoster.WideReceivers.Sum(p => p.FantasyPoints)) +
+                        (theirNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - theirOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
+                        (theirNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - theirOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
+
+                    Trade trade = new Trade
+                    {
+                        MyPlayers = myPlayers,
+                        MyRoster = myNewStartingRoster,
+                        MyDifference = myDifference,
+                        TheirPlayers = theirPlayers,
+                        TheirRoster = theirNewStartingRoster,
+                        TheirDifference = theirDifference
+                    };
+
+                    trades.Add(trade);
+                }
+            }
+
+            return trades;
+        }
+
+        private List<List<Player>> GetPlayerCombinations(Team team)
+        {
+            List<List<Player>> playerCombinations = new List<List<Player>>();
+
+            if (team.Players.Count > 0)
+            {
+                for (int i = 0; i < team.Players.Count; i++)
+                {
+                    playerCombinations.Add(new List<Player>() { team.Players[i] });
+
+                    if (team.Players.Count > 1)
+                    {
+                        for (int j = i + 1; j < team.Players.Count; j++)
+                        {
+                            playerCombinations.Add(
+                                new List<Player>()
+                                {
+                                    team.Players[i],
+                                    team.Players[j]
+                                });
+
+                            if (team.Players.Count > 2)
+                            {
+                                for (int k = j + 1; k < team.Players.Count; k++)
+                                {
+                                    playerCombinations.Add(
+                                        new List<Player>()
+                                        {
+                                            team.Players[i],
+                                            team.Players[j],
+                                            team.Players[k]
+                                        });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return playerCombinations;
+        }
+
+        private Roster GetStartingRoster(List<Player> players, League league)
+        {
+            return new Roster()
+            {
+                Quarterbacks = players.Where(p => p.Position == "QB").OrderBy(p => p.FantasyPoints).Take(league.Quarterbacks)
+            };
+        }
     }
 }

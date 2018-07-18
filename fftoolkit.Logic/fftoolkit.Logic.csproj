@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\LeagueWrapper.cs" />
+    <Compile Include="Classes\Roster.cs" />
     <Compile Include="Classes\Team.cs" />
     <Compile Include="Classes\Trade.cs" />
     <Compile Include="Managers\TeamMappingManager.cs" />

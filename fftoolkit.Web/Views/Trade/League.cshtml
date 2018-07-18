@@ -479,4 +479,28 @@
         </div>
     </div>
 </div>
+
+    for (int i = 0; i < Model.Teams.Count; i++)
+    {
+        Html.HiddenFor(m => m.Teams[i].Name);
+        Html.HiddenFor(m => m.Teams[i].Url);
+
+        for (int j = 0; j < Model.Teams[i].Players.Count; j++)
+        {
+            Html.HiddenFor(m => Model.Teams[i].Players[j].PlayerId);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].Name);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].Position);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].Team);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].PassingYards);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].PassingTouchdowns);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].Interceptions);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].RushingYards);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].RushingTouchdowns);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].Receptions);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].ReceivingYards);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].ReceivingTouchdowns);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].FantasyPoints);
+            Html.HiddenFor(m => Model.Teams[i].Players[j].TradeValue);
+        }
+    }
 }

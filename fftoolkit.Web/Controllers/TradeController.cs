@@ -52,7 +52,7 @@ namespace fftoolkit.Controllers
         [HttpPost]
         public ActionResult League(TradeViewModel model)
         {
-            PlayerManager playerManager = new PlayerManager(_context);
+            TradeManager tradeManager = new TradeManager(_context);
 
             return View(model);
         }

@@ -21,8 +21,10 @@ namespace fftoolkit.Web.ViewModels
 
         public List<Trade> Trades { get; set; }
 
-        public TradeViewModel()
+        public TradeViewModel(List<Team> teams)
         {
+            Teams = teams ?? throw new Exception("No teams provided.");
+
             MyFilters = new List<TradeFilterViewModel>(new TradeFilterViewModel[3]);
             MyExclusions = new List<Player>();
 
