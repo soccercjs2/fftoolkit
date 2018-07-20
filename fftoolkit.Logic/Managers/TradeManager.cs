@@ -82,9 +82,11 @@ namespace fftoolkit.Logic.Managers
             return teams;
         }
 
-        public List<Trade> FindTrades(Team myTeam, Team theirTeam)
+        public List<Trade> FindTrades(Team myTeam, Team theirTeam, League league)
         {
             List<Trade> trades = new List<Trade>();
+            Roster myOldStartingRoster = GetStartingRoster(myTeam.Players, league);
+            Roster theirOldStartingRoster = GetStartingRoster(theirTeam.Players, league);
 
             List<List<Player>> myPlayerCombos = GetPlayerCombinations(myTeam);
             List<List<Player>> theirPlayerCombos = GetPlayerCombinations(theirTeam);
@@ -93,10 +95,8 @@ namespace fftoolkit.Logic.Managers
             {
                 foreach (List<Player> theirPlayers in theirPlayerCombos)
                 {
-                    Roster myOldStartingRoster = null;
-                    Roster myNewStartingRoster = null;
-                    Roster theirOldStartingRoster = null;
-                    Roster theirNewStartingRoster = null;
+                    Roster myNewStartingRoster = GetStartingRoster(myTeam.Players, league, theirPlayers, myPlayers);
+                    Roster theirNewStartingRoster = GetStartingRoster(theirTeam.Players, league, myPlayers, theirPlayers);
 
                     decimal myDifference =
                         (myNewStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints)) +
@@ -173,9 +173,56 @@ namespace fftoolkit.Logic.Managers
 
         private Roster GetStartingRoster(List<Player> players, League league)
         {
+            return GetStartingRoster(players, league, null, null);
+        }
+
+        private Roster GetStartingRoster(List<Player> players, League league, List<Player> newPlayers, List<Player> oldPlayers)
+        {
+            if (oldPlayers != null) { foreach (Player oldPlayer in oldPlayers) { players.Remove(oldPlayer); } }
+            if (newPlayers != null) { foreach (Player newPlayer in newPlayers) { players.Add(newPlayer); } }
+
+            List<Player> quarterbacks = players
+                .Where(p => p.Position == "QB")
+                .OrderBy(p => p.FantasyPoints)
+                .Take(league.Quarterbacks)
+                .ToList();
+
+            List<Player> runningBacks = players
+                .Where(p => p.Position == "RB")
+                .OrderBy(p => p.FantasyPoints)
+                .Take(league.Quarterbacks)
+                .ToList();
+
+            List<Player> wideReceivers = players
+                .Where(p => p.Position == "WR")
+                .OrderBy(p => p.FantasyPoints)
+                .Take(league.Quarterbacks)
+                .ToList();
+
+            List<Player> tightEnds = players
+                .Where(p => p.Position == "TE")
+                .OrderBy(p => p.FantasyPoints)
+                .Take(league.Quarterbacks)
+                .ToList();
+
+            foreach (Player quarterback in quarterbacks) { players.Remove(quarterback); }
+            foreach (Player runningBack in runningBacks) { players.Remove(runningBack); }
+            foreach (Player wideReceiver in wideReceivers) { players.Remove(wideReceiver); }
+            foreach (Player tightEnd in tightEnds) { players.Remove(tightEnd); }
+
+            List<Player> flexes = players
+                .Where(p => p.Position == "RB" || p.Position == "WR" || p.Position == "TE")
+                .OrderBy(p => p.FantasyPoints)
+                .Take(league.Flexes)
+                .ToList();
+
             return new Roster()
             {
-                Quarterbacks = players.Where(p => p.Position == "QB").OrderBy(p => p.FantasyPoints).Take(league.Quarterbacks)
+                Quarterbacks = quarterbacks,
+                RunningBacks = runningBacks,
+                WideReceivers = wideReceivers,
+                TightEnds = tightEnds,
+                Flexes = flexes
             };
         }
     }

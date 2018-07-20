@@ -53,6 +53,7 @@ namespace fftoolkit.Controllers
         public ActionResult League(TradeViewModel model)
         {
             TradeManager tradeManager = new TradeManager(_context);
+            List<Trade> trades = tradeManager.FindTrades()
 
             return View(model);
         }
