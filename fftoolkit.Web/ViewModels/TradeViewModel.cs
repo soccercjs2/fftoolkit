@@ -11,15 +11,19 @@ namespace fftoolkit.Web.ViewModels
     {
         public League League { get; set; }
 
+        public Team MyTeam { get; set; }
         public List<TradeFilterViewModel> MyFilters { get; set; }
         public List<Player> MyExclusions { get; set; }
 
+        public Team TheirTeam { get; set; }
         public List<TradeFilterViewModel> TheirFilters { get; set; }
         public List<Player> TheirExclusions { get; set; }
 
         public List<Team> Teams { get; set; }
 
         public List<Trade> Trades { get; set; }
+
+        public TradeViewModel() { }
 
         public TradeViewModel(List<Team> teams)
         {

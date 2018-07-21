@@ -46,14 +46,22 @@ namespace fftoolkit.Controllers
 
             TradeViewModel model = new TradeViewModel(teams);
 
+            model.League = league;
+            model.MyTeam = teams[0];
+            model.TheirTeam = teams[1];
+
             return View(model);
         }
 
         [HttpPost]
         public ActionResult League(TradeViewModel model)
         {
+            if (model.MyTeam == null || model.TheirTeam == null) { return View(model); }
+
             TradeManager tradeManager = new TradeManager(_context);
-            List<Trade> trades = tradeManager.FindTrades()
+            List<Trade> trades = tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
+
+            model.Trades = trades;
 
             return View(model);
         }

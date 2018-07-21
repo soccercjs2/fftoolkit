@@ -29,6 +29,17 @@ namespace fftoolkit.Data.Workers
             _context.SaveChanges();
         }
 
+        public void AddUnmatchedPlayer(Player player)
+        {
+            _context.UnmatchedPlayers.Add(player);
+            _context.SaveChanges();
+        }
+
+        public List<Player> GetUnmatchedPlayers()
+        {
+            return _context.UnmatchedPlayers.ToList();
+        }
+
         public void Update(Player player)
         {
             _context.Players.Attach(player);

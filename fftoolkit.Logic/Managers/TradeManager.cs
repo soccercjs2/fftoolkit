@@ -63,6 +63,7 @@ namespace fftoolkit.Logic.Managers
         {
 
             ScraperManager scraperManager = new ScraperManager(_context);
+            PlayerManager playerManager = new PlayerManager(_context);
             List<Team> teams = scraperManager.ScrapeLeague(league);
 
             foreach (Team team in teams)
@@ -71,7 +72,12 @@ namespace fftoolkit.Logic.Managers
                 {
                     //get player with attributes that matches team's player
                     Player match = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
-                    team.Players[i] = match;
+
+                    if (match != null) { team.Players[i] = match; }
+                    else
+                    {
+                        playerManager.AddUnmatchedPlayer(team.Players[i]);
+                    }
                 }
 
                 team.Players.RemoveAll(p => p == null);
@@ -112,6 +118,11 @@ namespace fftoolkit.Logic.Managers
                         (theirNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - theirOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
                         (theirNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - theirOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
 
+                    if (myPlayers.Count == 3 && theirPlayers.Count == 3 && myDifference > 3 && theirDifference > 1)
+                    {
+                        var asdf = "asdf";
+                    }
+
                     Trade trade = new Trade
                     {
                         MyPlayers = myPlayers,
@@ -125,6 +136,11 @@ namespace fftoolkit.Logic.Managers
                     trades.Add(trade);
                 }
             }
+
+            trades = trades
+                .Where(t => t.MyDifference > 0 && t.TheirDifference > 0)
+                .OrderBy(t => t.MyDifference * t.TheirDifference)
+                .ToList();
 
             return trades;
         }

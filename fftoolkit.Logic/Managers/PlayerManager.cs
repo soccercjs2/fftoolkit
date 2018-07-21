@@ -25,9 +25,19 @@ namespace fftoolkit.Logic.Managers
             _playerWorker.Add(players);
         }
 
+        public void AddUnmatchedPlayer(Player player)
+        {
+            _playerWorker.AddUnmatchedPlayer(player);
+        }
+
         public List<Player> Get()
         {
             return _playerWorker.Get();
+        }
+
+        public List<Player> GetUnmatchedPlayers()
+        {
+            return _playerWorker.GetUnmatchedPlayers();
         }
 
         public List<Player> Get(League league)
