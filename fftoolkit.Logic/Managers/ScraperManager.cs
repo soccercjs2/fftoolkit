@@ -74,7 +74,7 @@ namespace fftoolkit.Logic.Managers
 
         private List<Player> ConvertPlayers(List<Player> players)
         {
-            TeamMappingManager teamMappingManager = new TeamMappingManager(_context);
+            MappingManager teamMappingManager = new MappingManager(_context);
             Dictionary<string, string> teamMappings = teamMappingManager.GetTeamMappings();
 
             foreach (Player player in players)

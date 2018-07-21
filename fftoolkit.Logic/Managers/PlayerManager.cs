@@ -27,7 +27,12 @@ namespace fftoolkit.Logic.Managers
 
         public void AddUnmatchedPlayer(Player player)
         {
-            _playerWorker.AddUnmatchedPlayer(player);
+            Player match = _playerWorker.FindUnmatchedPlayer(player);
+
+            if (match == null)
+            {
+                _playerWorker.AddUnmatchedPlayer(player);
+            }
         }
 
         public List<Player> Get()

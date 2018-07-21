@@ -40,6 +40,13 @@ namespace fftoolkit.Data.Workers
             return _context.UnmatchedPlayers.ToList();
         }
 
+        public Player FindUnmatchedPlayer(Player player)
+        {
+            return _context.UnmatchedPlayers
+                .Where(p => p.Name == player.Name && p.Position == player.Position && p.Team == player.Team)
+                .FirstOrDefault();
+        }
+
         public void Update(Player player)
         {
             _context.Players.Attach(player);

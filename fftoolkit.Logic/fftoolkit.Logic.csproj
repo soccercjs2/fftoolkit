@@ -57,7 +57,7 @@
     <Compile Include="Classes\Roster.cs" />
     <Compile Include="Classes\Team.cs" />
     <Compile Include="Classes\Trade.cs" />
-    <Compile Include="Managers\TeamMappingManager.cs" />
+    <Compile Include="Managers\MappingManager.cs" />
     <Compile Include="Managers\LeagueManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\ProjectionsManager.cs" />

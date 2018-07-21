@@ -75,6 +75,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\NameMapping.cs" />
     <Compile Include="Models\TeamMapping.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

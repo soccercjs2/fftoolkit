@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace fftoolkit.Data.Workers
 {
-    public class TeamMappingWorker
+    public class MappingWorker
     {
         private DataContext _context;
 
-        public TeamMappingWorker(DataContext context)
+        public MappingWorker(DataContext context)
         {
             _context = context ?? throw new Exception("The context cannot be null.");
         }
@@ -36,6 +36,28 @@ namespace fftoolkit.Data.Workers
             };
 
             _context.TeamMappings.Add(teamMapping);
+            _context.SaveChanges();
+        }
+
+        public List<NameMapping> GetNameMappings()
+        {
+            return _context.NameMappings.ToList();
+        }
+
+        public NameMapping GetNameMapping(string oldName)
+        {
+            return _context.NameMappings.Where(n => n.OldName == oldName).FirstOrDefault();
+        }
+
+        public void CreateNameMapping(string oldName, string newName)
+        {
+            NameMapping nameMapping = new NameMapping()
+            {
+                OldName = oldName,
+                NewName = newName
+            };
+
+            _context.NameMappings.Add(nameMapping);
             _context.SaveChanges();
         }
     }

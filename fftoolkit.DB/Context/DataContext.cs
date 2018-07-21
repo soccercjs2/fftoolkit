@@ -16,6 +16,7 @@ namespace fftoolkit.DB.Context
         public DbSet<Player> UnmatchedPlayers { get; set; }
 
         public DbSet<TeamMapping> TeamMappings { get; set; }
+        public DbSet<NameMapping> NameMappings { get; set; }
 
         public DataContext() : base("DataContext") { }
 

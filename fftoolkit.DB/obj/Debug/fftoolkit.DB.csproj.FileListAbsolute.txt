@@ -16,3 +16,4 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migra
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addingvalidatorfordecimalfields.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.cleaningupproperties.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addingteammapping.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.csprojAssemblyReference.cache

@@ -56,7 +56,7 @@ namespace fftoolkit.Controllers
         {
             ScraperManager scraperManager = new ScraperManager(_context);
             LeagueManager leagueManager = new LeagueManager(_context);
-            TeamMappingManager adminManager = new TeamMappingManager(_context);
+            MappingManager adminManager = new MappingManager(_context);
 
             //get league
             League league = leagueManager.Get(id);
@@ -100,7 +100,7 @@ namespace fftoolkit.Controllers
         {
             if (ModelState.IsValid)
             {
-                TeamMappingManager adminManager = new TeamMappingManager(_context);
+                MappingManager adminManager = new MappingManager(_context);
 
                 foreach (TeamMapping teamMapping in teamMappings)
                 {
@@ -116,6 +116,19 @@ namespace fftoolkit.Controllers
             {
                 return View(teamMappings);
             }
+        }
+
+        public ActionResult MapUnmappedPlayers()
+        {
+            PlayerManager playerManager = new PlayerManager(_context);
+            List<Player> unmatchedPlayers = playerManager.GetUnmatchedPlayers();
+
+            return View(unmatchedPlayers);
+        }
+
+        public ActionResult MapUnmappedPlayers(List<Player> players)
+        {
+            return RedirectToAction("MapUnmappedPlayers", "Admin", null);
         }
     }
 }
