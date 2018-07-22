@@ -74,9 +74,9 @@ namespace fftoolkit.Logic.Managers
                     Player match = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
 
                     if (match != null) { team.Players[i] = match; }
-                    else
+                    else if (team.Players[i].Position == "QB" || team.Players[i].Position == "RB" || team.Players[i].Position == "WR" || team.Players[i].Position == "TE")
                     {
-                        playerManager.AddUnmatchedPlayer(team.Players[i]);
+                        playerManager.AddUnmatchedPlayer(new UnmatchedPlayer(team.Players[i]));
                     }
                 }
 
@@ -117,11 +117,6 @@ namespace fftoolkit.Logic.Managers
                         (theirNewStartingRoster.WideReceivers.Sum(p => p.FantasyPoints) - theirOldStartingRoster.WideReceivers.Sum(p => p.FantasyPoints)) +
                         (theirNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - theirOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
                         (theirNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - theirOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
-
-                    if (myPlayers.Count == 3 && theirPlayers.Count == 3 && myDifference > 3 && theirDifference > 1)
-                    {
-                        var asdf = "asdf";
-                    }
 
                     Trade trade = new Trade
                     {

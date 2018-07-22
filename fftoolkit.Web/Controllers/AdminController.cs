@@ -4,6 +4,7 @@ using fftoolkit.DB.Models;
 using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.Managers;
 using fftoolkit.Logic.Scrapers;
+using fftoolkit.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -118,17 +119,55 @@ namespace fftoolkit.Controllers
             }
         }
 
-        public ActionResult MapUnmappedPlayers()
+        public ActionResult MapUnmatchedPlayers()
         {
             PlayerManager playerManager = new PlayerManager(_context);
-            List<Player> unmatchedPlayers = playerManager.GetUnmatchedPlayers();
+            ScraperManager scraperManager = new ScraperManager(_context);
 
-            return View(unmatchedPlayers);
+            //get players from fantasy pros
+            List<Player> players = scraperManager.ScrapeFantasyPros(0);
+
+            //get standard teams from fantasy pros
+            List<string> standardTeams = players.Select(p => p.Team).Distinct().OrderBy(t => t).ToList();
+            standardTeams.Insert(0, "");
+
+            //get player names from fantasy pros
+            List<string> names = players.Select(p => p.Name).Distinct().OrderBy(t => t).ToList();
+            names.Insert(0, "");
+
+            //get unmatched players
+            List<UnmatchedPlayer> unmatchedPlayers = playerManager.GetUnmatchedPlayers();
+
+            MapUnmatchedPlayersViewModel model = new MapUnmatchedPlayersViewModel();
+            model.UnmatchedPlayer = unmatchedPlayers.Take(1).FirstOrDefault();
+            model.StandardTeams = standardTeams;
+            model.Names = names;
+            model.SelectedName = null;
+            model.SelectedTeam = null;
+
+            return View(model);
         }
 
-        public ActionResult MapUnmappedPlayers(List<Player> players)
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult MapUnmatchedPlayers(MapUnmatchedPlayersViewModel model)
         {
-            return RedirectToAction("MapUnmappedPlayers", "Admin", null);
+            MappingManager mappingManager = new MappingManager(_context);
+            PlayerManager playerManager = new PlayerManager(_context);
+
+            if (model.SelectedName != null && model.SelectedName != "")
+            {
+                mappingManager.CreateNameMapping(model.UnmatchedPlayer.Name, model.SelectedName);
+            }
+
+            if (model.SelectedTeam != null && model.SelectedTeam != "")
+            {
+                mappingManager.CreateTeamMapping(model.UnmatchedPlayer.Team, model.SelectedTeam);
+            }
+
+            playerManager.DeleteUnmatchedPlayer(model.UnmatchedPlayer);
+
+            return RedirectToAction("MapUnmatchedPlayers", "Admin", null);
         }
     }
 }

@@ -25,13 +25,13 @@ namespace fftoolkit.Logic.Managers
             _playerWorker.Add(players);
         }
 
-        public void AddUnmatchedPlayer(Player player)
+        public void AddUnmatchedPlayer(UnmatchedPlayer unmatchedPlayer)
         {
-            Player match = _playerWorker.FindUnmatchedPlayer(player);
+            UnmatchedPlayer match = _playerWorker.FindUnmatchedPlayer(unmatchedPlayer);
 
             if (match == null)
             {
-                _playerWorker.AddUnmatchedPlayer(player);
+                _playerWorker.AddUnmatchedPlayer(unmatchedPlayer);
             }
         }
 
@@ -40,7 +40,7 @@ namespace fftoolkit.Logic.Managers
             return _playerWorker.Get();
         }
 
-        public List<Player> GetUnmatchedPlayers()
+        public List<UnmatchedPlayer> GetUnmatchedPlayers()
         {
             return _playerWorker.GetUnmatchedPlayers();
         }
@@ -75,6 +75,11 @@ namespace fftoolkit.Logic.Managers
         public void DeleteAll()
         {
             _playerWorker.DeleteAll();
+        }
+
+        public void DeleteUnmatchedPlayer(UnmatchedPlayer unmatchedPlayer)
+        {
+            _playerWorker.DeleteUnmatchedPlayer(unmatchedPlayer.UnmatchedPlayerId);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace fftoolkit.Logic.Managers
 
         public void CreateNameMapping(string oldName, string newName)
         {
-            TeamMapping existingNameMapping = _mappingWorker.GetNameMapping(oldName);
+            NameMapping existingNameMapping = _mappingWorker.GetNameMapping(oldName);
 
             if (existingNameMapping == null)
             {

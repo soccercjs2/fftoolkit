@@ -81,7 +81,7 @@ namespace fftoolkit.Logic.Tools
             }
             catch (Exception e)
             {
-                string asdf = "";
+                
             }
 
             return document;

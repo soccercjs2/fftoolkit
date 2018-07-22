@@ -72,8 +72,13 @@
     <Compile Include="Migrations\201807020511401_adding team mapping.Designer.cs">
       <DependentUpon>201807020511401_adding team mapping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807212125178_adding unmatched players.cs" />
+    <Compile Include="Migrations\201807212125178_adding unmatched players.Designer.cs">
+      <DependentUpon>201807212125178_adding unmatched players.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\League.cs" />
+    <Compile Include="Models\UnmatchedPlayer.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\NameMapping.cs" />
     <Compile Include="Models\TeamMapping.cs" />
@@ -102,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807020511401_adding team mapping.resx">
       <DependentUpon>201807020511401_adding team mapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807212125178_adding unmatched players.resx">
+      <DependentUpon>201807212125178_adding unmatched players.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

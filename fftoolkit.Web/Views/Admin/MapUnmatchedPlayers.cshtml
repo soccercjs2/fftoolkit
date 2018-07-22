@@ -1,0 +1,69 @@
+﻿@model fftoolkit.Web.ViewModels.MapUnmatchedPlayersViewModel
+
+@{
+    ViewBag.Title = "Map Unmatched Players";
+}
+
+<h2>Map Unmatched Players</h2>
+
+@using (Html.BeginForm("MapUnmatchedPlayers", "Admin", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+
+            @if (Model.UnmatchedPlayer != null)
+            {
+                <div class="card">
+                    <div class="card-header">Unmatched Player</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <span class="font-weight-bold">Name:</span>&nbsp;
+                            <span>@Model.UnmatchedPlayer.Name</span>
+                        </div>
+
+                        <div class="row">
+                            <span class="font-weight-bold">Team:</span>&nbsp;
+                            <span>@Model.UnmatchedPlayer.Team</span>
+                        </div>
+
+                        <div class="row">
+                            <span class="font-weight-bold">Position:</span>&nbsp;
+                            <span>@Model.UnmatchedPlayer.Position</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <span class="font-weight-bold">Mapped Team:</span>&nbsp;
+                    @Html.DropDownListFor(tm => Model.SelectedTeam, new SelectList(Model.StandardTeams), new { @class = "form-control inline-control" })
+                </div><br />
+
+                <div class="row">
+                    <span class="font-weight-bold">Mapped Name:</span>&nbsp;
+                    @Html.DropDownListFor(tm => Model.SelectedName, new SelectList(Model.Names), new { @class = "form-control inline-control" })
+                </div><br />
+
+                <input type="submit" value="Create Mapping" class="btn btn-primary" />
+            }
+            else
+            {
+                <span>No unmapped players.</span>
+            }
+        </div>
+        </div>
+
+        @Html.HiddenFor(m => Model.UnmatchedPlayer.UnmatchedPlayerId)
+        @Html.HiddenFor(m => Model.UnmatchedPlayer.Name)
+        @Html.HiddenFor(m => Model.UnmatchedPlayer.Position)
+        @Html.HiddenFor(m => Model.UnmatchedPlayer.Team)
+
+        for (int i = 0; i < Model.StandardTeams.Count; i++)
+        {
+            @Html.HiddenFor(m => Model.StandardTeams[i])
+        }
+
+        for (int i = 0; i < Model.Names.Count; i++)
+        {
+            @Html.HiddenFor(m => Model.Names[i])
+        }
+}

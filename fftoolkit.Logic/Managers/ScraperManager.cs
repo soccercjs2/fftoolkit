@@ -74,11 +74,13 @@ namespace fftoolkit.Logic.Managers
 
         private List<Player> ConvertPlayers(List<Player> players)
         {
-            MappingManager teamMappingManager = new MappingManager(_context);
-            Dictionary<string, string> teamMappings = teamMappingManager.GetTeamMappings();
+            MappingManager mappingManager = new MappingManager(_context);
+            Dictionary<string, string> nameMappings = mappingManager.GetNameMappings();
+            Dictionary<string, string> teamMappings = mappingManager.GetTeamMappings();
 
             foreach (Player player in players)
             {
+                player.Name = (nameMappings.ContainsKey(player.Name)) ? nameMappings[player.Name] : player.Name;
                 player.Team = (teamMappings.ContainsKey(player.Team)) ? teamMappings[player.Team] : player.Team;
             }
 

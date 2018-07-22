@@ -13,7 +13,7 @@ namespace fftoolkit.DB.Context
         public DbSet<User> Users { get; set; }
         public DbSet<League> Leagues { get; set; }
         public DbSet<Player> Players { get; set; }
-        public DbSet<Player> UnmatchedPlayers { get; set; }
+        public DbSet<UnmatchedPlayer> UnmatchedPlayers { get; set; }
 
         public DbSet<TeamMapping> TeamMappings { get; set; }
         public DbSet<NameMapping> NameMappings { get; set; }

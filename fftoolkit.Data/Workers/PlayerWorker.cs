@@ -29,21 +29,21 @@ namespace fftoolkit.Data.Workers
             _context.SaveChanges();
         }
 
-        public void AddUnmatchedPlayer(Player player)
+        public void AddUnmatchedPlayer(UnmatchedPlayer unmatchedPlayer)
         {
-            _context.UnmatchedPlayers.Add(player);
+            _context.UnmatchedPlayers.Add(unmatchedPlayer);
             _context.SaveChanges();
         }
 
-        public List<Player> GetUnmatchedPlayers()
+        public List<UnmatchedPlayer> GetUnmatchedPlayers()
         {
             return _context.UnmatchedPlayers.ToList();
         }
 
-        public Player FindUnmatchedPlayer(Player player)
+        public UnmatchedPlayer FindUnmatchedPlayer(UnmatchedPlayer unmatchedPlayer)
         {
             return _context.UnmatchedPlayers
-                .Where(p => p.Name == player.Name && p.Position == player.Position && p.Team == player.Team)
+                .Where(p => p.Name == unmatchedPlayer.Name && p.Position == unmatchedPlayer.Position && p.Team == unmatchedPlayer.Team)
                 .FirstOrDefault();
         }
 
@@ -75,6 +75,13 @@ namespace fftoolkit.Data.Workers
         {
             Player player = _context.Players.Find(playerId);
             return player;
+        }
+
+        public void DeleteUnmatchedPlayer(int unmatchedPlayerId)
+        {
+            UnmatchedPlayer unmatchedPlayer = _context.UnmatchedPlayers.Find(unmatchedPlayerId);
+            _context.UnmatchedPlayers.Remove(unmatchedPlayer);
+            _context.SaveChanges();
         }
     }
 }
