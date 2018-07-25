@@ -73,11 +73,12 @@ namespace fftoolkit.Logic.Managers
                     //get player with attributes that matches team's player
                     Player match = players.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
 
-                    if (match != null) { team.Players[i] = match; }
-                    else if (team.Players[i].Position == "QB" || team.Players[i].Position == "RB" || team.Players[i].Position == "WR" || team.Players[i].Position == "TE")
+                    if (team.Players[i].Position == "QB" || team.Players[i].Position == "RB" || team.Players[i].Position == "WR" || team.Players[i].Position == "TE")
                     {
                         playerManager.AddUnmatchedPlayer(new UnmatchedPlayer(team.Players[i]));
                     }
+
+                    team.Players[i] = match;
                 }
 
                 team.Players.RemoveAll(p => p == null);
