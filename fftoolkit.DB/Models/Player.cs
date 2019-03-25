@@ -6,7 +6,7 @@ using System.Text;
 
 namespace fftoolkit.DB.Model
 {
-    public class Player
+    public class Player : IEquatable<Player>
     {
         //ids
 
@@ -108,6 +108,12 @@ namespace fftoolkit.DB.Model
                 Player player = (Player)obj;
                 return (player.Name == Name) && (player.Position == Position) && (player.Team == Team);
             }
+        }
+
+        public bool Equals(Player player)
+        {
+            if (player == null) return false;
+            return (player.Name == Name) && (player.Position == Position) && (player.Team == Team);
         }
     }
 }

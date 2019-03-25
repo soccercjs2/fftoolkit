@@ -1,0 +1,15 @@
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\fftoolkit.Data.dll.config
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\fftoolkit.Data.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\fftoolkit.Data.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\EntityFramework.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\fftoolkit.DB.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\fftoolkit.DB.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\fftoolkit.DB.dll.config
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\EntityFramework.xml
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Release\fftoolkit.Data.csprojAssemblyReference.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Release\fftoolkit.Data.csproj.CoreCompileInputs.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Release\fftoolkit.Data.csproj.CopyComplete
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Release\fftoolkit.Data.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Data\obj\Release\fftoolkit.Data.pdb

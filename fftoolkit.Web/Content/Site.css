@@ -60,6 +60,17 @@ textarea {
     display: inline-block;
 }
 
+.trade-player-header {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.trade-player-points-header {
+    float: right;
+    display: inline-block;
+    font-weight: bold;
+}
+
 .card-row {
     padding: 30px 0px;
 }

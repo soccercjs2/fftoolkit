@@ -41,25 +41,62 @@ namespace fftoolkit.Controllers
             TradeManager tradeManager = new TradeManager(_context);
             
             League league = leagueManager.Get(id);
-            List<Player> players = playerManager.Get(league);
-            List<Team> teams = tradeManager.GetTeamsWithPlayers(players, league);
+            List<Player> players = (List<Player>)Session["Players"];
+            if (players == null)
+            {
+                players = playerManager.Get(league);
+                players = tradeManager.GetTradeValues(players, league);
+                Session["Players"] = players;
+            }                
 
-            TradeViewModel model = new TradeViewModel(teams);
+            //build teams with players
+            List<Team> teams = (List<Team>)Session["TeamsWithPlayers"];
+            if (teams == null)
+            {
+                teams = tradeManager.GetTeamsWithPlayers(players, league);
+                Session["TeamsWithPlayers"] = teams;
+            }
 
-            model.League = league;
-            model.MyTeam = teams[0];
-            model.TheirTeam = teams[1];
+            TradesViewModel model = new TradesViewModel(teams)
+            {
+                League = league,
+                MyTeam = teams[0],
+                TheirTeam = teams[1]
+            };
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult League(TradeViewModel model)
+        public ActionResult FindTrades(TradesViewModel model)
         {
             if (model.MyTeam == null || model.TheirTeam == null) { return View(model); }
 
-            TradeManager tradeManager = new TradeManager(_context);
-            List<Trade> trades = tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
+            List<Trade> trades = (List<Trade>)Session["Trades"];
+
+            if (trades == null)
+            {
+                TradeManager tradeManager = new TradeManager(_context);
+                trades = new List<Trade>(); //tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
+                Team myTeam = model.Teams[0];
+
+                for (int i = 0; i < model.Teams.Count; i++)
+                {
+                    Team theirTeam = model.Teams[i];
+
+                    if (myTeam.Name != theirTeam.Name)
+                    {
+                        List<Trade> teamTrades = tradeManager.FindTrades(myTeam, theirTeam, model.League);
+                        trades.AddRange(teamTrades);
+                    }
+                }
+
+                trades = trades
+                    .OrderByDescending(t => t.MyTradeSide.Difference * t.TheirTradeSide.Difference)
+                    .ToList();
+
+                Session["Trades"] = trades;
+            }
 
             model.Trades = trades;
 

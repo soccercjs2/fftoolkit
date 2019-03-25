@@ -7,7 +7,7 @@ using System.Web;
 
 namespace fftoolkit.Web.ViewModels
 {
-    public class TradeViewModel
+    public class TradesViewModel
     {
         public League League { get; set; }
 
@@ -22,10 +22,11 @@ namespace fftoolkit.Web.ViewModels
         public List<Team> Teams { get; set; }
 
         public List<Trade> Trades { get; set; }
+        public int TradePage { get; set; }
 
-        public TradeViewModel() { }
+        public TradesViewModel() { }
 
-        public TradeViewModel(List<Team> teams)
+        public TradesViewModel(List<Team> teams)
         {
             Teams = teams ?? throw new Exception("No teams provided.");
 
@@ -35,6 +36,7 @@ namespace fftoolkit.Web.ViewModels
             TheirFilters = new List<TradeFilterViewModel>(new TradeFilterViewModel[3]);
             TheirExclusions = new List<Player>();
             Trades = new List<Trade>();
+            TradePage = 1;
         }
     }
 }

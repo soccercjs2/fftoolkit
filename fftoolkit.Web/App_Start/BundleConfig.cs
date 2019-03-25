@@ -33,6 +33,9 @@ namespace fftoolkit.Web
             bundles.Add(new ScriptBundle("~/DataTables/scripts").Include(
                      "~/DataTables/datatables.js"));
 
+            //bundles.Add(new ScriptBundle("~/Scripts/MyScripts").Include(
+            //         "~/Scripts/trade.js"));
+
             bundles.Add(new StyleBundle("~/DataTables/css").Include(
                       "~/DataTables/datatables.css"));
         }

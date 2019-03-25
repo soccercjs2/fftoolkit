@@ -23,37 +23,34 @@ namespace fftoolkit.Logic.Managers
             ScraperManager scraperManager = new ScraperManager(_context);
             List<Team> teams = scraperManager.ScrapeLeague(league);
 
-            List<Player> waivers = new List<Player>(players);
-            players = new List<Player>();
+            //cuttoffs to determine baseline player
+            int qbCuttoff = teams.Count * league.Quarterbacks;
+            int rbCuttoff = teams.Count * (league.RunningBacks + league.Flexes);
+            int wrCuttoff = teams.Count * (league.WideReceivers + league.Flexes);
+            int teCuttoff = teams.Count * league.TightEnds;
 
-            foreach (Team team in teams)
-            {
-                for (int i = 0; i < team.Players.Count; i++)
-                {
-                    //get player with attributes that matches team's player
-                    Player match = waivers.Where(p => p.Equals(team.Players[i])).FirstOrDefault();
+            List<Player> quarterbacks = players.Where(p => p.Position == "QB").ToList();
+            List<Player> runningBacks = players.Where(p => p.Position == "RB").ToList();
+            List<Player> wideReceivers = players.Where(p => p.Position == "WR").ToList();
+            List<Player> tightEnds = players.Where(p => p.Position == "TE").ToList();
 
-                    if (match != null)
-                    {
-                        players.Add(match);
+            int qbCuttoffIndex = Math.Min(qbCuttoff, quarterbacks.Count() - 1);
+            int rbCuttoffIndex = Math.Min(rbCuttoff, runningBacks.Count() - 1);
+            int wrCuttoffIndex = Math.Min(wrCuttoff, wideReceivers.Count() - 1);
+            int teCuttoffIndex = Math.Min(teCuttoff, tightEnds.Count() - 1);
 
-                        //remove match from players so that resulting players are waiver players
-                        waivers.Remove(match);
-                    }
-                }
-            }
-
-            Player waiverQb = waivers.Where(p => p.Position == "QB").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
-            Player waiverRb = waivers.Where(p => p.Position == "RB").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
-            Player waiverWr = waivers.Where(p => p.Position == "WR").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
-            Player waiverTe = waivers.Where(p => p.Position == "TE").OrderByDescending(p => p.FantasyPoints).FirstOrDefault();
+            //get baseline players
+            Player qbBaseline = players.Where(p => p.Position == "QB").OrderByDescending(p => p.FantasyPoints).ElementAt(qbCuttoffIndex);
+            Player rbBaseline = players.Where(p => p.Position == "RB").OrderByDescending(p => p.FantasyPoints).ElementAt(rbCuttoffIndex);
+            Player wrBaseline = players.Where(p => p.Position == "WR").OrderByDescending(p => p.FantasyPoints).ElementAt(wrCuttoffIndex);
+            Player teBaseline = players.Where(p => p.Position == "TE").OrderByDescending(p => p.FantasyPoints).ElementAt(teCuttoffIndex);
 
             foreach (Player player in players)
             {
-                if (player.Position == "QB") { player.TradeValue = player.FantasyPoints - waiverQb.FantasyPoints; }
-                else if (player.Position == "RB") { player.TradeValue = player.FantasyPoints - waiverRb.FantasyPoints; }
-                else if (player.Position == "WR") { player.TradeValue = player.FantasyPoints - waiverWr.FantasyPoints; }
-                else if (player.Position == "TE") { player.TradeValue = player.FantasyPoints - waiverTe.FantasyPoints; }
+                if (player.Position == "QB") { player.TradeValue = player.FantasyPoints - qbBaseline.FantasyPoints; }
+                else if (player.Position == "RB") { player.TradeValue = player.FantasyPoints - rbBaseline.FantasyPoints; }
+                else if (player.Position == "WR") { player.TradeValue = player.FantasyPoints - wrBaseline.FantasyPoints; }
+                else if (player.Position == "TE") { player.TradeValue = player.FantasyPoints - teBaseline.FantasyPoints; }
             }
 
             return players;
@@ -105,12 +102,36 @@ namespace fftoolkit.Logic.Managers
                     Roster myNewStartingRoster = GetStartingRoster(myTeam.Players, league, theirPlayers, myPlayers);
                     Roster theirNewStartingRoster = GetStartingRoster(theirTeam.Players, league, myPlayers, theirPlayers);
 
+                    bool allTradedPlayersAreStarting = true;
+
+                    foreach (Player theirPlayer in theirPlayers)
+                    {
+                        if ((theirPlayer.Position == "QB" && !myNewStartingRoster.Quarterbacks.Contains(theirPlayer) && !myNewStartingRoster.Flexes.Contains(theirPlayer)) ||
+                            (theirPlayer.Position == "RB" && !myNewStartingRoster.RunningBacks.Contains(theirPlayer) && !myNewStartingRoster.Flexes.Contains(theirPlayer)) ||
+                            (theirPlayer.Position == "WR" && !myNewStartingRoster.WideReceivers.Contains(theirPlayer) && !myNewStartingRoster.Flexes.Contains(theirPlayer)) ||
+                            (theirPlayer.Position == "TE" && !myNewStartingRoster.TightEnds.Contains(theirPlayer) && !myNewStartingRoster.Flexes.Contains(theirPlayer)))
+                        {
+                            allTradedPlayersAreStarting = false;
+                        }
+                    }
+
+                    foreach (Player myPlayer in myPlayers)
+                    {
+                        if ((myPlayer.Position == "QB" && !theirNewStartingRoster.Quarterbacks.Contains(myPlayer) && !theirNewStartingRoster.Flexes.Contains(myPlayer)) ||
+                            (myPlayer.Position == "RB" && !theirNewStartingRoster.RunningBacks.Contains(myPlayer) && !theirNewStartingRoster.Flexes.Contains(myPlayer)) ||
+                            (myPlayer.Position == "WR" && !theirNewStartingRoster.WideReceivers.Contains(myPlayer) && !theirNewStartingRoster.Flexes.Contains(myPlayer)) ||
+                            (myPlayer.Position == "TE" && !theirNewStartingRoster.TightEnds.Contains(myPlayer) && !theirNewStartingRoster.Flexes.Contains(myPlayer)))
+                        {
+                            allTradedPlayersAreStarting = false;
+                        }
+                    }
+
                     decimal myDifference =
-                        (myNewStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints)) +
-                        (myNewStartingRoster.RunningBacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.RunningBacks.Sum(p => p.FantasyPoints)) +
-                        (myNewStartingRoster.WideReceivers.Sum(p => p.FantasyPoints) - myOldStartingRoster.WideReceivers.Sum(p => p.FantasyPoints)) +
-                        (myNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - myOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
-                        (myNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - myOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
+                            (myNewStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints)) +
+                            (myNewStartingRoster.RunningBacks.Sum(p => p.FantasyPoints) - myOldStartingRoster.RunningBacks.Sum(p => p.FantasyPoints)) +
+                            (myNewStartingRoster.WideReceivers.Sum(p => p.FantasyPoints) - myOldStartingRoster.WideReceivers.Sum(p => p.FantasyPoints)) +
+                            (myNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - myOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
+                            (myNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - myOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
 
                     decimal theirDifference =
                         (theirNewStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints) - theirOldStartingRoster.Quarterbacks.Sum(p => p.FantasyPoints)) +
@@ -119,24 +140,41 @@ namespace fftoolkit.Logic.Managers
                         (theirNewStartingRoster.TightEnds.Sum(p => p.FantasyPoints) - theirOldStartingRoster.TightEnds.Sum(p => p.FantasyPoints)) +
                         (theirNewStartingRoster.Flexes.Sum(p => p.FantasyPoints) - theirOldStartingRoster.Flexes.Sum(p => p.FantasyPoints));
 
-                    Trade trade = new Trade
-                    {
-                        MyPlayers = myPlayers,
-                        MyRoster = myNewStartingRoster,
-                        MyDifference = myDifference,
-                        TheirPlayers = theirPlayers,
-                        TheirRoster = theirNewStartingRoster,
-                        TheirDifference = theirDifference
-                    };
+                    decimal myTradeValue = myPlayers.Sum(p => p.TradeValue);
+                    decimal theirTradeValue = theirPlayers.Sum(p => p.TradeValue);
+                    decimal fairness = Math.Abs(myTradeValue - theirTradeValue);
+                    int maxPlayerCount = Math.Max(myPlayers.Count, theirPlayers.Count);
 
-                    trades.Add(trade);
+                    if (allTradedPlayersAreStarting && myDifference > 0 && theirDifference > 0 && fairness <= 3)
+                    {
+                        Trade trade = new Trade
+                        {
+                            MyTradeSide = new TradeSide()
+                            {
+                                TeamName = myTeam.Name,
+                                Players = myPlayers.OrderByDescending(p => p.TradeValue).ToList(),
+                                Roster = myNewStartingRoster,
+                                Difference = myDifference,
+                                TradeValue = myTradeValue,
+                                MaxPlayerCount = maxPlayerCount
+                            },
+                            
+                            TheirTradeSide = new TradeSide()
+                            {
+                                TeamName = theirTeam.Name,
+                                Players = theirPlayers.OrderByDescending(p => p.TradeValue).ToList(),
+                                Roster = theirNewStartingRoster,
+                                Difference = theirDifference,
+                                TradeValue = theirTradeValue,
+                                MaxPlayerCount = maxPlayerCount
+                            }
+                            
+                        };
+
+                        trades.Add(trade);
+                    }
                 }
             }
-
-            trades = trades
-                .Where(t => t.MyDifference > 0 && t.TheirDifference > 0)
-                .OrderBy(t => t.MyDifference * t.TheirDifference)
-                .ToList();
 
             return trades;
         }
@@ -173,6 +211,21 @@ namespace fftoolkit.Logic.Managers
                                             team.Players[j],
                                             team.Players[k]
                                         });
+
+                                    if (team.Players.Count > 3)
+                                    {
+                                        for (int l = k + 1; l < team.Players.Count; l++)
+                                        {
+                                            playerCombinations.Add(
+                                                new List<Player>()
+                                                {
+                                                    team.Players[i],
+                                                    team.Players[j],
+                                                    team.Players[k],
+                                                    team.Players[l]
+                                                });
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -188,33 +241,35 @@ namespace fftoolkit.Logic.Managers
             return GetStartingRoster(players, league, null, null);
         }
 
-        private Roster GetStartingRoster(List<Player> players, League league, List<Player> newPlayers, List<Player> oldPlayers)
+        private Roster GetStartingRoster(List<Player> originalPlayers, League league, List<Player> newPlayers, List<Player> oldPlayers)
         {
+            List<Player> players = new List<Player>(originalPlayers);
+
             if (oldPlayers != null) { foreach (Player oldPlayer in oldPlayers) { players.Remove(oldPlayer); } }
             if (newPlayers != null) { foreach (Player newPlayer in newPlayers) { players.Add(newPlayer); } }
 
             List<Player> quarterbacks = players
                 .Where(p => p.Position == "QB")
-                .OrderBy(p => p.FantasyPoints)
+                .OrderByDescending(p => p.FantasyPoints)
                 .Take(league.Quarterbacks)
                 .ToList();
 
             List<Player> runningBacks = players
                 .Where(p => p.Position == "RB")
-                .OrderBy(p => p.FantasyPoints)
-                .Take(league.Quarterbacks)
+                .OrderByDescending(p => p.FantasyPoints)
+                .Take(league.RunningBacks)
                 .ToList();
 
             List<Player> wideReceivers = players
                 .Where(p => p.Position == "WR")
-                .OrderBy(p => p.FantasyPoints)
-                .Take(league.Quarterbacks)
+                .OrderByDescending(p => p.FantasyPoints)
+                .Take(league.WideReceivers)
                 .ToList();
 
             List<Player> tightEnds = players
                 .Where(p => p.Position == "TE")
-                .OrderBy(p => p.FantasyPoints)
-                .Take(league.Quarterbacks)
+                .OrderByDescending(p => p.FantasyPoints)
+                .Take(league.TightEnds)
                 .ToList();
 
             foreach (Player quarterback in quarterbacks) { players.Remove(quarterback); }
@@ -224,7 +279,7 @@ namespace fftoolkit.Logic.Managers
 
             List<Player> flexes = players
                 .Where(p => p.Position == "RB" || p.Position == "WR" || p.Position == "TE")
-                .OrderBy(p => p.FantasyPoints)
+                .OrderByDescending(p => p.FantasyPoints)
                 .Take(league.Flexes)
                 .ToList();
 
