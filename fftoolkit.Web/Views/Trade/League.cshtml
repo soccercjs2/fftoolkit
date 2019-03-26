@@ -6,6 +6,13 @@
 
 @section scripts {
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".page-link").click(function () {
+                alert("The paragraph was clicked.");
+            });
+        });
+
         $("#find-trades").click(function () {
             console.log('Find trades started.');
             $.ajax({
@@ -24,12 +31,14 @@
                     console.log(error);
                 }
             })
-        })
+        });
+
+        
         
     </script>
 }
 
-<h2>Find Trades</h2>
+<h2 class="page-link">Find Trades</h2>
 
 <form id="TradeForm">
     <div class="row">
