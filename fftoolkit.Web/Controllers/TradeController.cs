@@ -4,6 +4,7 @@ using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.Managers;
 using fftoolkit.Web.ViewModels;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,17 @@ namespace fftoolkit.Controllers
             TradeManager tradeManager = new TradeManager(_context);
             
             League league = leagueManager.Get(id);
+
+            //try get players from session
             List<Player> players = (List<Player>)Session["Players"];
+
+            //try get players from json file
+            if (players == null)
+            {
+                players = JsonConvert.DeserializeObject<List<Player>>(System.IO.File.ReadAllText(@"C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\Json Data\players.json"));
+            }
+
+            //scrape players
             if (players == null)
             {
                 players = playerManager.Get(league);
@@ -50,7 +61,17 @@ namespace fftoolkit.Controllers
             }                
 
             //build teams with players
+
+            //try get teams from session
             List<Team> teams = (List<Team>)Session["TeamsWithPlayers"];
+
+            //try get teams from json file
+            if (teams == null)
+            {
+                teams = JsonConvert.DeserializeObject<List<Team>>(System.IO.File.ReadAllText(@"C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\Json Data\teams.json"));
+            }
+
+            //scrape teams
             if (teams == null)
             {
                 teams = tradeManager.GetTeamsWithPlayers(players, league);
@@ -100,7 +121,7 @@ namespace fftoolkit.Controllers
 
             model.Trades = trades;
 
-            return View(model);
+            return PartialView("TradeList", model);
         }
     }
 }

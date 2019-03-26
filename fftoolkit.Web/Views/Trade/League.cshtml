@@ -7,13 +7,21 @@
 @section scripts {
     <script type="text/javascript">
         $("#find-trades").click(function () {
+            console.log('Find trades started.');
             $.ajax({
                 type: "POST",
                 url: '/Trade/FindTrades',     //your action
                 data: $('#TradeForm').serialize(),   //your form name.it takes all the values of model               
-                dataType: 'json',
+                dataType: 'html',
                 success: function (result) {
-                    console.log(result);
+                    console.log('Trades found success!');
+                    console.log(('#trade-results'));
+                    $('#trade-results').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error!")
+                    console.log(status);
+                    console.log(error);
                 }
             })
         })
@@ -85,56 +93,8 @@
             <input id="find-trades" type="button" value="Find Trades" class="btn btn-primary" />
         </div>
 
-        <div class="col-sm-12 col-md-8 col-lg-9">
-            <div class="trade-list">
-                @if (Model.Trades == null || Model.Trades.Count == 0)
-                {
-                    <span class="">
-                        No trades found.
-                    </span>
-                }
-                else
-                {
-                    for (int i = (Model.TradePage - 1) * 3; i < i + 3; i++)
-                    {
-                        <div class="row trade" data-toggle="modal" data-target="#tradeModal">
-                            <div class="col-md-12 col-lg-6">
-                                @* My Trade *@
-                                @Html.DisplayFor(m => Model.Trades[i].MyTradeSide)
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                @* Their Trade *@
-                                @Html.DisplayFor(m => Model.Trades[i].TheirTradeSide)
-                            </div>
-                        </div>
-                    }
-                }
-            </div>
+        <div id="trade-results" class="col-sm-12 col-md-8 col-lg-9">
 
-            @if (Model.Trades != null && Model.Trades.Count > 0)
-            {
-                <nav aria-label="Trade Pages">
-                    <ul class="pagination">
-                        @if (Model.TradePage > 1)
-                        {
-                            <li class="page-item"><a class="page-link" href="#" data-index="1">First</a></li>
-                            <li class="page-item"><a class="page-link" href="#" data-index="@Model.TradePage - 1">Previous</a></li>
-                        }
-
-                        @for (int i = Model.TradePage; i <= Math.Min(Model.Trades.Count / 3 + 1, 16); i++)
-                        {
-                            <li class="page-item"><a class="page-link" href="#" data-index="@i">@i</a></li>
-                        }
-
-                        <li class="page-item"><a class="page-link" href="#">...</a></li>
-
-                        @if (Model.TradePage < Model.Trades.Count / 3 + 1)
-                        {
-                            <li class="page-item"><a class="page-link" href="#" data-index="@Model.TradePage + 1">Next</a></li>
-                        }
-                    </ul>
-                </nav>
-            }
         </div>
     </div>
 
@@ -465,6 +425,7 @@
         </div>
     </div>
 
+    @Html.HiddenFor(m => Model.TradePage)
     @Html.HiddenFor(m => Model.League.LeagueId)
     @Html.HiddenFor(m => Model.League.UserId)
     @Html.HiddenFor(m => Model.League.Name)

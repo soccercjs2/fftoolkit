@@ -130,3 +130,5 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csp
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\Json Data\teams.json
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\Json Data\players.json

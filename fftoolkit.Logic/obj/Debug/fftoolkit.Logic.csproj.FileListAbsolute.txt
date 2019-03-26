@@ -21,3 +21,5 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Debug\fftoolkit.Logic.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\Json Data\teams.json
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Debug\Json Data\players.json

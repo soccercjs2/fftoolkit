@@ -17,3 +17,4 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.cspro
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.csprojAssemblyReference.cache
