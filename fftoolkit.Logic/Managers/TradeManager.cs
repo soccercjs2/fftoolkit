@@ -149,6 +149,7 @@ namespace fftoolkit.Logic.Managers
                     {
                         Trade trade = new Trade
                         {
+                            TradeId = trades.Count,
                             MyTradeSide = new TradeSide()
                             {
                                 TeamName = myTeam.Name,
@@ -168,7 +169,6 @@ namespace fftoolkit.Logic.Managers
                                 TradeValue = theirTradeValue,
                                 MaxPlayerCount = maxPlayerCount
                             }
-                            
                         };
 
                         trades.Add(trade);

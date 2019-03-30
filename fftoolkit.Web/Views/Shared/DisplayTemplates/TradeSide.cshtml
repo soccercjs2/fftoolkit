@@ -14,7 +14,7 @@
 
         @foreach (var player in Model.Players)
         {
-            @Html.DisplayFor(p => player)
+            @Html.DisplayFor(p => player, "TradePlayer")
         }
 
         @for (int j = Model.Players.Count; j < Model.MaxPlayerCount; j++)

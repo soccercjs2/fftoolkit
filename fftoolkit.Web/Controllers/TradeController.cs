@@ -123,5 +123,20 @@ namespace fftoolkit.Controllers
 
             return PartialView("TradeList", model);
         }
+
+        [HttpPost]
+        public ActionResult ChangePage(TradesViewModel model)
+        {
+            List<Trade> trades = (List<Trade>)Session["Trades"];
+            model.Trades = trades;
+            return PartialView("TradeList", model);
+        }
+
+        public ActionResult GetTradeDetail(int id)
+        {
+            List<Trade> trades = (List<Trade>)Session["Trades"];
+            Trade trade = trades.Where(t => t.TradeId == id).FirstOrDefault();
+            return PartialView("TradeDetail", trade);
+        }
     }
 }

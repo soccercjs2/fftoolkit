@@ -248,3 +248,14 @@ textarea {
 .trade-detail:hover .trade-footer {
     border: 2px solid rgba(0, 0, 0, 0.125);
 }
+
+.page-link {
+    color: #007bff;
+}
+
+.selected-page-link {
+    font-weight: bold;
+    text-decoration: underline;
+    border-width: 2px;
+    background-color: #dee2e6;
+}

@@ -1,0 +1,34 @@
+﻿@model fftoolkit.Logic.Classes.Trade
+
+<div class="trade-list">
+    @if (Model == null)
+    {
+        <span class="">
+            Trade not found.
+        </span>
+    }
+    else
+    {
+        <div class="row trade">
+            <div class="col-md-12 col-lg-6">
+                @* My Trade *@
+                @Html.DisplayFor(m => Model.MyTradeSide, "TradeSide")
+            </div>
+            <div class="col-md-12 col-lg-6">
+                @* Their Trade *@
+                @Html.DisplayFor(m => Model.TheirTradeSide, "TradeSide")
+            </div>
+        </div>
+
+        <div class="row trade">
+            <div class="col-md-12 col-lg-6">
+                @* My Trade *@
+                @Html.DisplayFor(m => Model.MyTradeSide, "RosterSide")
+            </div>
+            <div class="col-md-12 col-lg-6">
+                @* Their Trade *@
+                @Html.DisplayFor(m => Model.TheirTradeSide, "RosterSide")
+            </div>
+        </div>
+    }
+</div>

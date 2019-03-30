@@ -7,38 +7,100 @@
 @section scripts {
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $(".page-link").click(function () {
-                alert("The paragraph was clicked.");
-            });
+        $("#find-trades").click(function () {
+            ShowLoadingModal();
+            console.log('Find trades started.');
+            FindTrades();
         });
 
-        $("#find-trades").click(function () {
-            console.log('Find trades started.');
+        jQuery(document).on('click', '.trade', function (trade) {
+            ShowLoadingModal();
+            var tradeId = $(this).data('trade-id');
+            console.log('Show trade with id:' + tradeId);
+            GetTradeDetail(tradeId);
+        });
+
+        jQuery(document).on('click', '.page-link', function (pageLink) {
+            ShowLoadingModal();
+            var pageIndex = $(this).data('index');
+            console.log('Go to page ' + pageIndex);
+            document.getElementById('TradePage').value = pageIndex;
+            ChangePage();
+        });
+
+        function ShowLoadingModal() {
+            console.log('Showing loading modal.');
+            $('#loadingModal').modal({ backdrop: 'static', keyboard: false, show: true });
+        }
+
+        function HideLoadingModal() {
+            console.log('Hiding loading modal.');
+            $('#loadingModal').modal('hide');
+        }
+
+        function FindTrades() {
             $.ajax({
                 type: "POST",
-                url: '/Trade/FindTrades',     //your action
-                data: $('#TradeForm').serialize(),   //your form name.it takes all the values of model               
+                url: '/Trade/FindTrades',
+                data: $('#TradeForm').serialize(),
                 dataType: 'html',
                 success: function (result) {
                     console.log('Trades found success!');
-                    console.log(('#trade-results'));
                     $('#trade-results').html(result);
+                    HideLoadingModal();
                 },
                 error: function (xhr, status, error) {
-                    console.log("There was an error!")
+                    console.log("There was an error finding trades!")
                     console.log(status);
                     console.log(error);
+                    HideLoadingModal();
                 }
-            })
-        });
+            });
+        };
 
-        
-        
+        function ChangePage() {
+            $.ajax({
+                type: "POST",
+                url: '/Trade/ChangePage',
+                data: $('#TradeForm').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Change page success!');
+                    $('#trade-results').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error changing the page!")
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+        };
+
+        function GetTradeDetail(tradeId) {
+            $.ajax({
+                type: "GET",
+                url: '/Trade/GetTrade/' + tradeId,
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Trade found with id: ' + tradeId);
+                    $('#trade-detail').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error trying to find trade with id: " + tradeId)
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+        };
+
     </script>
 }
 
-<h2 class="page-link">Find Trades</h2>
+<h2>Find Trades</h2>
 
 <form id="TradeForm">
     <div class="row">
@@ -178,7 +240,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row trade trade-detail">
+                    <div class="row trade">
+                        <div id="trade-detail">
+
+                        </div>
                         <div class="col-md-12 col-lg-6">
                             <div class="card">
                                 <div class="card-header you-get-header">
@@ -429,6 +494,22 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="loadingModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Finding Trades</h5>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+                </div>
+                <div class="modal-body">
+                    Loading...
                 </div>
             </div>
         </div>

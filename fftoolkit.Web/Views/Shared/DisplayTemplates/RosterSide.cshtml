@@ -1,0 +1,43 @@
+﻿@model fftoolkit.Logic.Classes.TradeSide
+
+<div class="card">
+    <div class="card-header you-get-header">
+        @Model.TeamName Gets
+    </div>
+    <div class="card-body trade-body">
+        <div>
+            <div class="trade-player-header">Player</div>
+            <div class="trade-player-points-header">Points</div>
+        </div>
+
+        @foreach (var player in Model.Roster.Quarterbacks)
+        {
+            @Html.DisplayFor(p => player, "RosterPlayer")
+        }
+
+        @foreach (var player in Model.Roster.RunningBacks)
+        {
+            @Html.DisplayFor(p => player, "RosterPlayer")
+        }
+
+        @foreach (var player in Model.Roster.WideReceivers)
+        {
+            @Html.DisplayFor(p => player, "RosterPlayer")
+        }
+
+        @foreach (var player in Model.Roster.TightEnds)
+        {
+            @Html.DisplayFor(p => player, "RosterPlayer")
+        }
+
+        @foreach (var player in Model.Roster.Flexes)
+        {
+            @Html.DisplayFor(p => player, "RosterPlayer")
+        }
+    </div>
+    <div class="card-footer trade-footer">
+        <div class="trade-value">
+            +@Html.DisplayFor(t => Model.Difference) PPG
+        </div>
+    </div>
+</div>

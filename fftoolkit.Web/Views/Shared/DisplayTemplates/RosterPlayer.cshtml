@@ -1,0 +1,8 @@
+﻿@model fftoolkit.DB.Model.Player
+
+<div>
+    <div class="trade-player">@Model.Name (@Model.Position, @Model.Team)</div>
+    <div class="trade-player-points">
+        @Html.DisplayFor(m => m.FantasyPoints)
+    </div>
+</div>
