@@ -273,6 +273,11 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -283,11 +288,6 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -370,8 +370,11 @@
     <Content Include="Views\Shared\DisplayTemplates\EmptyPlayer.cshtml" />
     <Content Include="Views\Trade\TradeList.cshtml" />
     <Content Include="Views\Trade\TradeDetail.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\RosterSide.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\RosterPlayer.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\OldRosterSide.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\NewRosterSide.cshtml" />
+    <Content Include="Views\Trade\TradeFilter.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TradeFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

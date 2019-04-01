@@ -80,9 +80,7 @@ namespace fftoolkit.Controllers
 
             TradesViewModel model = new TradesViewModel(teams)
             {
-                League = league,
-                MyTeam = teams[0],
-                TheirTeam = teams[1]
+                League = league
             };
 
             return View(model);
@@ -91,7 +89,7 @@ namespace fftoolkit.Controllers
         [HttpPost]
         public ActionResult FindTrades(TradesViewModel model)
         {
-            if (model.MyTeam == null || model.TheirTeam == null) { return View(model); }
+            if (model.MyTeam == null) { return View(model); }
 
             List<Trade> trades = (List<Trade>)Session["Trades"];
 
@@ -99,7 +97,7 @@ namespace fftoolkit.Controllers
             {
                 TradeManager tradeManager = new TradeManager(_context);
                 trades = new List<Trade>(); //tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
-                Team myTeam = model.Teams[0];
+                Team myTeam = model.Teams[11];
 
                 for (int i = 0; i < model.Teams.Count; i++)
                 {

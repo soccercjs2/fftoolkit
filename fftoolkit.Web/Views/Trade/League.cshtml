@@ -28,6 +28,16 @@
             ChangePage();
         });
 
+        jQuery(document).on('click', '#my-filter-header', function (pageLink) {
+            ShowLoadingModal();
+            SelectMyTeam();
+        });
+
+        jQuery(document).on('click', '#their-filter-header', function (pageLink) {
+            ShowLoadingModal();
+            SelectTheirTeam();
+        });
+
         function ShowLoadingModal() {
             console.log('Showing loading modal.');
             $('#loadingModal').modal({ backdrop: 'static', keyboard: false, show: true });
@@ -81,11 +91,12 @@
         function GetTradeDetail(tradeId) {
             $.ajax({
                 type: "GET",
-                url: '/Trade/GetTrade/' + tradeId,
+                url: '/Trade/GetTradeDetail/' + tradeId,
                 dataType: 'html',
                 success: function (result) {
                     console.log('Trade found with id: ' + tradeId);
                     $('#trade-detail').html(result);
+                    $('#tradeDetailModal').modal({ show: true });
                     HideLoadingModal();
                 },
                 error: function (xhr, status, error) {
@@ -104,64 +115,11 @@
 
 <form id="TradeForm">
     <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-3 trade-filters">
-            <div class="card">
-                <div class="card-header">My Team</div>
-                <div class="list-group">
-                    @foreach (var filter in Model.MyFilters)
-                    {
-                        <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                            @if (filter == null)
-                            {
-                                <span class="trade-filter-item-default">
-                                    (any player/position)
-                                </span>
-                            }
-                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
-                            {
-                                <span>
-                                    @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
-                                </span>
-                            }
-                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
-                            {
-                                <span class="trade-filter-item-default">
-                                    @filter.Position
-                                </span>
-                            }
-                        </div>
-                    }
-                </div>
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <div class="trade-filters">
+                @Html.EditorFor(m => m, "TradeFilter")
+                <input id="find-trades" type="button" value="Find Trades" class="btn btn-primary" />
             </div>
-            <div class="card">
-                <div class="card-header">Their Team</div>
-                <div class="list-group">
-                    @foreach (var filter in Model.TheirFilters)
-                    {
-                        <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
-                            @if (filter == null)
-                            {
-                                <span class="trade-filter-item-default">
-                                    (any player/position)
-                                </span>
-                            }
-                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
-                            {
-                                <span>
-                                    @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
-                                </span>
-                            }
-                            else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
-                            {
-                                <span class="trade-filter-item-default">
-                                    @filter.Position
-                                </span>
-                            }
-                        </div>
-                    }
-                </div>
-            </div>
-            <input id="find-trades" type="button" value="Find Trades" class="btn btn-primary" />
         </div>
 
         <div id="trade-results" class="col-sm-12 col-md-8 col-lg-9">
@@ -230,8 +188,8 @@
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="tradeModal">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal" tabindex="-1" role="dialog" id="tradeDetailModal">
+        <div class="modal-dialog modal-xl trade-detail-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Trade Details</h5>
@@ -240,276 +198,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row trade">
-                        <div id="trade-detail">
-
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="card">
-                                <div class="card-header you-get-header">
-                                    You Get
-                                </div>
-                                <div class="card-body trade-body">
-                                    <div>
-                                        <div class="trade-player">Case Keenum (QB, DEN)</div>
-                                        <div class="trade-player-points">18.22</div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">David Johnson (RB, ARI)</div>
-                                        <div class="trade-player-points">23.54</div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">Ezekiel Elliot (RB, DAL)</div>
-                                        <div class="trade-player-points">21.33</div>
-                                    </div>
-                                </div>
-                                <div class="card-footer trade-footer">
-                                    <div class="trade-value">
-                                        +4.77 PPG
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="card">
-                                <div class="card-header they-get-header">
-                                    They Get
-                                </div>
-                                <div class="card-body trade-body">
-                                    <div>
-                                        <div class="trade-player">Case Keenum (QB, DEN)</div>
-                                        <div class="trade-player-points">18.22</div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">David Johnson (RB, ARI)</div>
-                                        <div class="trade-player-points">23.54</div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player"></div>
-                                        <div class="trade-player-points"></div>
-                                    </div>
-                                </div>
-                                <div class="card-footer trade-footer">
-                                    <div class="trade-value">
-                                        +4.77 PPG
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row trade trade-detail">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="card">
-                                <div class="card-header you-get-header">
-                                    Your New Roster
-                                </div>
-                                <div class="card-body trade-body">
-                                    <div>
-                                        <div class="trade-player trade-positive-player">Case Keenum (QB, DEN)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-positive">
-                                                +4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                18.22
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-negative-player">David Johnson (RB, ARI)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-negative">
-                                                -4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                23.54
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-positive-player">Ezekiel Elliot (RB, DAL)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-positive">
-                                                +4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                21.33
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-negative-player">Mike Evans (WR, TB)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-negative">
-                                                -4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                23.54
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-positive-player">Antonio Brown (WR, TB)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-positive">
-                                                +4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                17.45
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">Rob Gronkowski (TE, NE)</div>
-                                        <div class="trade-player-points">18.79</div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">Emmanuel Sanders (WR, DEN)</div>
-                                        <div class="trade-player-points">17.79</div>
-                                    </div>
-                                </div>
-                                <div class="card-footer trade-footer">
-                                    <div class="trade-value">
-                                        +4.77 PPG
-                                    </div>
-                                    | 134.64
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <div class="card">
-                                <div class="card-header they-get-header">
-                                    Their New Roster
-                                </div>
-                                <div class="card-body trade-body">
-                                    <div>
-                                        <div class="trade-player trade-negative-player">Case Keenum (QB, DEN)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-negative">
-                                                -4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                18.22
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-positive-player">David Johnson (RB, ARI)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-positive">
-                                                +4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                23.54
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-negative-player">Ezekiel Elliot (RB, DAL)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-negative">
-                                                -4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                21.33
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-positive-player">Mike Evans (WR, TB)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-positive">
-                                                +4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                23.54
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player trade-negative-player">Antonio Brown (WR, TB)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-negative">
-                                                -4.77
-                                            </div>
-                                            <div class="trade-points">
-                                                |
-                                            </div>
-                                            <div class="trade-points">
-                                                17.45
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">Rob Gronkowski (TE, NE)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-points">
-                                                18.79
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="trade-player">Emmanuel Sanders (WR, DEN)</div>
-                                        <div class="trade-player-points">
-                                            <div class="trade-points">
-                                                17.79
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer trade-footer">
-                                    <div class="trade-value">
-                                        +4.77 PPG
-                                    </div>
-                                    | 134.64
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="trade-detail"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal" tabindex="-1" role="dialog" id="loadingModal">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Finding Trades</h5>
-                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>*@
+                    <h5 class="modal-title">Finding Trades...</h5>
                 </div>
                 <div class="modal-body">
-                    Loading...
+                    <center>
+                        <div class="spinner-border loading-spinner"></div>
+                    </center>
                 </div>
             </div>
         </div>
@@ -554,46 +258,52 @@
         }
     }
 
-    @Html.HiddenFor(m => m.MyTeam.Name)
-    @Html.HiddenFor(m => m.MyTeam.Url)
-
-    @for (int i = 0; i < Model.MyTeam.Players.Count; i++)
+    @if (Model.MyTeam != null)
     {
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].PlayerId)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].Name)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].Position)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].Team)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingYards)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingTouchdowns)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].Interceptions)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingYards)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingTouchdowns)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].Receptions)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingYards)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingTouchdowns)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].FantasyPoints)
-        @Html.HiddenFor(m => Model.MyTeam.Players[i].TradeValue)
+        @Html.HiddenFor(m => m.MyTeam.Name)
+        @Html.HiddenFor(m => m.MyTeam.Url)
+
+        for (int i = 0; i < Model.MyTeam.Players.Count; i++)
+        {
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].PlayerId)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].Name)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].Position)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].Team)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingYards)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingTouchdowns)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].Interceptions)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingYards)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingTouchdowns)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].Receptions)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingYards)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingTouchdowns)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].FantasyPoints)
+            @Html.HiddenFor(m => Model.MyTeam.Players[i].TradeValue)
+        }
     }
 
-    @Html.HiddenFor(m => m.TheirTeam.Name)
-    @Html.HiddenFor(m => m.TheirTeam.Url)
-
-    @for (int i = 0; i < Model.TheirTeam.Players.Count; i++)
+    @if (Model.TheirTeam != null)
     {
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].PlayerId)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Name)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Position)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Team)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingYards)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingTouchdowns)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Interceptions)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingYards)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingTouchdowns)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Receptions)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingYards)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingTouchdowns)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].FantasyPoints)
-        @Html.HiddenFor(m => Model.TheirTeam.Players[i].TradeValue)
+        @Html.HiddenFor(m => m.TheirTeam.Name)
+        @Html.HiddenFor(m => m.TheirTeam.Url)
+
+        for (int i = 0; i < Model.TheirTeam.Players.Count; i++)
+        {
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].PlayerId)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Name)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Position)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Team)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingYards)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingTouchdowns)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Interceptions)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingYards)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingTouchdowns)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Receptions)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingYards)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingTouchdowns)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].FantasyPoints)
+            @Html.HiddenFor(m => Model.TheirTeam.Players[i].TradeValue)
+        }
     }
 
     @for (int i = 0; i < Model.MyFilters.Count; i++)

@@ -1,6 +1,6 @@
 ﻿@model fftoolkit.Logic.Classes.TradeSide
 
-<div class="card">
+<div class="card trade-card">
     <div class="card-header you-get-header">
         @Model.TeamName Gets
     </div>
@@ -12,12 +12,12 @@
             </div>
         </div>
 
-        @foreach (var player in Model.Players)
+        @foreach (var player in Model.NewPlayers)
         {
             @Html.DisplayFor(p => player, "TradePlayer")
         }
 
-        @for (int j = Model.Players.Count; j < Model.MaxPlayerCount; j++)
+        @for (int j = Model.NewPlayers.Count; j < Model.MaxPlayerCount; j++)
         {
             @Html.Display("EmptyPlayer", "EmptyPlayer")
         }

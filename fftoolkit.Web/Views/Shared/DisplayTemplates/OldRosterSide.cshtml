@@ -1,0 +1,32 @@
+﻿@model fftoolkit.Logic.Classes.TradeSide
+
+<div class="card roster-card">
+    @{
+        var players = new List<fftoolkit.DB.Model.Player>();
+        players.AddRange(Model.OldRoster.Quarterbacks);
+        players.AddRange(Model.OldRoster.RunningBacks);
+        players.AddRange(Model.OldRoster.WideReceivers);
+        players.AddRange(Model.OldRoster.TightEnds);
+        players.AddRange(Model.OldRoster.Flexes);
+
+        var total = players.Sum(p => p.FantasyPoints);
+    }
+
+    <div class="card-header you-get-header">
+        @Model.TeamName Old Roster
+    </div>
+    <div class="card-body trade-body">
+        <div>
+            <div class="trade-player-header">Player</div>
+            <div class="trade-player-points-header">Points</div>
+        </div>
+
+        @foreach (var player in players)
+        {
+            @Html.DisplayFor(p => player, "RosterPlayer")
+        }
+    </div>
+    <div class="card-footer trade-footer">
+        @Html.DisplayFor(t => total) PPG
+    </div>
+</div>

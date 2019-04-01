@@ -1,0 +1,56 @@
+﻿@model fftoolkit.Logic.Classes.TradeSide
+
+<div class="card roster-card">
+    @{
+        var newPlayers = new List<fftoolkit.DB.Model.Player>();
+        newPlayers.AddRange(Model.NewRoster.Quarterbacks);
+        newPlayers.AddRange(Model.NewRoster.RunningBacks);
+        newPlayers.AddRange(Model.NewRoster.WideReceivers);
+        newPlayers.AddRange(Model.NewRoster.TightEnds);
+        newPlayers.AddRange(Model.NewRoster.Flexes);
+
+        var oldPlayers = new List<fftoolkit.DB.Model.Player>();
+        oldPlayers.AddRange(Model.OldRoster.Quarterbacks);
+        oldPlayers.AddRange(Model.OldRoster.RunningBacks);
+        oldPlayers.AddRange(Model.OldRoster.WideReceivers);
+        oldPlayers.AddRange(Model.OldRoster.TightEnds);
+        oldPlayers.AddRange(Model.OldRoster.Flexes);
+
+        var total = newPlayers.Sum(p => p.FantasyPoints);
+    }
+
+    <div class="card-header you-get-header">
+        @Model.TeamName New Roster
+    </div>
+    <div class="card-body trade-body">
+        <div>
+            <div class="trade-player-header">Player</div>
+            <div class="trade-player-points-header">Points</div>
+        </div>
+
+        @{
+            for (int i = 0; i < newPlayers.Count; i++)
+            {
+                var newPlayer = newPlayers[i];
+                var oldPlayer = oldPlayers[i];
+                var playerDifference = newPlayer.FantasyPoints - oldPlayer.FantasyPoints;
+
+                var tradedPlayerClass = "";
+                if (Model.NewPlayers.Contains(newPlayer))
+                {
+                    if (playerDifference > 0) { tradedPlayerClass = "better-player"; }
+                    else if (playerDifference < 0) { tradedPlayerClass = "worse-player"; }
+                }
+                else if (!oldPlayers.Contains(newPlayer)) { tradedPlayerClass = "worse-player"; }
+
+                @Html.DisplayFor(p => newPlayer, "RosterPlayer", new { TradedPlayerClass = tradedPlayerClass })
+            }
+        }
+    </div>
+    <div class="card-footer trade-footer">
+        <div class="trade-value">
+            +@Html.DisplayFor(t => Model.Difference) PPG
+        </div> /
+        @Html.DisplayFor(t => total) PPG
+    </div>
+</div>

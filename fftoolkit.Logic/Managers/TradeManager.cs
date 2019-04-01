@@ -153,8 +153,10 @@ namespace fftoolkit.Logic.Managers
                             MyTradeSide = new TradeSide()
                             {
                                 TeamName = myTeam.Name,
-                                Players = myPlayers.OrderByDescending(p => p.TradeValue).ToList(),
-                                Roster = myNewStartingRoster,
+                                NewPlayers = theirPlayers.OrderByDescending(p => p.TradeValue).ToList(),
+                                OldPlayers = myPlayers.OrderByDescending(p => p.TradeValue).ToList(),
+                                NewRoster = myNewStartingRoster,
+                                OldRoster = myOldStartingRoster,
                                 Difference = myDifference,
                                 TradeValue = myTradeValue,
                                 MaxPlayerCount = maxPlayerCount
@@ -163,8 +165,10 @@ namespace fftoolkit.Logic.Managers
                             TheirTradeSide = new TradeSide()
                             {
                                 TeamName = theirTeam.Name,
-                                Players = theirPlayers.OrderByDescending(p => p.TradeValue).ToList(),
-                                Roster = theirNewStartingRoster,
+                                NewPlayers = myPlayers.OrderByDescending(p => p.TradeValue).ToList(),
+                                OldPlayers = theirPlayers.OrderByDescending(p => p.TradeValue).ToList(),
+                                NewRoster = theirNewStartingRoster,
+                                OldRoster = theirOldStartingRoster,
                                 Difference = theirDifference,
                                 TradeValue = theirTradeValue,
                                 MaxPlayerCount = maxPlayerCount

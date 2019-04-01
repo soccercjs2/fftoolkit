@@ -41,6 +41,14 @@ textarea {
     max-width: none;
 }
 
+.filter-header {
+    cursor: pointer;
+}
+
+.filter-header:hover {
+    background-color: rgba(0, 0, 0, 0.125);
+}
+
 .player-filter {
     text-align: right;
     padding-right: 15px;
@@ -149,6 +157,14 @@ textarea {
     border: 2px solid #155724;
 }
 
+.roster-card {
+    min-width: 340px;
+}
+
+.roster-card-seperator {
+    width: 10px;
+}
+
 .trade-body {
     border-right: 2px solid rgba(0, 0, 0, 0.125);
     border-left: 2px solid rgba(0, 0, 0, 0.125);
@@ -228,7 +244,8 @@ textarea {
 }
 
 /* --- TRADE DETAIL HOVER STYLES --- */
-.trade-detail:hover .card {
+
+/*.trade-detail:hover .card {
     background-color: white;
 }
 
@@ -247,7 +264,7 @@ textarea {
 
 .trade-detail:hover .trade-footer {
     border: 2px solid rgba(0, 0, 0, 0.125);
-}
+}*/
 
 .page-link {
     color: #007bff;
@@ -258,4 +275,24 @@ textarea {
     text-decoration: underline;
     border-width: 2px;
     background-color: #dee2e6;
+}
+
+.loading-spinner {
+    width: 5rem;
+    height: 5rem;
+    color: #007bff;
+    margin: 20px;
+}
+
+.trade-detail-modal {
+    width: 1440px;
+    max-width: 1440px;
+}
+
+.better-player {
+    color: green;
+}
+
+.worse-player {
+    color: red;
 }
