@@ -63,10 +63,11 @@ namespace fftoolkit.Logic.Managers
             HtmlDocument leagueHomePage = scraper.Scrape(league.Url);
             List<Team> teams = parser.ParseLeague(leagueHomePage, league);
 
-            foreach (Team team in teams)
+            for (int i = 1; i <= teams.Count; i++)
             {
-                HtmlDocument teamPage = scraper.Scrape(team.Url);
-                team.Players = ConvertPlayers(parser.ParseTeam(teamPage));
+                teams[i].TeamId = i;
+                HtmlDocument teamPage = scraper.Scrape(teams[i].Url);
+                teams[i].Players = ConvertPlayers(parser.ParseTeam(teamPage));
             }
 
             return teams;

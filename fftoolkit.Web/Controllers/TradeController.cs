@@ -136,5 +136,16 @@ namespace fftoolkit.Controllers
             Trade trade = trades.Where(t => t.TradeId == id).FirstOrDefault();
             return PartialView("TradeDetail", trade);
         }
+
+        [HttpPost]
+        public ActionResult SetFilterTeam(TradesViewModel model)
+        {
+            Team selectedTeam = model.Teams.Where(t => t.TeamId == model.SelectedTeamId).FirstOrDefault();
+
+            if (model.TeamSelectorMode == "TheirTeam") { model.TheirTeam = selectedTeam; }
+            else if (model.TeamSelectorMode == "MyTeam") { model.MyTeam = selectedTeam; }
+
+            model.SelectedTeamId = 0;
+        }
     }
 }

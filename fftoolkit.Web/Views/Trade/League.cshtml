@@ -29,13 +29,22 @@
         });
 
         jQuery(document).on('click', '#my-filter-header', function (pageLink) {
-            ShowLoadingModal();
-            SelectMyTeam();
+            console.log('Showing trade selector for my team.')
+            document.getElementById('TeamSelectorMode').value = 'MyTeam';
+            $('#myTeamSelectorModal').modal('show');
         });
 
         jQuery(document).on('click', '#their-filter-header', function (pageLink) {
-            ShowLoadingModal();
-            SelectTheirTeam();
+            console.log('Showing trade selector for their team.')
+            document.getElementById('TeamSelectorMode').value = 'TheirTeam';
+            $('#theirTeamSelectorModal').modal('show');
+        });
+
+        jQuery(document).on('click', '.selected-team', function (selectedTeam) {
+            var selectorMode = document.getElementById('TeamSelectorMode').value;
+            var teamName = $(this).data('team-name');
+            document.getElementById('SelectedTeamId').value = $(this).data('team-id');
+            console.log("Setting " + teamName + " as " + selectorMode);
         });
 
         function ShowLoadingModal() {
@@ -117,13 +126,78 @@
     <div class="row">
         <div class="col-sm-12 col-md-4 col-lg-3">
             <div class="trade-filters">
-                @Html.EditorFor(m => m, "TradeFilter")
+                <div id="trade-filter">
+                    @Html.Partial("TradeFilter")
+                </div>
                 <input id="find-trades" type="button" value="Find Trades" class="btn btn-primary" />
             </div>
         </div>
 
-        <div id="trade-results" class="col-sm-12 col-md-8 col-lg-9">
+        <div id="trade-results" class="col-sm-12 col-md-8 col-lg-9"></div>
+    </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="myTeamSelectorModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Your Team</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="list-group">
+                                    @foreach (var team in Model.Teams)
+                                    {
+                                        <div class="list-group-item list-group-item-action trade-filter-item selected-team"
+                                             data-team-id="@team.TeamId" data-team-name="@team.Name">
+                                            @team.Name
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="theirTeamSelectorModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Their Team</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-action trade-filter-item selected-team"
+                                         data-team-id="0" data-team-name="">
+                                        All Teams
+                                    </div>
+
+                                    @foreach (var team in Model.Teams)
+                                    {
+                                        <div class="list-group-item list-group-item-action trade-filter-item selected-team"
+                                             data-team-name="@team.Name" data-team-url="@team.Url">
+                                            @team.Name
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -219,6 +293,8 @@
         </div>
     </div>
 
+    @Html.HiddenFor(m => Model.TeamSelectorMode)
+    @Html.HiddenFor(m => Model.SelectedTeamId)
     @Html.HiddenFor(m => Model.TradePage)
     @Html.HiddenFor(m => Model.League.LeagueId)
     @Html.HiddenFor(m => Model.League.UserId)
@@ -236,6 +312,7 @@
 
     @for (int i = 0; i < Model.Teams.Count; i++)
     {
+        @Html.HiddenFor(m => m.Teams[i].TeamId)
         @Html.HiddenFor(m => m.Teams[i].Name)
         @Html.HiddenFor(m => m.Teams[i].Url)
 
