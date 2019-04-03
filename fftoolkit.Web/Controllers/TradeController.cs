@@ -142,10 +142,20 @@ namespace fftoolkit.Controllers
         {
             Team selectedTeam = model.Teams.Where(t => t.TeamId == model.SelectedTeamId).FirstOrDefault();
 
-            if (model.TeamSelectorMode == "TheirTeam") { model.TheirTeam = selectedTeam; }
-            else if (model.TeamSelectorMode == "MyTeam") { model.MyTeam = selectedTeam; }
+            if (model.TeamSelectorMode == "TheirTeam")
+            {
+                model.TheirTeam = selectedTeam;
+                model.TheirFilters = new List<TradeFilterViewModel>(new TradeFilterViewModel[4]);
+            }
+            else if (model.TeamSelectorMode == "MyTeam")
+            {
+                model.MyTeam = selectedTeam;
+                model.MyFilters = new List<TradeFilterViewModel>(new TradeFilterViewModel[4]);
+            }
 
             model.SelectedTeamId = 0;
+
+            return PartialView("TradeFilter", model);
         }
     }
 }
