@@ -13,14 +13,14 @@
             FindTrades();
         });
 
-        jQuery(document).on('click', '.trade', function (trade) {
+        jQuery(document).on('click', '.trade', function () {
             ShowLoadingModal();
             var tradeId = $(this).data('trade-id');
             console.log('Show trade with id:' + tradeId);
             GetTradeDetail(tradeId);
         });
 
-        jQuery(document).on('click', '.page-link', function (pageLink) {
+        jQuery(document).on('click', '.page-link', function () {
             ShowLoadingModal();
             var pageIndex = $(this).data('index');
             console.log('Go to page ' + pageIndex);
@@ -28,23 +28,26 @@
             ChangePage();
         });
 
-        jQuery(document).on('click', '#my-filter-header', function (pageLink) {
-            console.log('Showing trade selector for my team.')
+        jQuery(document).on('click', '#my-filter-header', function () {
+            console.log('Showing team selector for my team.')
             document.getElementById('TeamSelectorMode').value = 'MyTeam';
-            $('#myTeamSelectorModal').modal('show');
+            ShowTeamSelectorList();
+            $('#teamSelectorModal').modal('show');
         });
 
-        jQuery(document).on('click', '#their-filter-header', function (pageLink) {
-            console.log('Showing trade selector for their team.')
+        jQuery(document).on('click', '#their-filter-header', function () {
+            console.log('Showing team selector for their team.')
             document.getElementById('TeamSelectorMode').value = 'TheirTeam';
-            $('#theirTeamSelectorModal').modal('show');
+            ShowTeamSelectorList();
+            $('#teamSelectorModal').modal('show');
         });
 
-        jQuery(document).on('click', '.selected-team', function (selectedTeam) {
+        jQuery(document).on('click', '.team-selector-team', function () {
             var selectorMode = document.getElementById('TeamSelectorMode').value;
             var teamName = $(this).data('team-name');
             document.getElementById('SelectedTeamId').value = $(this).data('team-id');
             console.log("Setting " + teamName + " as " + selectorMode);
+            SetTeam();
         });
 
         function ShowLoadingModal() {
@@ -117,6 +120,48 @@
             });
         };
 
+        function ShowTeamSelectorList() {
+            $.ajax({
+                type: "POST",
+                url: '/Trade/ShowTeamSelectorList',
+                data: $('#TradeForm').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Teams found successfully!');
+                    $('#team-selector-list').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error showing the team list!")
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+        };
+
+        function SetTeam() {
+            $.ajax({
+                type: "POST",
+                url: '/Trade/SetFilterTeam',
+                data: $('#TradeForm').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Team set successfully!');
+                    $('#trade-filter').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error setting the team!")
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+
+            $('#teamSelectorModal').modal('hide');
+        };
+
     </script>
 }
 
@@ -136,7 +181,7 @@
         <div id="trade-results" class="col-sm-12 col-md-8 col-lg-9"></div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="myTeamSelectorModal">
+    <div class="modal" tabindex="-1" role="dialog" id="teamSelectorModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -147,54 +192,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="list-group">
-                                    @foreach (var team in Model.Teams)
-                                    {
-                                        <div class="list-group-item list-group-item-action trade-filter-item selected-team"
-                                             data-team-id="@team.TeamId" data-team-name="@team.Name">
-                                            @team.Name
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" tabindex="-1" role="dialog" id="theirTeamSelectorModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Select Their Team</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="list-group">
-                                    <div class="list-group-item list-group-item-action trade-filter-item selected-team"
-                                         data-team-id="0" data-team-name="">
-                                        All Teams
-                                    </div>
-
-                                    @foreach (var team in Model.Teams)
-                                    {
-                                        <div class="list-group-item list-group-item-action trade-filter-item selected-team"
-                                             data-team-name="@team.Name" data-team-url="@team.Url">
-                                            @team.Name
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
+                        <div id="team-selector-list"></div>
                     </div>
                 </div>
             </div>
@@ -227,6 +225,67 @@
                     <center>
                         <div class="spinner-border loading-spinner"></div>
                     </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="tradeFilterModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select a Player or Position</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">Player</div>
+                                <div class="list-group ">
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Case Keenum (QB, DEN)
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Leveon Bell (RB, PIT)
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        David Johnson (RB, ARI)
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Antonio Brown Bell (WR, PIT)
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Mide Evans (WR, TB)
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Delanie Walker (TE, TEN)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">Position</div>
+                                <div class="list-group ">
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Quarterback
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Running Back
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Wide Receiver
+                                    </div>
+                                    <div class="list-group-item list-group-item-action trade-filter-item" data-toggle="modal" data-target="#tradeFilterModal">
+                                        Tight End
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,54 +330,6 @@
             @Html.HiddenFor(m => Model.Teams[i].Players[j].ReceivingTouchdowns)
             @Html.HiddenFor(m => Model.Teams[i].Players[j].FantasyPoints)
             @Html.HiddenFor(m => Model.Teams[i].Players[j].TradeValue)
-        }
-    }
-
-    @if (Model.MyTeam != null)
-    {
-        @Html.HiddenFor(m => m.MyTeam.Name)
-        @Html.HiddenFor(m => m.MyTeam.Url)
-
-        for (int i = 0; i < Model.MyTeam.Players.Count; i++)
-        {
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].PlayerId)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].Name)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].Position)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].Team)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingYards)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingTouchdowns)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].Interceptions)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingYards)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingTouchdowns)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].Receptions)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingYards)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingTouchdowns)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].FantasyPoints)
-            @Html.HiddenFor(m => Model.MyTeam.Players[i].TradeValue)
-        }
-    }
-
-    @if (Model.TheirTeam != null)
-    {
-        @Html.HiddenFor(m => m.TheirTeam.Name)
-        @Html.HiddenFor(m => m.TheirTeam.Url)
-
-        for (int i = 0; i < Model.TheirTeam.Players.Count; i++)
-        {
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].PlayerId)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Name)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Position)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Team)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingYards)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingTouchdowns)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Interceptions)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingYards)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingTouchdowns)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].Receptions)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingYards)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingTouchdowns)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].FantasyPoints)
-            @Html.HiddenFor(m => Model.TheirTeam.Players[i].TradeValue)
         }
     }
 

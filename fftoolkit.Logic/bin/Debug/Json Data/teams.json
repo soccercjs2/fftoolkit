@@ -1,5 +1,6 @@
 ﻿[
   {
+    "TeamId":  1,
     "Name": "Test Team 10",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1405120?season=2018",
     "Players": [
@@ -210,6 +211,7 @@
     ]
   },
   {
+    "TeamId": 2,
     "Name": "Test Team 8",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1405118?season=2018",
     "Players": [
@@ -386,6 +388,7 @@
     ]
   },
   {
+    "TeamId": 3,
     "Name": "soccercjs2's Team",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1402437?season=2018",
     "Players": [
@@ -545,6 +548,7 @@
     ]
   },
   {
+    "TeamId": 4,
     "Name": "soccercjs2_tl3",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1402441?season=2018",
     "Players": [
@@ -704,6 +708,7 @@
     ]
   },
   {
+    "TeamId": 5,
     "Name": "soccercjs2_tl4",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1402447?season=2018",
     "Players": [
@@ -914,6 +919,7 @@
     ]
   },
   {
+    "TeamId": 6,
     "Name": "soccercjs2_tl2",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1402445?season=2018",
     "Players": [
@@ -1107,6 +1113,7 @@
     ]
   },
   {
+    "TeamId": 7,
     "Name": "soccercjs2_tl1",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1402440?season=2018",
     "Players": [
@@ -1317,6 +1324,7 @@
     ]
   },
   {
+    "TeamId": 8,
     "Name": "soccercjs2_tl5",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1402456?season=2018",
     "Players": [
@@ -1493,6 +1501,7 @@
     ]
   },
   {
+    "TeamId": 9,
     "Name": "Test Team 6",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1405116?season=2018",
     "Players": [
@@ -1669,6 +1678,7 @@
     ]
   },
   {
+    "TeamId": 10,
     "Name": "Test Team 11",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1405121?season=2018",
     "Players": [
@@ -1845,6 +1855,7 @@
     ]
   },
   {
+    "TeamId": 11,
     "Name": "Test Team 7",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1405117?season=2018",
     "Players": [
@@ -2055,6 +2066,7 @@
     ]
   },
   {
+    "TeamId": 12,
     "Name": "Test Team 9",
     "Url": "http://www.fleaflicker.com/nfl/leagues/223917/teams/1405119?season=2018",
     "Players": [

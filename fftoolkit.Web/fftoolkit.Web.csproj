@@ -374,6 +374,7 @@
     <Content Include="Views\Shared\DisplayTemplates\OldRosterSide.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\NewRosterSide.cshtml" />
     <Content Include="Views\Trade\TradeFilter.cshtml" />
+    <Content Include="Views\Trade\TeamList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

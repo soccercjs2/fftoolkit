@@ -97,16 +97,23 @@ namespace fftoolkit.Controllers
             {
                 TradeManager tradeManager = new TradeManager(_context);
                 trades = new List<Trade>(); //tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
-                Team myTeam = model.Teams[11];
 
-                for (int i = 0; i < model.Teams.Count; i++)
+                if (model.TheirTeam != null)
                 {
-                    Team theirTeam = model.Teams[i];
-
-                    if (myTeam.Name != theirTeam.Name)
+                    List<Trade> teamTrades = tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
+                    trades.AddRange(teamTrades);
+                }
+                else
+                {
+                    for (int i = 0; i < model.Teams.Count; i++)
                     {
-                        List<Trade> teamTrades = tradeManager.FindTrades(myTeam, theirTeam, model.League);
-                        trades.AddRange(teamTrades);
+                        Team theirTeam = model.Teams[i];
+
+                        if (model.MyTeam.TeamId != theirTeam.TeamId)
+                        {
+                            List<Trade> teamTrades = tradeManager.FindTrades(model.MyTeam, theirTeam, model.League);
+                            trades.AddRange(teamTrades);
+                        }
                     }
                 }
 
@@ -138,6 +145,37 @@ namespace fftoolkit.Controllers
         }
 
         [HttpPost]
+        public ActionResult ShowTeamSelectorList(TradesViewModel model)
+        {
+            Team selectedTeam = model.Teams
+                .Where(t => t.TeamId == model.SelectedTeamId)
+                .FirstOrDefault();
+
+            List<Team> teams = new List<Team>(model.Teams);
+            
+            if (model.TeamSelectorMode == "TheirTeam")
+            {
+                if (model.MyTeam != null)
+                {
+                    int indexToRemove = 0;
+                    for (int i = 0; i < teams.Count; i++)
+                    {
+                        if (teams[i].TeamId == model.MyTeam.TeamId)
+                        {
+                            indexToRemove = i;
+                        }
+                    }
+
+                    teams.RemoveAt(indexToRemove);
+                }
+
+                teams.Insert(0, new Team() { TeamId = 0, Name = "All Teams" });
+            }
+
+            return PartialView("TeamList", teams);
+        }
+
+        [HttpPost]
         public ActionResult SetFilterTeam(TradesViewModel model)
         {
             Team selectedTeam = model.Teams.Where(t => t.TeamId == model.SelectedTeamId).FirstOrDefault();
@@ -151,8 +189,14 @@ namespace fftoolkit.Controllers
             {
                 model.MyTeam = selectedTeam;
                 model.MyFilters = new List<TradeFilterViewModel>(new TradeFilterViewModel[4]);
+
+                if (model.TheirTeam != null && model.MyTeam.TeamId == model.TheirTeam.TeamId)
+                {
+                    model.TheirTeam = null;
+                }
             }
 
+            model.TeamSelectorMode = null;
             model.SelectedTeamId = 0;
 
             return PartialView("TradeFilter", model);

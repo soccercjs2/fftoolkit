@@ -1,0 +1,72 @@
+﻿@model IEnumerable<fftoolkit.Logic.Classes.Team>
+
+@if (Model == null)
+{
+    <div class="col-md-12">No teams found.</div>
+}
+else
+{
+    <div class="col-md-12">
+        <div class="card">
+            <div class="list-group">
+                @foreach (var team in Model)
+                {
+                    <div class="list-group-item list-group-item-action trade-filter-item team-selector-team"
+                         data-team-id="@team.TeamId" data-team-name="@team.Name">
+                        @team.Name
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.MyTeam != null)
+{
+    @Html.HiddenFor(m => m.MyTeam.TeamId)
+    @Html.HiddenFor(m => m.MyTeam.Name)
+    @Html.HiddenFor(m => m.MyTeam.Url)
+
+    for (int i = 0; i < Model.MyTeam.Players.Count; i++)
+    {
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].PlayerId)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].Name)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].Position)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].Team)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingYards)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].PassingTouchdowns)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].Interceptions)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingYards)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].RushingTouchdowns)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].Receptions)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingYards)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].ReceivingTouchdowns)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].FantasyPoints)
+        @Html.HiddenFor(m => Model.MyTeam.Players[i].TradeValue)
+    }
+}
+
+@if (Model.TheirTeam != null)
+{
+    @Html.HiddenFor(m => m.TheirTeam.TeamId)
+    @Html.HiddenFor(m => m.TheirTeam.Name)
+    @Html.HiddenFor(m => m.TheirTeam.Url)
+
+    for (int i = 0; i < Model.TheirTeam.Players.Count; i++)
+    {
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].PlayerId)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Name)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Position)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Team)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingYards)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].PassingTouchdowns)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Interceptions)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingYards)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].RushingTouchdowns)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].Receptions)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingYards)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].ReceivingTouchdowns)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].FantasyPoints)
+        @Html.HiddenFor(m => Model.TheirTeam.Players[i].TradeValue)
+    }
+}
