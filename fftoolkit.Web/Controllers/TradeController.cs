@@ -90,8 +90,10 @@ namespace fftoolkit.Controllers
         public ActionResult FindTrades(TradesViewModel model)
         {
             if (model.MyTeam == null) { return View(model); }
-
+            
             List<Trade> trades = (List<Trade>)Session["Trades"];
+            //Team myTeam = (Team)Session["MyTeam"];
+            //Team theirTeam = (Team)Session["TheirTeam"];
 
             if (trades == null)
             {

@@ -12,6 +12,7 @@ namespace fftoolkit.Web.ViewModels
         public League League { get; set; }
         public string TeamSelectorMode { get; set; }
         public int SelectedTeamId { get; set; }
+        public Team SelectedTeam { get; set; }
 
         public Team MyTeam { get; set; }
         public List<TradeFilterViewModel> MyFilters { get; set; }
