@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,7 +41,7 @@ namespace fftoolkit.Controllers
             LeagueManager leagueManager = new LeagueManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);
             TradeManager tradeManager = new TradeManager(_context);
-            
+
             League league = leagueManager.Get(id);
 
             //try get players from session
@@ -58,7 +59,7 @@ namespace fftoolkit.Controllers
                 players = playerManager.Get(league);
                 players = tradeManager.GetTradeValues(players, league);
                 Session["Players"] = players;
-            }                
+            }
 
             //build teams with players
 
@@ -90,40 +91,56 @@ namespace fftoolkit.Controllers
         public ActionResult FindTrades(TradesViewModel model)
         {
             if (model.MyTeam == null) { return View(model); }
-            
-            List<Trade> trades = (List<Trade>)Session["Trades"];
-            //Team myTeam = (Team)Session["MyTeam"];
-            //Team theirTeam = (Team)Session["TheirTeam"];
 
+            Team myTeam = (Team)Session["MyTeam"];
+            Team theirTeam = (Team)Session["TheirTeam"];
+
+            //if teams have changed, clear trades from session
+            //else, get trades from session
+            List<Trade> trades = null;
+            if (myTeam != model.MyTeam ||
+                (theirTeam != null && model.TheirTeam != null && theirTeam != model.TheirTeam))
+            {
+                Session["Trades"] = null;
+            }
+            else
+            {
+                trades = (List<Trade>)Session["Trades"];
+            }
+
+            //if no applicable trades in session, find trades
             if (trades == null)
             {
                 TradeManager tradeManager = new TradeManager(_context);
-                trades = new List<Trade>(); //tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
+                trades = new List<Trade>();
 
                 if (model.TheirTeam != null)
                 {
+                    //find trades with their team
                     List<Trade> teamTrades = tradeManager.FindTrades(model.MyTeam, model.TheirTeam, model.League);
                     trades.AddRange(teamTrades);
                 }
                 else
                 {
-                    for (int i = 0; i < model.Teams.Count; i++)
+                    //find trades with all teams
+                    Parallel.ForEach(model.Teams, otherTeam =>
                     {
-                        Team theirTeam = model.Teams[i];
-
-                        if (model.MyTeam.TeamId != theirTeam.TeamId)
+                        if (model.MyTeam.TeamId != otherTeam.TeamId)
                         {
-                            List<Trade> teamTrades = tradeManager.FindTrades(model.MyTeam, theirTeam, model.League);
-                            trades.AddRange(teamTrades);
+                            trades.AddRange(tradeManager.FindTrades(model.MyTeam, otherTeam, model.League));
                         }
-                    }
+                    });
                 }
 
+                //order trades by those most valuable to both
                 trades = trades
                     .OrderByDescending(t => t.MyTradeSide.Difference * t.TheirTradeSide.Difference)
                     .ToList();
 
+                //store teams and trades in session
                 Session["Trades"] = trades;
+                Session["MyTeam"] = model.MyTeam;
+                Session["TheirTeam"] = model.TheirTeam;
             }
 
             model.Trades = trades;

@@ -95,9 +95,9 @@ namespace fftoolkit.Logic.Managers
             List<List<Player>> myPlayerCombos = GetPlayerCombinations(myTeam);
             List<List<Player>> theirPlayerCombos = GetPlayerCombinations(theirTeam);
 
-            foreach (List<Player> myPlayers in myPlayerCombos)
+            Parallel.ForEach(myPlayerCombos, myPlayers =>
             {
-                foreach (List<Player> theirPlayers in theirPlayerCombos)
+                Parallel.ForEach(theirPlayerCombos, theirPlayers =>
                 {
                     Roster myNewStartingRoster = GetStartingRoster(myTeam.Players, league, theirPlayers, myPlayers);
                     Roster theirNewStartingRoster = GetStartingRoster(theirTeam.Players, league, myPlayers, theirPlayers);
@@ -161,7 +161,7 @@ namespace fftoolkit.Logic.Managers
                                 TradeValue = myTradeValue,
                                 MaxPlayerCount = maxPlayerCount
                             },
-                            
+
                             TheirTradeSide = new TradeSide()
                             {
                                 TeamName = theirTeam.Name,
@@ -177,8 +177,8 @@ namespace fftoolkit.Logic.Managers
 
                         trades.Add(trade);
                     }
-                }
-            }
+                });
+            });
 
             return trades;
         }
