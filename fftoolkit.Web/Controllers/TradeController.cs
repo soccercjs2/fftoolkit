@@ -98,8 +98,8 @@ namespace fftoolkit.Controllers
             //if teams have changed, clear trades from session
             //else, get trades from session
             List<Trade> trades = null;
-            if (myTeam != model.MyTeam ||
-                (theirTeam != null && model.TheirTeam != null && theirTeam != model.TheirTeam))
+            if (!myTeam.Equals(model.MyTeam) ||
+                (theirTeam != null && model.TheirTeam != null && !theirTeam.Equals(model.TheirTeam)))
             {
                 Session["Trades"] = null;
             }
@@ -107,6 +107,9 @@ namespace fftoolkit.Controllers
             {
                 trades = (List<Trade>)Session["Trades"];
             }
+
+            Session["MyTeam"] = model.MyTeam;
+            Session["TheirTeam"] = model.TheirTeam;
 
             //if no applicable trades in session, find trades
             if (trades == null)
@@ -139,8 +142,6 @@ namespace fftoolkit.Controllers
 
                 //store teams and trades in session
                 Session["Trades"] = trades;
-                Session["MyTeam"] = model.MyTeam;
-                Session["TheirTeam"] = model.TheirTeam;
             }
 
             model.Trades = trades;
@@ -217,6 +218,8 @@ namespace fftoolkit.Controllers
 
             model.TeamSelectorMode = null;
             model.SelectedTeamId = 0;
+
+            ModelState.Clear();
 
             return PartialView("TradeFilter", model);
         }

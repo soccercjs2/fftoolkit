@@ -97,7 +97,8 @@ namespace fftoolkit.Logic.Managers
 
             Parallel.ForEach(myPlayerCombos, myPlayers =>
             {
-                Parallel.ForEach(theirPlayerCombos, theirPlayers =>
+                //Parallel.ForEach(theirPlayerCombos, theirPlayers =>
+                foreach (var theirPlayers in theirPlayerCombos)
                 {
                     Roster myNewStartingRoster = GetStartingRoster(myTeam.Players, league, theirPlayers, myPlayers);
                     Roster theirNewStartingRoster = GetStartingRoster(theirTeam.Players, league, myPlayers, theirPlayers);
@@ -177,7 +178,7 @@ namespace fftoolkit.Logic.Managers
 
                         trades.Add(trade);
                     }
-                });
+                }/*);*/
             });
 
             return trades;
