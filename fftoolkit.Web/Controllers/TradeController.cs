@@ -98,7 +98,7 @@ namespace fftoolkit.Controllers
             //if teams have changed, clear trades from session
             //else, get trades from session
             List<Trade> trades = null;
-            if (!myTeam.Equals(model.MyTeam) ||
+            if ((myTeam != null &&!myTeam.Equals(model.MyTeam)) ||
                 (theirTeam != null && model.TheirTeam != null && !theirTeam.Equals(model.TheirTeam)))
             {
                 Session["Trades"] = null;
