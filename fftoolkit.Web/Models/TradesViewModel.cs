@@ -1,11 +1,9 @@
-﻿using fftoolkit.DB.Model;
+﻿using fftoolkit.DB.Models;
 using fftoolkit.Logic.Classes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace fftoolkit.Web.ViewModels
+namespace fftoolkit.Web.Models
 {
     public class TradesViewModel
     {

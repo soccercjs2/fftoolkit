@@ -2,14 +2,14 @@
 
 <div class="card roster-card">
     @{
-        var newPlayers = new List<fftoolkit.DB.Model.Player>();
+        var newPlayers = new List<fftoolkit.DB.Models.Player>();
         newPlayers.AddRange(Model.NewRoster.Quarterbacks);
         newPlayers.AddRange(Model.NewRoster.RunningBacks);
         newPlayers.AddRange(Model.NewRoster.WideReceivers);
         newPlayers.AddRange(Model.NewRoster.TightEnds);
         newPlayers.AddRange(Model.NewRoster.Flexes);
 
-        var oldPlayers = new List<fftoolkit.DB.Model.Player>();
+        var oldPlayers = new List<fftoolkit.DB.Models.Player>();
         oldPlayers.AddRange(Model.OldRoster.Quarterbacks);
         oldPlayers.AddRange(Model.OldRoster.RunningBacks);
         oldPlayers.AddRange(Model.OldRoster.WideReceivers);

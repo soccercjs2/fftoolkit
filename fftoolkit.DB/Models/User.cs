@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace fftoolkit.DB.Model
+namespace fftoolkit.DB.Models
 {
     public class User
     {
@@ -14,5 +12,7 @@ namespace fftoolkit.DB.Model
         public string AspNetUserId { get; set; }
 
         public virtual List<League> Leagues { get; set; }
+        public virtual List<DraftInvite> DraftInvites { get; set; }
+        public virtual List<DraftParticipant> DraftParticipants { get; set; }
     }
 }

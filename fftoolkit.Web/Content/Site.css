@@ -296,3 +296,148 @@ textarea {
 .worse-player {
     color: red;
 }
+
+/* --- DRAFT SETUP STYLES --- */
+
+.hidden {
+    display: none;
+}
+
+.draft-participant {
+    display: flex;
+    justify-content: space-between;
+}
+
+.draft-participant-choice-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.draft-participant-choice-container:first-child input {
+    margin-right: 5px;
+}
+
+/* --- DRAFT STYLES --- */
+
+/*.draft-container {
+    display: flex;
+    flex-direction: row;
+}*/
+
+.draft-player-list-container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 0px;
+}
+
+.draft-player-list-header {
+    background-color: lightgrey;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    padding: 5px;
+}
+
+.draft-player-list {
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    height: 800px;
+    overflow-y: scroll;
+}
+
+.draft-player-list-player {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 3px;
+    border-top: 1px solid grey;
+    font-weight: normal;
+    font-size: medium;
+    border-collapse: collapse;
+}
+
+.draft-player-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.draft-player-button {
+    display: inline-block;
+    color: white;
+    background-color: green;
+    font-weight: bold;
+    font-size: large;
+    padding: 0px 2px;
+    border-radius: 5px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    cursor: pointer;
+}
+
+/*.draft-board-container {
+    display: flex;
+    flex-direction: row;
+    font-size: small;
+}
+
+.draft-board-team-container {
+    display: flex;
+    flex-direction: column;
+    width: 125px;
+}
+
+.draft-board-team-header {
+    background-color: lightgray;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+
+
+.drafted-player-container {
+    border: 1px solid black;
+    height: 66px;
+    padding: 2px;
+}*/
+
+.draft-board-table {
+    font-size: small;
+}
+
+.draft-board-table th {
+    background-color: lightgray;
+    border: 1px solid grey;
+    text-align: center;
+    max-width: 110px;
+}
+
+.draft-board-team-name {
+    margin: 0px 5px;
+    overflow: hidden;
+}
+
+.draft-board-round {
+    background-color: lightgray;
+    border: 1px solid grey;
+    text-align: center;
+    padding: 3px;
+}
+
+.draft-board-player-cell {
+    border: 1px solid black;
+    max-width: 110px;
+}
+
+.draft-board-player {
+    overflow: hidden;
+    margin: 5px;
+}
+
+.draft-board-player-name {
+    overflow: hidden;
+    max-height: 40px;
+}

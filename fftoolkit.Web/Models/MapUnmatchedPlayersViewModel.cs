@@ -1,10 +1,7 @@
-﻿using fftoolkit.DB.Model;
-using System;
+﻿using fftoolkit.DB.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace fftoolkit.Web.ViewModels
+namespace fftoolkit.Web.Models
 {
     public class MapUnmatchedPlayersViewModel
     {

@@ -76,7 +76,54 @@
     <Compile Include="Migrations\201807212125178_adding unmatched players.Designer.cs">
       <DependentUpon>201807212125178_adding unmatched players.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908081141441_adding draft stuff.cs" />
+    <Compile Include="Migrations\201908081141441_adding draft stuff.Designer.cs">
+      <DependentUpon>201908081141441_adding draft stuff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908081752560_updating user to get drafts.cs" />
+    <Compile Include="Migrations\201908081752560_updating user to get drafts.Designer.cs">
+      <DependentUpon>201908081752560_updating user to get drafts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908082027012_more draft stuff.cs" />
+    <Compile Include="Migrations\201908082027012_more draft stuff.Designer.cs">
+      <DependentUpon>201908082027012_more draft stuff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908101108297_removing some unnecesary fields.cs" />
+    <Compile Include="Migrations\201908101108297_removing some unnecesary fields.Designer.cs">
+      <DependentUpon>201908101108297_removing some unnecesary fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908101213012_accept for draft invite.cs" />
+    <Compile Include="Migrations\201908101213012_accept for draft invite.Designer.cs">
+      <DependentUpon>201908101213012_accept for draft invite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908101222018_making draft participant user id nullable.cs" />
+    <Compile Include="Migrations\201908101222018_making draft participant user id nullable.Designer.cs">
+      <DependentUpon>201908101222018_making draft participant user id nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908151056350_adding is local to draft participant.cs" />
+    <Compile Include="Migrations\201908151056350_adding is local to draft participant.Designer.cs">
+      <DependentUpon>201908151056350_adding is local to draft participant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908151107343_reverting is local column.cs" />
+    <Compile Include="Migrations\201908151107343_reverting is local column.Designer.cs">
+      <DependentUpon>201908151107343_reverting is local column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908160911464_adding rounds to draft.cs" />
+    <Compile Include="Migrations\201908160911464_adding rounds to draft.Designer.cs">
+      <DependentUpon>201908160911464_adding rounds to draft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908181110048_adding league to draft.cs" />
+    <Compile Include="Migrations\201908181110048_adding league to draft.Designer.cs">
+      <DependentUpon>201908181110048_adding league to draft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908181115558_making league id required and non nullable.cs" />
+    <Compile Include="Migrations\201908181115558_making league id required and non nullable.Designer.cs">
+      <DependentUpon>201908181115558_making league id required and non nullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Draft.cs" />
+    <Compile Include="Models\DraftInvite.cs" />
+    <Compile Include="Models\DraftParticipant.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\UnmatchedPlayer.cs" />
     <Compile Include="Models\Player.cs" />
@@ -110,6 +157,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807212125178_adding unmatched players.resx">
       <DependentUpon>201807212125178_adding unmatched players.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908081141441_adding draft stuff.resx">
+      <DependentUpon>201908081141441_adding draft stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908081752560_updating user to get drafts.resx">
+      <DependentUpon>201908081752560_updating user to get drafts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908082027012_more draft stuff.resx">
+      <DependentUpon>201908082027012_more draft stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908101108297_removing some unnecesary fields.resx">
+      <DependentUpon>201908101108297_removing some unnecesary fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908101213012_accept for draft invite.resx">
+      <DependentUpon>201908101213012_accept for draft invite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908101222018_making draft participant user id nullable.resx">
+      <DependentUpon>201908101222018_making draft participant user id nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908151056350_adding is local to draft participant.resx">
+      <DependentUpon>201908151056350_adding is local to draft participant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908151107343_reverting is local column.resx">
+      <DependentUpon>201908151107343_reverting is local column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908160911464_adding rounds to draft.resx">
+      <DependentUpon>201908160911464_adding rounds to draft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908181110048_adding league to draft.resx">
+      <DependentUpon>201908181110048_adding league to draft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908181115558_making league id required and non nullable.resx">
+      <DependentUpon>201908181115558_making league id required and non nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

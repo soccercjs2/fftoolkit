@@ -1,0 +1,34 @@
+﻿@model IEnumerable<fftoolkit.DB.Models.Draft>
+
+@{
+    ViewBag.Title = "Your Fantasy Drafts";
+}
+
+<h2>Your Fantasy Drafts</h2>
+
+<hr />
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="league-list list-group">
+        @foreach (var draftParticipant in Model)
+        {
+            <div class="league-list-item list-group-item">
+                <b>@draftParticipant.Name</b>
+
+                <div class="league-list-item-link-container">
+                    <a href="Draft/Room/@draftParticipant.DraftId">[enter]</a>
+                    @if (draftParticipant.OwnerUserId == int.Parse(ViewData["CurrentUserId"].ToString()))
+                    {
+                        <a href="Draft/Edit/@draftParticipant.DraftId">[edit]</a>
+                        <a href="Draft/Delete/@draftParticipant.DraftId">[delete]</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<div>
+    @Html.ActionLink("[+ Create New Draft]", "Create", null, new { @class = "add-link" })
+</div>

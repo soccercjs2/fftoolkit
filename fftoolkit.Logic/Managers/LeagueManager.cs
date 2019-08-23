@@ -1,43 +1,39 @@
 ﻿using fftoolkit.Data.Workers;
 using fftoolkit.DB.Context;
-using fftoolkit.DB.Model;
+using fftoolkit.DB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace fftoolkit.Logic.Managers
 {
     public class LeagueManager
     {
         private DataContext _context;
-        private LeagueWorker _leaguerWorker;
+        private LeagueWorker _leagueWorker;
 
         public LeagueManager(DataContext context)
         {
             _context = context ?? throw new Exception("The context cannot be null.");
-            _leaguerWorker = new LeagueWorker(_context);
+            _leagueWorker = new LeagueWorker(_context);
         }
 
         public void Add(League league)
         {
-            _leaguerWorker.Add(league);
+            _leagueWorker.Add(league);
         }
 
         public League Get(int leagueId)
         {
-            return _leaguerWorker.Get(leagueId);
+            return _leagueWorker.Get(leagueId);
         }
 
         public void Update(League league)
         {
-            _leaguerWorker.Update(league);
+            _leagueWorker.Update(league);
         }
 
         public void Delete(int leagueId)
         {
-            _leaguerWorker.Delete(leagueId);
+            _leagueWorker.Delete(leagueId);
         }
     }
 }

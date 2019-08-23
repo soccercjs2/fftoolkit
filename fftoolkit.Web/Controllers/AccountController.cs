@@ -55,9 +55,12 @@ namespace fftoolkit.Web.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string ReturnUrl)
         {
-            return View();
+            return View(new LoginViewModel()
+            {
+                ReturnUrl = ReturnUrl
+            });
         }
 
         //
@@ -78,7 +81,7 @@ namespace fftoolkit.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(null);
+                    return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -136,9 +139,12 @@ namespace fftoolkit.Web.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string ReturnUrl)
         {
-            return View();
+            return View(new RegisterViewModel()
+            {
+                ReturnUrl = ReturnUrl
+            });
         }
 
         //
@@ -155,14 +161,15 @@ namespace fftoolkit.Web.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    if (model.ReturnUrl != null) { return RedirectToLocal(model.ReturnUrl); }
+                    else { return RedirectToAction("Index", "Home"); }
                 }
                 AddErrors(result);
             }

@@ -1,0 +1,123 @@
+﻿@model fftoolkit.Web.Models.EditDraftViewModel
+
+<div class="col-md-12 col-lg-4">
+    <div class="card">
+        <div class="card-header">Draft</div>
+        <div class="card-body">
+            <div class="form-group draft-participant-choice-container">
+                <input id="show-remote-drafter-input" type="button" value="Remote Drafter" class="btn btn-secondary col-lg-6" />
+                <input id="show-local-drafter-input" type="button" value="Local Drafter" class="btn btn-secondary col-lg-6" />
+            </div>
+
+            <div id="remote-drafter-input-container" class="hidden">
+                <hr />
+
+                <div>
+                    @Html.LabelFor(m => m.NewDraftInvite.EmailAddress)
+                    @Html.TextBoxFor(m => m.NewDraftInvite.EmailAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NewDraftInvite.EmailAddress, "", new { @class = "text-danger", @type = "number" })
+                </div>
+
+                <hr />
+
+                <input id="add-remote-drafter" type="button" value="Add Remote Drafter" class="btn btn-primary" />
+            </div>
+
+            <div id="local-drafter-input-container" class="hidden">
+                <hr />
+
+                <div>
+                    @Html.LabelFor(m => m.NewDraftParticipant.Name)
+                    @Html.TextBoxFor(m => m.NewDraftParticipant.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NewDraftParticipant.Name, "", new { @class = "text-danger", @type = "number" })
+                </div>
+
+                <hr />
+
+                <input id="add-local-drafter" type="button" value="Add Local Drafter" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Draft.DraftInvites != null && Model.Draft.DraftInvites.Where(di => di.Active).Count() > 0)
+{
+    <div class="col-md-12 col-lg-4">
+        <div class="card">
+            <div class="card-header">Active Draft Invites</div>
+            <div class="card-body">
+                @foreach (var draftInvite in Model.Draft.DraftInvites.Where(di => di.Active))
+                {
+                    <div>@draftInvite.EmailAddress</div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Draft.DraftParticipants != null && Model.Draft.DraftParticipants.Count > 0)
+{
+    <div class="col-md-12 col-lg-4">
+        <div class="card">
+            <div class="card-header">Draft Participants</div>
+            <div class="card-body">
+                @foreach (var draftParticipant in Model.Draft.DraftParticipants)
+                {
+                    <div class="draft-participant">
+                        <div class="inline-control">
+                            <div class="inline-control">@draftParticipant.DraftPosition<span>.</span></div>
+
+                            @if (draftParticipant.Name != null)
+                            {
+                                <div class="inline-control">@draftParticipant.Name</div>
+                            }
+                            else if (draftParticipant.User != null)
+                            {
+                                <div class="inline-control">@draftParticipant.User.AspNetUserId</div>
+                            }
+                        </div>
+
+                        @if (draftParticipant.UserId.HasValue)
+                        {
+                            <div class="inline-control">Remote</div>
+                        }
+                        else
+                        {
+                            <div class="inline-control">Local</div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@Html.HiddenFor(m => m.NewDraftInvite.DraftId)
+@Html.HiddenFor(m => m.NewDraftInvite.Active)
+
+@Html.HiddenFor(m => m.NewDraftParticipant.DraftId)
+@Html.HiddenFor(m => m.NewDraftParticipant.DraftPosition)
+
+@if (Model.Draft.DraftInvites != null)
+{
+    for (int i = 0; i < Model.Draft.DraftInvites.Count; i++)
+    {
+        @Html.HiddenFor(m => m.Draft.DraftInvites[i].DraftInviteId)
+        @Html.HiddenFor(m => m.Draft.DraftInvites[i].DraftId)
+        @Html.HiddenFor(m => m.Draft.DraftInvites[i].EmailAddress)
+        @Html.HiddenFor(m => m.Draft.DraftInvites[i].Guid)
+        @Html.HiddenFor(m => m.Draft.DraftInvites[i].Active)
+    }
+}
+
+@if (Model.Draft.DraftParticipants != null)
+{
+    for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
+    {
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].DraftParticipantId)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].DraftId)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].DraftPosition)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].Name)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].UserId)
+    }
+}

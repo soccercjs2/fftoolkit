@@ -1,10 +1,6 @@
 ﻿using fftoolkit.DB.Context;
-using fftoolkit.DB.Model;
+using fftoolkit.DB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace fftoolkit.Data.Workers
 {

@@ -1,10 +1,6 @@
-﻿using fftoolkit.DB.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using fftoolkit.DB.Models;
 
-namespace fftoolkit.Web.ViewModels
+namespace fftoolkit.Web.Models
 {
     public class TradeFilterViewModel
     {

@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DailyFantasySportsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DraftController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\LineupOptimizerController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -204,13 +205,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DraftRoomViewModel.cs" />
+    <Compile Include="Models\EditDraftViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\MapUnmatchedPlayersViewModel.cs" />
-    <Compile Include="ViewModels\TradeFilterViewModel.cs" />
-    <Compile Include="ViewModels\TradesViewModel.cs" />
+    <Compile Include="Models\MapUnmatchedPlayersViewModel.cs" />
+    <Compile Include="Models\TradeFilterViewModel.cs" />
+    <Compile Include="Models\TradesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -375,9 +378,15 @@
     <Content Include="Views\Shared\DisplayTemplates\NewRosterSide.cshtml" />
     <Content Include="Views\Trade\TradeFilter.cshtml" />
     <Content Include="Views\Trade\TeamList.cshtml" />
+    <Content Include="Views\Draft\Index.cshtml" />
+    <Content Include="Views\Draft\Edit.cshtml" />
+    <Content Include="Views\Shared\_DraftInviteParticipant.cshtml" />
+    <Content Include="Views\Draft\Room.cshtml" />
+    <Content Include="Views\Shared\_DraftRoomLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>

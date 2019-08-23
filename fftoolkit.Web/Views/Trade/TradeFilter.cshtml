@@ -1,4 +1,4 @@
-﻿@model fftoolkit.Web.ViewModels.TradesViewModel
+﻿@model fftoolkit.Web.Models.TradesViewModel
 
 <div class="card">
     <div id="my-filter-header" class="card-header filter-header">
@@ -21,13 +21,13 @@
                         (any player/position)
                     </span>
                 }
-                else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
+                else if (filter.Type == fftoolkit.Web.Models.TradeFilterType.Player && filter.Player != null)
                 {
                     <span>
                         @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
                     </span>
                 }
-                else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
+                else if (filter.Type == fftoolkit.Web.Models.TradeFilterType.Position && filter.Position != null)
                 {
                     <span class="trade-filter-item-default">
                         @filter.Position
@@ -60,13 +60,13 @@
                         (any player/position)
                     </span>
                 }
-                else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Player && filter.Player != null)
+                else if (filter.Type == fftoolkit.Web.Models.TradeFilterType.Player && filter.Player != null)
                 {
                     <span>
                         @filter.Player.Name (@filter.Player.Position, @filter.Player.Team)
                     </span>
                 }
-                else if (filter.Type == fftoolkit.Web.ViewModels.TradeFilterType.Position && filter.Position != null)
+                else if (filter.Type == fftoolkit.Web.Models.TradeFilterType.Position && filter.Position != null)
                 {
                     <span class="trade-filter-item-default">
                         @filter.Position

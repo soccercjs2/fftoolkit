@@ -1,0 +1,135 @@
+﻿@model fftoolkit.Web.Models.EditDraftViewModel
+
+@{
+    ViewBag.Title = "Manage Your Draft";
+}
+
+@section scripts {
+    <script type="text/javascript">
+
+        jQuery(document).on('click', '#show-remote-drafter-input', function () {
+            document.getElementById('remote-drafter-input-container').style.display = "block";
+            document.getElementById('local-drafter-input-container').style.display = "none";
+        });
+
+        jQuery(document).on('click', '#show-local-drafter-input', function () {
+            document.getElementById('local-drafter-input-container').style.display = "block";
+            document.getElementById('remote-drafter-input-container').style.display = "none";
+        });
+
+        jQuery(document).on('click', '#add-remote-drafter', function () {
+            $.ajax({
+                type: "POST",
+                url: '/Draft/AddRemoteDrafter',
+                data: $('#edit-draft-form').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Local drafter added successfully!');
+                    $('#draft-invite-participant-container').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error adding a local drafter!")
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+        });
+
+        jQuery(document).on('click', '#add-local-drafter', function () {
+            $.ajax({
+                type: "POST",
+                url: '/Draft/AddLocalDrafter',
+                data: $('#edit-draft-form').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Local drafter added successfully!');
+                    $('#draft-invite-participant-container').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error adding a local drafter!")
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+        });
+
+    </script>
+}
+
+<h2>Manage Your Draft</h2>
+
+@using (Html.BeginForm("Edit", "Draft", FormMethod.Post, new { @id = "edit-draft-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Draft.DraftId)
+    @Html.HiddenFor(m => m.Draft.OwnerUserId)
+
+    <div class="row card-row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Draft Settings</div>
+                <div class="card-body">
+                    <div>
+                        @Html.LabelFor(m => m.Draft.Name)
+                        @Html.TextBoxFor(m => m.Draft.Name, new { @class = "form-control full" })
+                        @Html.ValidationMessageFor(m => m.Draft.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Draft.StartDate)
+                        @Html.TextBoxFor(m => m.Draft.StartDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Draft.StartDate, "", new { @class = "text-danger", @type = "date" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Draft.Teams)
+                        @Html.TextBoxFor(m => m.Draft.Teams, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Draft.Teams, "", new { @class = "text-danger", @type = "number" })
+                    </div>
+
+                    @if (Model.Leagues != null)
+                    {
+                        <div>
+                            @Html.LabelFor(m => m.Draft.Teams)
+                            @Html.DropDownListFor(m => m.Draft.LeagueId, new SelectList(Model.Leagues, "LeagueId", "Name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Draft.Teams, "", new { @class = "text-danger", @type = "number" })
+                        </div>
+
+                        for (int i = 0; i < Model.Leagues.Count; i++)
+                        {
+                            @Html.HiddenFor(m => m.Leagues[i].LeagueId)
+                            @Html.HiddenFor(m => m.Leagues[i].UserId)
+                            @Html.HiddenFor(m => m.Leagues[i].Name)
+                            @Html.HiddenFor(m => m.Leagues[i].Url)
+                            @Html.HiddenFor(m => m.Leagues[i].Quarterbacks)
+                            @Html.HiddenFor(m => m.Leagues[i].RunningBacks)
+                            @Html.HiddenFor(m => m.Leagues[i].WideReceivers)
+                            @Html.HiddenFor(m => m.Leagues[i].TightEnds)
+                            @Html.HiddenFor(m => m.Leagues[i].Flexes)
+                            @Html.HiddenFor(m => m.Leagues[i].PointsPerReception)
+                            @Html.HiddenFor(m => m.Leagues[i].PointsPerPassingYard)
+                            @Html.HiddenFor(m => m.Leagues[i].PointsPerPassingTouchdown)
+                            @Html.HiddenFor(m => m.Leagues[i].PointsLostPerInterception)
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="draft-invite-participant-container" class="row card-row">
+        @Html.Partial("_DraftInviteParticipant", Model)
+    </div>
+
+    <hr />
+
+    <div class="row button-container">
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+        <div>&nbsp;</div>
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}

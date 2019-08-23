@@ -1,15 +1,12 @@
 ﻿using fftoolkit.DB.Context;
-using fftoolkit.DB.Model;
 using fftoolkit.DB.Models;
 using fftoolkit.Logic.Classes;
 using fftoolkit.Logic.Managers;
-using fftoolkit.Logic.Scrapers;
-using fftoolkit.Web.ViewModels;
+using fftoolkit.Web.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace fftoolkit.Controllers
