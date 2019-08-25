@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Create Some Players.sql" />
+    <Content Include="Seed Script\Player Migration.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
