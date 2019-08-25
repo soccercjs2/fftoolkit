@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Workers\DraftInviteWorker.cs" />
+    <Compile Include="Workers\DraftPickWorker.cs" />
     <Compile Include="Workers\DraftParticipantWorker.cs" />
     <Compile Include="Workers\DraftWorker.cs" />
     <Compile Include="Workers\MappingWorker.cs" />

@@ -49,7 +49,7 @@ namespace fftoolkit.Logic.Managers
 
         private int GetCurrentYear()
         {
-            return 2018;
+            return DateTime.Today.Year;
         }
 
         private int GetCurrentWeek()

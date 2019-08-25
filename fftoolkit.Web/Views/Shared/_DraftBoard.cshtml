@@ -1,0 +1,63 @@
+﻿@model fftoolkit.Web.Models.DraftRoomViewModel
+
+<table class="draft-board-table">
+    <thead>
+        <tr>
+            <th class="draft-board-table-side-column"></th>
+            @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
+            {
+                <th class="draft-board-table-center-column"><div class="draft-board-team-name">@Model.Draft.DraftParticipants[i].Name</div></th>
+            }
+            <th class="draft-board-table-side-column"></th>
+        </tr>
+        <tr>
+            <th></th>
+            @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
+            {
+                <th>@(i + 1)</th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (int i = 0; i < Model.Draft.Rounds; i++)
+        {
+            <tr>
+                <td class="draft-board-round">@(i + 1)</td>
+                @for (int j = 0; j < Model.Draft.DraftParticipants.Count; j++)
+                {
+                    <td class="draft-board-player-cell">
+                        <div class="draft-board-player">
+                            @if (i % 2 == 0)
+                            {<div class="draft-board-player-name">Saquon Barkley</div> }
+                            else
+                            { <div class="draft-board-player-name">Saquoniliusiliusilius Barkley The Third Of His Name</div>}
+                            <div>(RB, NYG)</div>
+                        </div>
+                    </td>
+                }
+                <td class="draft-board-round">@(i + 1)</td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
+            {
+                <th>@(i + 1)</th>
+            }
+            <th></th>
+        </tr>
+        <tr>
+            <th></th>
+            @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
+            {
+                <th><div class="draft-board-team-name">@Model.Draft.DraftParticipants[i].Name</div></th>
+            }
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

@@ -17,6 +17,7 @@ namespace fftoolkit.DB.Context
         public DbSet<Draft> Drafts { get; set; }
         public DbSet<DraftInvite> DraftInvites { get; set; }
         public DbSet<DraftParticipant> DraftParticipants { get; set; }
+        public DbSet<DraftPick> DraftPicks { get; set; }
 
         public DataContext() : base("DataContext") { }
 

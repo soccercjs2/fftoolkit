@@ -32,7 +32,7 @@ namespace fftoolkit.Controllers
                 throw new Exception("No user found;");
             }
 
-            List<Draft> drafts = user.DraftParticipants?.Select(dp => draftManager.Get(dp.DraftId)).ToList();
+            List<Draft> drafts = draftManager.Get(user);
             ViewData["CurrentUserId"] = user.UserId;
 
             return View(drafts);
@@ -52,23 +52,23 @@ namespace fftoolkit.Controllers
                 Teams = 12
             };
 
-            draft.DraftParticipants = new List<DraftParticipant>
-            {
-                new DraftParticipant()
-                {
-                    DraftId = draft.DraftId,
-                    UserId = user.UserId,
-                    User = user,
-                    Name = HttpContext.User.Identity.Name,
-                    DraftPosition = 1
-                }
-            };
+            //draft.DraftParticipants = new List<DraftParticipant>
+            //{
+            //    new DraftParticipant()
+            //    {
+            //        DraftId = draft.DraftId,
+            //        UserId = user.UserId,
+            //        User = user,
+            //        Name = HttpContext.User.Identity.Name,
+            //        DraftPosition = 1
+            //    }
+            //};
 
             return View("Edit", new EditDraftViewModel()
             {
                 Draft = draft,
                 NewDraftInvite = new DraftInvite() { Active = true },
-                NewDraftParticipant = new DraftParticipant() { DraftPosition = draft.DraftParticipants.Count + 1 },
+                NewDraftParticipant = new DraftParticipant() { DraftPosition = (draft.DraftParticipants == null) ? 1 : draft.DraftParticipants.Count + 1 },
                 Leagues = user.Leagues
             });
         }
@@ -227,18 +227,86 @@ namespace fftoolkit.Controllers
 
             Draft draft = draftManager.Get(id);
 
-            //List<Player> players = playerManager.Get(draft.League);
-            //players = tradeManager.GetTradeValues(players, draft.League);
-            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(System.IO.File.ReadAllText(@"C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\Json Data\players.json"));
-            players = players.OrderByDescending(p => p.TradeValue).ToList();
-            List<string> positions = players.Select(p => p.Position).Distinct().ToList();
+            List<Player> players = playerManager.Get(draft.League);
+            players = tradeManager.GetTradeValues(players, draft.League);
+            //List<Player> players = JsonConvert.DeserializeObject<List<Player>>(System.IO.File.ReadAllText(@"C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\Json Data\players.json"));
+            //players = players.OrderByDescending(p => p.TradeValue).ToList();
+            //List<string> positions = players.Select(p => p.Position).Distinct().ToList();
 
             return View(new DraftRoomViewModel()
             {
                 Draft = draft,
                 Players = players,
-                Positions = positions
+                CurrentRound = 1,
+                CurrentPick = 1,
+                DraftPickAscending = true
             });
+        }
+
+        public ActionResult DraftPlayer(DraftRoomViewModel draftRoomViewModel)
+        {
+            Player draftedPlayer = draftRoomViewModel.Players.Where(p => p.PlayerId == draftRoomViewModel.SelectedPlayerId).FirstOrDefault();
+
+            if (draftedPlayer == null)
+            {
+                draftRoomViewModel.Message = string.Format("No available player with id of {0}.", draftRoomViewModel.SelectedPlayerId);
+                draftRoomViewModel.IsErrorMessage = true;
+                draftRoomViewModel.SelectedPlayerId = null;
+                return PartialView("_DraftBoard", draftRoomViewModel);
+            }
+            else
+            {
+                draftRoomViewModel.Message = string.Format("{0} has successfully drafted {1}!", 
+                    draftRoomViewModel.Draft.DraftParticipants[draftRoomViewModel.CurrentPick - 1].Name,
+                    string.Format("{0} ({1}, {2})", draftedPlayer.Name, draftedPlayer.Position, draftedPlayer.Team));
+            }
+
+            DraftPickManager draftPickManager = new DraftPickManager(_context);
+            DraftPick draftPick = draftPickManager.Add(
+                draftRoomViewModel.Draft.DraftId, 
+                draftedPlayer.PlayerId, 
+                draftRoomViewModel.CurrentRound, 
+                draftRoomViewModel.CurrentPick);
+
+            if (draftRoomViewModel.DraftPicks == null) { draftRoomViewModel.DraftPicks = new List<DraftPick>(); }
+            draftRoomViewModel.DraftPicks.Add(draftPick);
+
+            //clear the selected player
+            draftRoomViewModel.SelectedPlayerId = null;
+
+            //draft picks are ascending (from 1 => 12)
+            if (draftRoomViewModel.DraftPickAscending)
+            {
+                //standard draft pick, stay in the same round and go to the next pick (+1)
+                if (draftRoomViewModel.CurrentPick < draftRoomViewModel.Draft.DraftParticipants.Count)
+                {
+                    draftRoomViewModel.CurrentPick += 1;
+                }
+                //made a draft pick at the end of the round (pick 12)
+                else
+                {
+                    //increase the round, keep the pick the same, reverse the draft direction
+                    draftRoomViewModel.CurrentRound += 1;
+                    draftRoomViewModel.DraftPickAscending = false;
+                }
+            }
+            //draft picks are descending (from 12 => 1)
+            else
+            {
+                //standard draft pick, stay in the same round and go to the next pick (-1)
+                if (draftRoomViewModel.CurrentPick > 1)
+                {
+                    draftRoomViewModel.CurrentPick -= 1;
+                }
+                //made a draft pick at the end of the round (pick 1)
+                else
+                {
+                    draftRoomViewModel.CurrentRound += 1;
+                    draftRoomViewModel.DraftPickAscending = true;
+                }
+            }
+
+            return PartialView("_DraftBoard", draftRoomViewModel);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace fftoolkit.Logic.Scrapers
                         player.ReceivingTouchdowns = decimal.Parse(row.SelectSingleNode("./td[7]").InnerText) / 16;
                         break;
 
-                    case "WR":;
+                    case "WR":
                         player.Receptions = decimal.Parse(row.SelectSingleNode("./td[5]").InnerText) / 16;
                         player.ReceivingYards = decimal.Parse(row.SelectSingleNode("./td[6]").InnerText) / 16;
                         player.ReceivingTouchdowns = decimal.Parse(row.SelectSingleNode("./td[7]").InnerText) / 16;
@@ -78,6 +78,47 @@ namespace fftoolkit.Logic.Scrapers
                         player.Receptions = decimal.Parse(row.SelectSingleNode("./td[2]").InnerText) / 16;
                         player.ReceivingYards = decimal.Parse(row.SelectSingleNode("./td[3]").InnerText) / 16;
                         player.ReceivingTouchdowns = decimal.Parse(row.SelectSingleNode("./td[4]").InnerText) / 16;
+                        break;
+
+                    case "K":
+                        player.FantasyPoints = decimal.Parse(row.SelectSingleNode("./td[5]").InnerText) / 16;
+                        break;
+
+                    case "DST":
+                        player.FantasyPoints = decimal.Parse(row.SelectSingleNode("./td[10]").InnerText) / 16;
+
+                        if (player.Name == "Arizona Cardinals") { player.Team = "ARI"; }
+                        else if (player.Name == "Atlanta Falcons") { player.Team = "ATL"; }
+                        else if (player.Name == "Baltimore Ravens") { player.Team = "BAL"; }
+                        else if (player.Name == "Buffalo Bills") { player.Team = "BUF"; }
+                        else if (player.Name == "Carolina Panthers") { player.Team = "CAR"; }
+                        else if (player.Name == "Chicago Bears") { player.Team = "CHI"; }
+                        else if (player.Name == "Cincinnati Bengals") { player.Team = "CIN"; }
+                        else if (player.Name == "Cleveland Browns") { player.Team = "CLE"; }
+                        else if (player.Name == "Dallas Cowboys") { player.Team = "DAL"; }
+                        else if (player.Name == "Denver Broncos") { player.Team = "DEN"; }
+                        else if (player.Name == "Detroit Lions") { player.Team = "DET"; }
+                        else if (player.Name == "Green Bay Packers") { player.Team = "GB"; }
+                        else if (player.Name == "Houston Texans") { player.Team = "HOU"; }
+                        else if (player.Name == "Indianapolis Colts") { player.Team = "IND"; }
+                        else if (player.Name == "Jacksonville Jaguars") { player.Team = "JAC"; }
+                        else if (player.Name == "Kansas City Chiefs") { player.Team = "KC"; }
+                        else if (player.Name == "Los Angeles Chargers") { player.Team = "LAC"; }
+                        else if (player.Name == "Los Angeles Rams") { player.Team = "LAR"; }
+                        else if (player.Name == "Miami Dolphins") { player.Team = "MIA"; }
+                        else if (player.Name == "Minnesota Vikings") { player.Team = "MIN"; }
+                        else if (player.Name == "New England Patriots") { player.Team = "NE"; }
+                        else if (player.Name == "New Orleans Saints") { player.Team = "NO"; }
+                        else if (player.Name == "New York Giants") { player.Team = "NYG"; }
+                        else if (player.Name == "New York Jets") { player.Team = "NYJ"; }
+                        else if (player.Name == "Oakland Raiders") { player.Team = "OAK"; }
+                        else if (player.Name == "Philadelphia Eagles") { player.Team = "PHI"; }
+                        else if (player.Name == "Pittsburgh Steelers") { player.Team = "PIT"; }
+                        else if (player.Name == "Seattle Seahawks") { player.Team = "SEA"; }
+                        else if (player.Name == "San Francisco 49ers") { player.Team = "SF"; }
+                        else if (player.Name == "Tampa Bay Buccaneers") { player.Team = "TB"; }
+                        else if (player.Name == "Tennessee Titans") { player.Team = "TEN"; }
+                        else if (player.Name == "Washington Redskins") { player.Team = "WAS"; }
                         break;
 
                     default:

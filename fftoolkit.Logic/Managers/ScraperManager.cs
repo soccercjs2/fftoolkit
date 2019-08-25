@@ -29,6 +29,8 @@ namespace fftoolkit.Logic.Managers
             projections.AddRange(fantasyProsScraper.Scrape("RB", week));
             projections.AddRange(fantasyProsScraper.Scrape("WR", week));
             projections.AddRange(fantasyProsScraper.Scrape("TE", week));
+            projections.AddRange(fantasyProsScraper.Scrape("K", week));
+            projections.AddRange(fantasyProsScraper.Scrape("DST", week));
 
             return projections;
         }
@@ -61,9 +63,9 @@ namespace fftoolkit.Logic.Managers
             HtmlDocument leagueHomePage = scraper.Scrape(league.Url);
             List<Team> teams = parser.ParseLeague(leagueHomePage, league);
 
-            for (int i = 1; i <= teams.Count; i++)
+            for (int i = 0; i < teams.Count; i++)
             {
-                teams[i].TeamId = i;
+                teams[i].TeamId = i + 1;
                 HtmlDocument teamPage = scraper.Scrape(teams[i].Url);
                 teams[i].Players = ConvertPlayers(parser.ParseTeam(teamPage));
             }

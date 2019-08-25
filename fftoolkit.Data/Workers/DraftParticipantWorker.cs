@@ -28,16 +28,16 @@ namespace fftoolkit.Data.Workers
             _context.SaveChanges();
         }
 
-        public void Delete(int draftId)
+        public void Delete(int draftParticipantId)
         {
-            DraftParticipant draftParticipant = _context.DraftParticipants.Find(draftId);
+            DraftParticipant draftParticipant = _context.DraftParticipants.Find(draftParticipantId);
             _context.DraftParticipants.Remove(draftParticipant);
             _context.SaveChanges();
         }
 
-        public DraftParticipant Get(int draftId)
+        public DraftParticipant Get(int draftParticipantId)
         {
-            DraftParticipant draftParticipant = _context.DraftParticipants.Find(draftId);
+            DraftParticipant draftParticipant = _context.DraftParticipants.Find(draftParticipantId);
             return draftParticipant;
         }
     }

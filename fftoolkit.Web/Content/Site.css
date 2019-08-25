@@ -406,6 +406,15 @@ textarea {
 
 .draft-board-table {
     font-size: small;
+    width: 1600px;
+}
+
+.draft-board-table-side-column {
+    width: 20px;
+}
+
+.draft-board-table-center-column {
+    width: 130px;
 }
 
 .draft-board-table th {

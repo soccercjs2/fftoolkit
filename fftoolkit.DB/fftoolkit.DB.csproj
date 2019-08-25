@@ -120,8 +120,21 @@
     <Compile Include="Migrations\201908181115558_making league id required and non nullable.Designer.cs">
       <DependentUpon>201908181115558_making league id required and non nullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908250008240_adding draft picks.cs" />
+    <Compile Include="Migrations\201908250008240_adding draft picks.Designer.cs">
+      <DependentUpon>201908250008240_adding draft picks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908250009539_adding draft picks take 2.cs" />
+    <Compile Include="Migrations\201908250009539_adding draft picks take 2.Designer.cs">
+      <DependentUpon>201908250009539_adding draft picks take 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908250047264_adding player relation for draft pick.cs" />
+    <Compile Include="Migrations\201908250047264_adding player relation for draft pick.Designer.cs">
+      <DependentUpon>201908250047264_adding player relation for draft pick.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Draft.cs" />
+    <Compile Include="Models\DraftPick.cs" />
     <Compile Include="Models\DraftInvite.cs" />
     <Compile Include="Models\DraftParticipant.cs" />
     <Compile Include="Models\League.cs" />
@@ -190,6 +203,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908181115558_making league id required and non nullable.resx">
       <DependentUpon>201908181115558_making league id required and non nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908250008240_adding draft picks.resx">
+      <DependentUpon>201908250008240_adding draft picks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908250009539_adding draft picks take 2.resx">
+      <DependentUpon>201908250009539_adding draft picks take 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908250047264_adding player relation for draft pick.resx">
+      <DependentUpon>201908250047264_adding player relation for draft pick.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

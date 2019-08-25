@@ -2,6 +2,7 @@
 using fftoolkit.DB.Context;
 using fftoolkit.DB.Models;
 using System;
+using System.Collections.Generic;
 
 namespace fftoolkit.Logic.Managers
 {
@@ -24,6 +25,11 @@ namespace fftoolkit.Logic.Managers
         public Draft Get(int draftId)
         {
             return _draftrWorker.Get(draftId);
+        }
+
+        public List<Draft> Get(User user)
+        {
+            return _draftrWorker.Get(user);
         }
 
         public void Update(Draft draft)

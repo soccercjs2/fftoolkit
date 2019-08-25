@@ -59,6 +59,7 @@
     <Compile Include="Classes\Trade.cs" />
     <Compile Include="Classes\TradeSide.cs" />
     <Compile Include="Managers\DraftInviteManager.cs" />
+    <Compile Include="Managers\DraftPickManager.cs" />
     <Compile Include="Managers\DraftParticipantManager.cs" />
     <Compile Include="Managers\DraftManager.cs" />
     <Compile Include="Managers\MappingManager.cs" />

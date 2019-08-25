@@ -1,6 +1,8 @@
 ﻿using fftoolkit.DB.Context;
 using fftoolkit.DB.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace fftoolkit.Data.Workers
 {
@@ -37,6 +39,12 @@ namespace fftoolkit.Data.Workers
         {
             Draft draft = _context.Drafts.Find(draftId);
             return draft;
+        }
+
+        public List<Draft> Get(User user)
+        {
+            List<Draft> drafts = _context.Drafts.Where(d => d.OwnerUserId == user.UserId).ToList();
+            return drafts;
         }
     }
 }

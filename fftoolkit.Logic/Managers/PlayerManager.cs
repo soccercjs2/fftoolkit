@@ -67,7 +67,14 @@ namespace fftoolkit.Logic.Managers
                                         (player.ReceivingYards / 10) +
                                         (player.ReceivingTouchdowns * 6);
 
-            return passingPoints + rushingPoints + receivingPoints;
+            if (player.Position == "K" || player.Position == "DST")
+            {
+                return player.FantasyPoints;
+            }
+            else
+            {
+                return passingPoints + rushingPoints + receivingPoints;
+            }
         }
 
         public void DeleteAll()

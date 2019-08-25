@@ -8,109 +8,37 @@
     ViewBag.Title = @Model.Draft.Name;
 }
 
-<div class="draft-container row">
-    <div class="draft-player-list-container col-sm-12 col-md-2">
-        <div class="draft-player-list-header">Available Players</div>
-        <div class="draft-player-list-header">
-            Position:
-            @Html.DropDownList("SelectedPosition", new SelectList(Model.Positions))
+@section scripts {
+    <script type="text/javascript">
 
-            @for (int i = 0; i < Model.Positions.Count; i++)
-            {
-                @Html.HiddenFor(m => m.Positions[i])
-            }
-        </div>
-        <div class="draft-player-list">
-            @for (int i = 0; i < Model.Players.Count; i++)
-            {
-                <div class="draft-player-list-player">
-                    @Model.Players[i].Name (@Model.Players[i].Position, @Model.Players[i].Team)
-                    <div class="draft-player-button-container"><div class="draft-player-button">+</div></div>
-                </div>
-            }
+        jQuery(document).on('click', '#add-remote-drafter', function () {
+            $.ajax({
+                type: "POST",
+                url: '/Draft/DraftPlayer',
+                data: $('#edit-draft-form').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Player successfully drafted!');
+                    $('#draft-invite-participant-container').html(result);
+                    HideLoadingModal();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error adding a local drafter!")
+                    console.log(status);
+                    console.log(error);
+                    HideLoadingModal();
+                }
+            });
+        });
+
+    </script>
+}
+
+@using (Html.BeginForm("Edit", "Draft", FormMethod.Post, new { @id = "draft-room-form" }))
+{
+    <div class="draft-container row">
+        <div id="draft-board-container" class="draft-board-container col-sm-12">
+            @Html.Partial("_DraftBoard", Model)
         </div>
     </div>
-
-    <div class="draft-board-container col-sm-12 col-md-10">
-
-        <table class="draft-board-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
-                    {
-                        <th><div class="draft-board-team-name">@Model.Draft.DraftParticipants[i].Name</div></th>
-                    }
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
-                    {
-                        <th>@(i + 1)</th>
-                    }
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @for (int i = 0; i < Model.Draft.Rounds; i++)
-                {
-                    <tr>
-                        <td class="draft-board-round">@(i + 1)</td>
-                        @for (int j = 0; j < Model.Draft.DraftParticipants.Count; j++)
-                        {
-                            <td class="draft-board-player-cell">
-                                <div class="draft-board-player">
-                                    @if (i % 2 == 0) {<div class="draft-board-player-name">Saquon Barkley</div> }
-                                    else { <div class="draft-board-player-name">Saquoniliusiliusilius Barkley The Third Of His Name</div>}
-                                    <div>(RB, NYG)</div>
-                                </div>
-                            </td>
-                        }
-                        <td class="draft-board-round">@(i + 1)</td>
-                    </tr>
-                }
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <th></th>
-                    @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
-                    {
-                        <th>@(i + 1)</th>
-                    }
-                    <th></th>
-                </tr>
-                <tr>
-                    <th></th>
-                    @for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
-                    {
-                        <th><div class="draft-board-team-name">@Model.Draft.DraftParticipants[i].Name</div></th>
-                    }
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-
-        @*@for (int i = 0; i < Model.DraftParticipants.Count; i++)
-        {
-            <div class="draft-board-team-container">
-                <div class="draft-board-team-header">
-                    <div class="draft-board-team-name">@Model.DraftParticipants[i].Name</div>
-                </div>
-
-                <div class="draft-board-team-header">@(i + 1)</div>
-
-                @for (int j = 0; j < Model.Rounds; j++)
-                {
-                    <div class="drafted-player-container">
-                        @if (i % 2 == 0) { <div class="drafted-player-name">Saquon Barkley</div> }
-                        else { <div class="drafted-player-name">Saquoniliusiliusilius Barkley The Third Of His Name</div> }
-                        <div>(RB, NYG)</div>
-                    </div>
-                }
-            </div>
-        }*@
-    </div>
-</div>
+}
