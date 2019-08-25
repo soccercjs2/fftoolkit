@@ -11,22 +11,23 @@
 @section scripts {
     <script type="text/javascript">
 
-        jQuery(document).on('click', '#add-remote-drafter', function () {
+        jQuery(document).on('click', '#test-draft-player-button', function () {
+            document.getElementById('SelectedPlayerId').value = 1;
+            
             $.ajax({
                 type: "POST",
                 url: '/Draft/DraftPlayer',
-                data: $('#edit-draft-form').serialize(),
+                data: $('#draft-room-form').serialize(),
                 dataType: 'html',
                 success: function (result) {
                     console.log('Player successfully drafted!');
-                    $('#draft-invite-participant-container').html(result);
-                    HideLoadingModal();
+                    $('#draft-board-container').html(result);
+                    $("#warning-message").delay(3000).fadeOut("slow");
                 },
                 error: function (xhr, status, error) {
-                    console.log("There was an error adding a local drafter!")
+                    console.log("There was an error drafting a player.");
                     console.log(status);
                     console.log(error);
-                    HideLoadingModal();
                 }
             });
         });
@@ -34,11 +35,12 @@
     </script>
 }
 
-@using (Html.BeginForm("Edit", "Draft", FormMethod.Post, new { @id = "draft-room-form" }))
-{
+<form id="draft-room-form">
+    <input type="button" value="Test Draft" id="test-draft-player-button" />
+    
     <div class="draft-container row">
         <div id="draft-board-container" class="draft-board-container col-sm-12">
             @Html.Partial("_DraftBoard", Model)
         </div>
     </div>
-}
+</form>

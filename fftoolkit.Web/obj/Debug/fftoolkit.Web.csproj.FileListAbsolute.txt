@@ -22,7 +22,6 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\Microsoft.DiaSym
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\Microsoft.Win32.Primitives.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.AppContext.dll
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.Collections.Immutable.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.Console.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.Diagnostics.Process.dll
@@ -132,3 +131,4 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csp
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.Collections.Immutable.dll

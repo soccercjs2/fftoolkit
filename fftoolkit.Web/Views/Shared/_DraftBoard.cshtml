@@ -1,5 +1,10 @@
 ﻿@model fftoolkit.Web.Models.DraftRoomViewModel
 
+@if (Model.Message != null && Model.IsErrorMessage)
+{
+    <div id="warning-message" class="alert alert-danger">@Model.Message</div>
+}
+
 <table class="draft-board-table">
     <thead>
         <tr>
@@ -21,24 +26,36 @@
     </thead>
 
     <tbody>
-        @for (int i = 0; i < Model.Draft.Rounds; i++)
+
+        @if (Model.DraftPicks != null)
         {
-            <tr>
-                <td class="draft-board-round">@(i + 1)</td>
-                @for (int j = 0; j < Model.Draft.DraftParticipants.Count; j++)
-                {
-                    <td class="draft-board-player-cell">
-                        <div class="draft-board-player">
-                            @if (i % 2 == 0)
-                            {<div class="draft-board-player-name">Saquon Barkley</div> }
-                            else
-                            { <div class="draft-board-player-name">Saquoniliusiliusilius Barkley The Third Of His Name</div>}
-                            <div>(RB, NYG)</div>
-                        </div>
-                    </td>
-                }
-                <td class="draft-board-round">@(i + 1)</td>
-            </tr>
+            int teamCount = Model.Draft.DraftParticipants.Count;
+            for (int i = 0; i < Model.CurrentRound; i++)
+            {
+                int round = i + 1;
+                bool isCurrentRound = round == Model.CurrentRound;
+
+                <tr>
+                    <td class="draft-board-round">@(round)</td>
+
+                    @for (int j = 0; j < teamCount; j++)
+                    {
+                        int draftPickIndex = (i * teamCount) + j;
+
+                        <td class="draft-board-player-cell">
+                            <div class="draft-board-player">
+                                @if (draftPickIndex < Model.DraftPicks.Count)
+                                {
+                                    <div class="draft-board-player-name">@Model.DraftPicks[i].Player.Name</div>
+                                    <div>(@Model.DraftPicks[i].Player.Position, @Model.DraftPicks[i].Player.Team)</div>
+                                }
+                            </div>
+                        </td>
+                    }
+
+                    <td class="draft-board-round">@(round)</td>
+                </tr>
+            }
         }
     </tbody>
 
@@ -61,3 +78,55 @@
         </tr>
     </tfoot>
 </table>
+
+@Html.HiddenFor(m => m.Draft.DraftId)
+@Html.HiddenFor(m => m.Draft.OwnerUserId)
+@Html.HiddenFor(m => m.Draft.LeagueId)
+@Html.HiddenFor(m => m.Draft.Name)
+@Html.HiddenFor(m => m.Draft.StartDate)
+@Html.HiddenFor(m => m.Draft.Teams)
+@Html.HiddenFor(m => m.Draft.Rounds)
+
+@if (Model.Draft.DraftParticipants != null)
+{
+    for (int i = 0; i < Model.Draft.DraftParticipants.Count; i++)
+    {
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].DraftParticipantId)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].DraftId)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].UserId)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].DraftPosition)
+        @Html.HiddenFor(m => m.Draft.DraftParticipants[i].Name)
+    }
+}
+
+@if (Model.Players != null)
+{
+    for (int i = 0; i < Model.Players.Count; i++)
+    {
+        @Html.HiddenFor(m => m.Players[i].PlayerId)
+        @Html.HiddenFor(m => m.Players[i].Name)
+        @Html.HiddenFor(m => m.Players[i].Position)
+        @Html.HiddenFor(m => m.Players[i].Team)
+    }
+}
+
+@Html.HiddenFor(m => m.SelectedPlayerId)
+@Html.HiddenFor(m => m.CurrentRound)
+@Html.HiddenFor(m => m.CurrentPick)
+@Html.HiddenFor(m => m.DraftPickAscending)
+
+@if (Model.DraftPicks != null)
+{
+    for (int i = 0; i < Model.DraftPicks.Count; i++)
+    {
+        @Html.HiddenFor(m => m.DraftPicks[i].DraftPickId)
+        @Html.HiddenFor(m => m.DraftPicks[i].DraftId)
+        @Html.HiddenFor(m => m.DraftPicks[i].PlayerId)
+        @Html.HiddenFor(m => m.DraftPicks[i].Player.PlayerId)
+        @Html.HiddenFor(m => m.DraftPicks[i].Player.Name)
+        @Html.HiddenFor(m => m.DraftPicks[i].Player.Position)
+        @Html.HiddenFor(m => m.DraftPicks[i].Player.Team)
+        @Html.HiddenFor(m => m.DraftPicks[i].Round)
+        @Html.HiddenFor(m => m.DraftPicks[i].Pick)
+    }
+}
