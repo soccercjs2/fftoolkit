@@ -39,9 +39,14 @@
         </footer>
     </div>
 
+    <script type="text/javascript" src="~/js/filereader.js"></script>
+    <script type="text/javascript" src="~/js/qrcodelib.js"></script>
+    <script type="text/javascript" src="~/js/webcodecamjs.js"></script>
+    <script type="text/javascript" src="~/js/main.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/DataTables/scripts")
+    @*@Scripts.Render("~/QrCodes/scripts")*@
     @*@Scripts.Render("~/Scripts/MyScripts")*@
     @RenderSection("scripts", required: false)
 </body>

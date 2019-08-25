@@ -33,6 +33,10 @@ namespace fftoolkit.Web
             bundles.Add(new ScriptBundle("~/DataTables/scripts").Include(
                      "~/DataTables/datatables.js"));
 
+            //bundles.Add(new ScriptBundle("~/QrCodes/scripts").Include(
+            //    "~/Scripts/webcodecamjs/qrcodelib.js",
+            //    "~/Scripts/webcodecamjs/webcodecamjs.js"));
+
             //bundles.Add(new ScriptBundle("~/Scripts/MyScripts").Include(
             //         "~/Scripts/trade.js"));
 
