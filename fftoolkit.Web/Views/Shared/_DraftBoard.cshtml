@@ -5,6 +5,11 @@
     <div id="warning-message" class="alert alert-danger">@Model.Message</div>
 }
 
+@if (Model.Message != null && !Model.IsErrorMessage)
+{
+    <div id="success-message" class="alert alert-success">@Model.Message</div>
+}
+
 <table class="draft-board-table">
     <thead>
         <tr>
@@ -38,19 +43,41 @@
                 <tr>
                     <td class="draft-board-round">@(round)</td>
 
-                    @for (int j = 0; j < teamCount; j++)
+                    @* odd round which drafts in ascending order *@
+                    @if (round % 2 == 1)
                     {
-                        int draftPickIndex = (i * teamCount) + j;
+                        for (int j = 0; j < teamCount; j++)
+                        {
+                            int draftPickIndex = (i * teamCount) + j;
 
-                        <td class="draft-board-player-cell">
-                            <div class="draft-board-player">
+                            <td class="draft-board-player-cell">
                                 @if (draftPickIndex < Model.DraftPicks.Count)
                                 {
-                                    <div class="draft-board-player-name">@Model.DraftPicks[i].Player.Name</div>
-                                    <div>(@Model.DraftPicks[i].Player.Position, @Model.DraftPicks[i].Player.Team)</div>
+                                    <div class="draft-board-player">
+                                        <div class="draft-board-player-name">@Model.DraftPicks[draftPickIndex].Player.Name</div>
+                                        <div>(@Model.DraftPicks[draftPickIndex].Player.Position, @Model.DraftPicks[draftPickIndex].Player.Team)</div>
+                                    </div>
                                 }
-                            </div>
-                        </td>
+                            </td>
+                        }
+                    }
+                    @* even round which drafts in descending order *@
+                    else
+                    {
+                        for (int j = teamCount - 1; j >= 0; j--)
+                        {
+                            int draftPickIndex = (i * teamCount) + j;
+
+                            <td class="draft-board-player-cell">
+                                @if (draftPickIndex < Model.DraftPicks.Count)
+                                {
+                                    <div class="draft-board-player">
+                                        <div class="draft-board-player-name">@Model.DraftPicks[draftPickIndex].Player.Name</div>
+                                        <div>(@Model.DraftPicks[draftPickIndex].Player.Position, @Model.DraftPicks[draftPickIndex].Player.Team)</div>
+                                    </div>
+                                }
+                            </td>
+                        }
                     }
 
                     <td class="draft-board-round">@(round)</td>

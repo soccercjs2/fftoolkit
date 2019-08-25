@@ -249,7 +249,7 @@ namespace fftoolkit.Controllers
 
             if (draftedPlayer == null)
             {
-                draftRoomViewModel.Message = string.Format("No available player with id of {0}.", draftRoomViewModel.SelectedPlayerId);
+                draftRoomViewModel.Message = string.Format("No available player, or player already drafted, with id of {0}.", draftRoomViewModel.SelectedPlayerId);
                 draftRoomViewModel.IsErrorMessage = true;
                 draftRoomViewModel.SelectedPlayerId = 0;
                 return PartialView("_DraftBoard", draftRoomViewModel);
@@ -259,6 +259,7 @@ namespace fftoolkit.Controllers
                 draftRoomViewModel.Message = string.Format("{0} has successfully drafted {1}!", 
                     draftRoomViewModel.Draft.DraftParticipants[draftRoomViewModel.CurrentPick - 1].Name,
                     string.Format("{0} ({1}, {2})", draftedPlayer.Name, draftedPlayer.Position, draftedPlayer.Team));
+                draftRoomViewModel.IsErrorMessage = false;
             }
 
             DraftPickManager draftPickManager = new DraftPickManager(_context);
