@@ -44,14 +44,35 @@
     var args = {
         autoBrightnessValue: 100,
         resultFunction: function(res) {
-            [].forEach.call(scannerLaser, function(el) {
-                fadeOut(el, 0.5);
-                setTimeout(function() {
-                    fadeIn(el, 0.5);
-                }, 300);
+            //[].forEach.call(scannerLaser, function(el) {
+            //    fadeOut(el, 0.5);
+            //    setTimeout(function() {
+            //        fadeIn(el, 0.5);
+            //    }, 300);
+            //});
+            //scannedImg.src = res.imgData;
+            //scannedQR[txt] = res.format + ": " + res.code;
+
+            console.log('asdf')
+            document.getElementById('SelectedPlayerId').value = res.code;
+
+            $.ajax({
+                type: "POST",
+                url: '/Draft/DraftPlayer',
+                data: $('#draft-room-form').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Player successfully drafted!');
+                    $('#draft-board-container').html(result);
+                    $("#warning-message").delay(3000).fadeOut("slow");
+                    $("#success-message").delay(3000).fadeOut("slow");
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error drafting a player.");
+                    console.log(status);
+                    console.log(error);
+                }
             });
-            scannedImg.src = res.imgData;
-            scannedQR[txt] = res.format + ": " + res.code;
         },
         getDevicesError: function(error) {
             var p, message = "Error detected with the following parameters:\n";

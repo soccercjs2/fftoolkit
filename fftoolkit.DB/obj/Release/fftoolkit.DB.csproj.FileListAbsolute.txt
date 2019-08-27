@@ -18,3 +18,17 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csp
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.pdb
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingdraftstuff.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.updatingusertogetdrafts.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.moredraftstuff.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.removingsomeunnecesaryfields.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.acceptfordraftinvite.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.makingdraftparticipantuseridnullable.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingislocaltodraftparticipant.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.revertingislocalcolumn.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingroundstodraft.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingleaguetodraft.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.makingleagueidrequiredandnonnullable.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingdraftpicks.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingdraftpickstake2.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingplayerrelationfordraftpick.resources

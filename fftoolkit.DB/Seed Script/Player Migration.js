@@ -1,4 +1,6 @@
-﻿INSERT INTO Player(Name, Position, Team, PassingYards, PassingTouchdowns, Interceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns) VALUES('Patrick Mahomes', 'QB', 'KC', 300.83, 2.26, 0.83, 13.78, 0.12, 0.00, 0.00, 0.00)
+﻿DELETE FROM Player
+
+INSERT INTO Player(Name, Position, Team, PassingYards, PassingTouchdowns, Interceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns) VALUES('Patrick Mahomes', 'QB', 'KC', 300.83, 2.26, 0.83, 13.78, 0.12, 0.00, 0.00, 0.00)
 INSERT INTO Player(Name, Position, Team, PassingYards, PassingTouchdowns, Interceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns) VALUES('Deshaun Watson', 'QB', 'HOU', 256.47, 1.66, 0.75, 31.32, 0.27, 0.00, 0.00, 0.00)
 INSERT INTO Player(Name, Position, Team, PassingYards, PassingTouchdowns, Interceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns) VALUES('Aaron Rodgers', 'QB', 'GB', 269.20, 1.83, 0.47, 16.29, 0.13, 0.00, 0.00, 0.00)
 INSERT INTO Player(Name, Position, Team, PassingYards, PassingTouchdowns, Interceptions, RushingYards, RushingTouchdowns, Receptions, ReceivingYards, ReceivingTouchdowns) VALUES('Matt Ryan', 'QB', 'ATL', 291.68, 1.87, 0.66, 8.24, 0.09, 0.00, 0.00, 0.00)
