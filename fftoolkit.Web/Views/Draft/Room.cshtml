@@ -67,6 +67,11 @@
         function ResetTimer() {
             document.getElementById('minutes').innerText = 1;
             document.getElementById('seconds').innerText = 30;
+            document.getElementById('shot-glass-container').innerHTML = "";
+            document.getElementById('draft-clock-container').style.borderColor = "white";
+            document.getElementById('minutes').style.color = 'black';
+            document.getElementById('seconds').style.color = 'black';
+            penaltyTime = false;
         }
 
         jQuery(document).on('click', '#test-draft-player-button', function () {
