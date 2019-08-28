@@ -450,3 +450,8 @@ textarea {
     overflow: hidden;
     max-height: 40px;
 }
+
+.draft-clock-container {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 50px;
+}

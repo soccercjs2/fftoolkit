@@ -11,16 +11,88 @@
 @section scripts {
     <script type="text/javascript">
 
+        var penaltyTime = false;
+        var shotsRequired = 0;
+        setInterval(function () {
+            var minutes = parseInt(document.getElementById('minutes').innerText);
+            var seconds = parseInt(document.getElementById('seconds').innerText);
+            console.log(seconds);
+
+            if (minutes == 0 && seconds == 0) {
+                penaltyTime = true;
+                seconds = 1;
+                shotsRequired = 1;
+                document.getElementById('minutes').style.color = 'red';
+                document.getElementById('seconds').style.color = 'red';
+            }
+            else if (seconds == 0 && !penaltyTime) {
+                minutes = minutes - 1;
+                seconds = 59;
+            }
+            else if (seconds == 59 && penaltyTime) {
+                minutes = minutes + 1;
+                seconds = 0;
+            }
+            else if (!penaltyTime) {
+                seconds = seconds - 1;
+            }
+            else if (penaltyTime) {
+                seconds = seconds + 1;
+            }
+
+            if (penaltyTime && (seconds == 0 || seconds == 30)) {
+                shotsRequired = shotsRequired + 1;
+            }
+
+            document.getElementById('minutes').innerText = minutes;
+
+            if (seconds < 10) {
+                document.getElementById('seconds').innerText = "0" + seconds;
+            }
+            else {
+                document.getElementById('seconds').innerText = seconds;
+            }
+        }, 1000);
+
+        function ResetTimer() {
+            document.getElementById('minutes').innerText = 1;
+            document.getElementById('seconds').innerText = 30;
+        }
+
         jQuery(document).on('click', '#test-draft-player-button', function () {
-            
+            document.getElementById('SelectedPlayerId').value = document.getElementById('test-draft-player-id-input').value;
+
+            $.ajax({
+                type: "POST",
+                url: '/Draft/DraftPlayer',
+                data: $('#draft-room-form').serialize(),
+                dataType: 'html',
+                success: function (result) {
+                    console.log('Player successfully drafted!');
+                    $('#draft-board-container').html(result);
+                    $("#warning-message").delay(3000).fadeOut("slow");
+                    $("#success-message").delay(3000).fadeOut("slow");
+                    ResetTimer();
+                },
+                error: function (xhr, status, error) {
+                    console.log("There was an error drafting a player.");
+                    console.log(status);
+                    console.log(error);
+                }
+            });
         });
 
     </script>
 }
 
 <form id="draft-room-form">
-    @*<input type="text" id="test-draft-player-id-input" />
-    <input type="button" value="Test Draft" id="test-draft-player-button" />*@
+    <input type="text" id="test-draft-player-id-input" />
+    <input type="button" value="Test Draft" id="test-draft-player-button" />
+    <hr />
+
+    <div class="draft-clock-container">
+        <span id="minutes">1</span>:<span id="seconds">30</span>
+    </div>
     
     <div class="draft-container row">
         <div id="draft-board-container" class="draft-board-container col-sm-12">

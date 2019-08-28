@@ -31,4 +31,3 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migra
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addingdraftpicks.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addingdraftpickstake2.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.Migrations.addingplayerrelationfordraftpick.resources
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Debug\fftoolkit.DB.csprojAssemblyReference.cache

@@ -44,16 +44,7 @@
     var args = {
         autoBrightnessValue: 100,
         resultFunction: function(res) {
-            //[].forEach.call(scannerLaser, function(el) {
-            //    fadeOut(el, 0.5);
-            //    setTimeout(function() {
-            //        fadeIn(el, 0.5);
-            //    }, 300);
-            //});
-            //scannedImg.src = res.imgData;
-            //scannedQR[txt] = res.format + ": " + res.code;
-
-            console.log('asdf')
+            
             document.getElementById('SelectedPlayerId').value = res.code;
 
             $.ajax({
