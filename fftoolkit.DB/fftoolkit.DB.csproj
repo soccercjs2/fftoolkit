@@ -132,6 +132,14 @@
     <Compile Include="Migrations\201908250047264_adding player relation for draft pick.Designer.cs">
       <DependentUpon>201908250047264_adding player relation for draft pick.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908280445120_adding write in.cs" />
+    <Compile Include="Migrations\201908280445120_adding write in.Designer.cs">
+      <DependentUpon>201908280445120_adding write in.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908280528313_making player nullable on draft pick.cs" />
+    <Compile Include="Migrations\201908280528313_making player nullable on draft pick.Designer.cs">
+      <DependentUpon>201908280528313_making player nullable on draft pick.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\DraftPick.cs" />
@@ -212,6 +220,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908250047264_adding player relation for draft pick.resx">
       <DependentUpon>201908250047264_adding player relation for draft pick.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908280445120_adding write in.resx">
+      <DependentUpon>201908280445120_adding write in.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908280528313_making player nullable on draft pick.resx">
+      <DependentUpon>201908280528313_making player nullable on draft pick.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

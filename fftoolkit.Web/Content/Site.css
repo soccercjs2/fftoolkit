@@ -467,3 +467,27 @@ textarea {
     margin-bottom: 5px;
     padding-left: 5px;
 }
+
+.qr-canvas {
+    width: 100px;
+    height: 100px;
+}
+
+.draft-board-header {
+    display: flex;
+    justify-content: space-between;
+    width: 1600px;
+}
+
+.draft-board-header-right {
+    display: flex;
+}
+
+.draft-board-header-panel {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.draft-board-qr-code {
+    width: 450px;
+}

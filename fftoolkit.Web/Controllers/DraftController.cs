@@ -222,23 +222,61 @@ namespace fftoolkit.Controllers
         public ActionResult Room(int id)
         {
             DraftManager draftManager = new DraftManager(_context);
+            DraftPickManager draftPickManager = new DraftPickManager(_context);
             PlayerManager playerManager = new PlayerManager(_context);
             TradeManager tradeManager = new TradeManager(_context);
 
             Draft draft = draftManager.Get(id);
+            List<DraftPick> draftPicks = draftPickManager.Get(draft);
+
             List<Player> players = playerManager.Get(draft.League);
-            //players = tradeManager.GetTradeValues(players, draft.League);
-            //List<Player> players = JsonConvert.DeserializeObject<List<Player>>(System.IO.File.ReadAllText(@"C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\Json Data\players.json"));
-            //players = players.OrderByDescending(p => p.TradeValue).ToList();
-            //List<string> positions = players.Select(p => p.Position).Distinct().ToList();
+
+            foreach (var draftPick in draftPicks)
+            {
+                players.Remove(draftPick.Player);
+            }
+
+            //int currentPick = (draftPicks != null && draftPicks.Count > 0) ?
+            //    draftPicks.Count + 1 :
+            //    1;
+
+            int currentPick = 1;
+            int currentRound = 1;
+            bool draftPicksAscending = true;
+
+            if (draftPicks != null)
+            {
+                for (int i = 0; i < draftPicks.Count; i++)
+                {
+                    if (draftPicksAscending && currentPick < draft.Teams)
+                    {
+                        currentPick = currentPick + 1;
+                    }
+                    else if (draftPicksAscending && currentPick == draft.Teams)
+                    {
+                        currentRound = currentRound + 1;
+                        draftPicksAscending = false;
+                    }
+                    else if (!draftPicksAscending && currentPick > 1)
+                    {
+                        currentPick = currentPick - 1;
+                    }
+                    else if (!draftPicksAscending && currentPick == 1)
+                    {
+                        currentRound = currentRound + 1;
+                        draftPicksAscending = true;
+                    }
+                }
+            }
 
             return View(new DraftRoomViewModel()
             {
                 Draft = draft,
+                DraftPicks = draftPicks,
                 Players = players,
-                CurrentRound = 1,
-                CurrentPick = 1,
-                DraftPickAscending = true,
+                CurrentRound = currentRound,
+                CurrentPick = currentPick,
+                DraftPickAscending = draftPicksAscending,
                 SelectedPlayerId = 0
             });
         }
@@ -246,29 +284,49 @@ namespace fftoolkit.Controllers
         public ActionResult DraftPlayer(DraftRoomViewModel draftRoomViewModel)
         {
             Player draftedPlayer = draftRoomViewModel.Players.Where(p => p.PlayerId == draftRoomViewModel.SelectedPlayerId).FirstOrDefault();
+            if (draftedPlayer == null) { draftedPlayer = draftRoomViewModel.Players.Where(p => p.Name == draftRoomViewModel.SelectedPlayerName).FirstOrDefault(); }
 
-            if (draftedPlayer == null)
+            if (draftedPlayer == null && draftRoomViewModel.SelectedPlayerName == null)
             {
                 draftRoomViewModel.Message = string.Format("No available player, or player already drafted, with id of {0}.", draftRoomViewModel.SelectedPlayerId);
                 draftRoomViewModel.IsErrorMessage = true;
                 draftRoomViewModel.SelectedPlayerId = 0;
+                draftRoomViewModel.SelectedPlayerName = null;
+                ModelState.Clear();
                 return PartialView("_DraftBoard", draftRoomViewModel);
             }
-            else
+
+            DraftPickManager draftPickManager = new DraftPickManager(_context);
+            DraftPick draftPick;
+
+            if (draftedPlayer != null)
             {
-                draftRoomViewModel.Message = string.Format("{0} has successfully drafted {1}!", 
+                draftPick = draftPickManager.Add(
+                    draftRoomViewModel.Draft.DraftId,
+                    draftedPlayer.PlayerId,
+                    draftRoomViewModel.CurrentRound,
+                    draftRoomViewModel.CurrentPick);
+                draftPick.Player = draftedPlayer;
+
+                draftRoomViewModel.Message = string.Format("{0} has successfully drafted {1}!",
                     draftRoomViewModel.Draft.DraftParticipants[draftRoomViewModel.CurrentPick - 1].Name,
                     string.Format("{0} ({1}, {2})", draftedPlayer.Name, draftedPlayer.Position, draftedPlayer.Team));
                 draftRoomViewModel.IsErrorMessage = false;
             }
+            else
+            {
+                draftPick = draftPickManager.Add(
+                    draftRoomViewModel.Draft.DraftId,
+                    draftRoomViewModel.SelectedPlayerName,
+                    draftRoomViewModel.CurrentRound,
+                    draftRoomViewModel.CurrentPick);
+                draftPick.Player = draftedPlayer;
 
-            DraftPickManager draftPickManager = new DraftPickManager(_context);
-            DraftPick draftPick = draftPickManager.Add(
-                draftRoomViewModel.Draft.DraftId, 
-                draftedPlayer.PlayerId, 
-                draftRoomViewModel.CurrentRound, 
-                draftRoomViewModel.CurrentPick);
-            draftPick.Player = draftedPlayer;
+                draftRoomViewModel.Message = string.Format("{0} has successfully drafted {1}!", 
+                    draftRoomViewModel.Draft.DraftParticipants[draftRoomViewModel.CurrentPick - 1].Name, 
+                    draftRoomViewModel.SelectedPlayerName);
+                draftRoomViewModel.IsErrorMessage = false;
+            }
 
             draftRoomViewModel.Players.Remove(draftedPlayer);
 
@@ -277,6 +335,7 @@ namespace fftoolkit.Controllers
 
             //clear the selected player
             draftRoomViewModel.SelectedPlayerId = 0;
+            draftRoomViewModel.SelectedPlayerName = null;
 
             //draft picks are ascending (from 1 => 12)
             if (draftRoomViewModel.DraftPickAscending)

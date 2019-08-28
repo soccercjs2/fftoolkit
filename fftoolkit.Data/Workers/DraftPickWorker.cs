@@ -40,5 +40,11 @@ namespace fftoolkit.Data.Workers
             DraftPick draftPick = _context.DraftPicks.Find(draftPickId);
             return draftPick;
         }
+
+        public List<DraftPick> Get(Draft draft)
+        {
+            List<DraftPick> draftPicks = _context.DraftPicks.Where(dp => dp.DraftId == draft.DraftId).ToList();
+            return draftPicks;
+        }
     }
 }

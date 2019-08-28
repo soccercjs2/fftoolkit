@@ -91,6 +91,12 @@
                         @Html.ValidationMessageFor(m => m.Draft.Teams, "", new { @class = "text-danger", @type = "number" })
                     </div>
 
+                    <div>
+                        @Html.LabelFor(m => m.Draft.Rounds)
+                        @Html.TextBoxFor(m => m.Draft.Rounds, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Draft.Rounds, "", new { @class = "text-danger", @type = "number" })
+                    </div>
+
                     @if (Model.Leagues != null)
                     {
                         <div>

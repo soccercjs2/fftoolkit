@@ -54,8 +54,15 @@
                                 @if (draftPickIndex < Model.DraftPicks.Count)
                                 {
                                     <div class="draft-board-player">
-                                        <div class="draft-board-player-name">@Model.DraftPicks[draftPickIndex].Player.Name</div>
-                                        <div>(@Model.DraftPicks[draftPickIndex].Player.Position, @Model.DraftPicks[draftPickIndex].Player.Team)</div>
+                                        @if (Model.DraftPicks[draftPickIndex].Player != null)
+                                        {
+                                            <div class="draft-board-player-name">@Model.DraftPicks[draftPickIndex].Player.Name</div>
+                                            <div>(@Model.DraftPicks[draftPickIndex].Player.Position, @Model.DraftPicks[draftPickIndex].Player.Team)</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="draft-board-player-name">@Model.DraftPicks[draftPickIndex].WriteInName</div>
+                                        }
                                     </div>
                                 }
                             </td>
@@ -138,6 +145,7 @@
 }
 
 @Html.HiddenFor(m => m.SelectedPlayerId)
+@Html.HiddenFor(m => m.SelectedPlayerName)
 @Html.HiddenFor(m => m.CurrentRound)
 @Html.HiddenFor(m => m.CurrentPick)
 @Html.HiddenFor(m => m.DraftPickAscending)
@@ -149,11 +157,16 @@
         @Html.HiddenFor(m => m.DraftPicks[i].DraftPickId)
         @Html.HiddenFor(m => m.DraftPicks[i].DraftId)
         @Html.HiddenFor(m => m.DraftPicks[i].PlayerId)
-        @Html.HiddenFor(m => m.DraftPicks[i].Player.PlayerId)
-        @Html.HiddenFor(m => m.DraftPicks[i].Player.Name)
-        @Html.HiddenFor(m => m.DraftPicks[i].Player.Position)
-        @Html.HiddenFor(m => m.DraftPicks[i].Player.Team)
         @Html.HiddenFor(m => m.DraftPicks[i].Round)
         @Html.HiddenFor(m => m.DraftPicks[i].Pick)
+        @Html.HiddenFor(m => m.DraftPicks[i].WriteInName)
+
+        if (Model.DraftPicks[i].Player != null)
+        {
+            @Html.HiddenFor(m => m.DraftPicks[i].Player.PlayerId)
+            @Html.HiddenFor(m => m.DraftPicks[i].Player.Name)
+            @Html.HiddenFor(m => m.DraftPicks[i].Player.Position)
+            @Html.HiddenFor(m => m.DraftPicks[i].Player.Team)
+        }
     }
 }

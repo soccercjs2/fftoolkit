@@ -37,9 +37,29 @@ namespace fftoolkit.Logic.Managers
             return draftPick;
         }
 
+        public DraftPick Add(int draftId, string writeInName, int round, int pick)
+        {
+            DraftPick draftPick = new DraftPick()
+            {
+                DraftId = draftId,
+                WriteInName = writeInName,
+                Round = round,
+                Pick = pick
+            };
+
+            _draftPickWorker.Add(draftPick);
+
+            return draftPick;
+        }
+
         public DraftPick Get(int draftPickId)
         {
             return _draftPickWorker.Get(draftPickId);
+        }
+
+        public List<DraftPick> Get(Draft draft)
+        {
+            return _draftPickWorker.Get(draft);
         }
 
         public void Update(DraftPick draftPick)

@@ -5,8 +5,10 @@
         public int DraftPickId { get; set; }
         public int DraftId { get; set; }
 
-        public int PlayerId { get; set; }
+        public int? PlayerId { get; set; }
         public virtual Player Player { get; set; }
+
+        public string WriteInName { get; set; }
 
         public int Round { get; set; }
         public int Pick { get; set; }
