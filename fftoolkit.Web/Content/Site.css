@@ -454,4 +454,16 @@ textarea {
 .draft-clock-container {
     font-family: 'Orbitron', sans-serif;
     font-size: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.draft-clock-container {
+    border-color: white;
+    border-style: solid;
+    border-radius: 15px;
+    border-width: 5px;
+    width: 1600px;
+    margin-bottom: 5px;
+    padding-left: 5px;
 }

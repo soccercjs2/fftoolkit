@@ -12,18 +12,14 @@
     <script type="text/javascript">
 
         var penaltyTime = false;
-        var shotsRequired = 0;
         setInterval(function () {
             var minutes = parseInt(document.getElementById('minutes').innerText);
             var seconds = parseInt(document.getElementById('seconds').innerText);
-            console.log(seconds);
 
             if (minutes == 0 && seconds == 0) {
                 penaltyTime = true;
                 seconds = 1;
-                shotsRequired = 1;
-                document.getElementById('minutes').style.color = 'red';
-                document.getElementById('seconds').style.color = 'red';
+                document.getElementById('shot-glass-container').innerHTML = "<img src=\"../../Images/shot-glass.png\" width=\"70\" height=\"70\" />";
             }
             else if (seconds == 0 && !penaltyTime) {
                 minutes = minutes - 1;
@@ -35,13 +31,27 @@
             }
             else if (!penaltyTime) {
                 seconds = seconds - 1;
+
+                if (minutes == 0 && seconds <= 10) {
+                    document.getElementById('minutes').style.color = 'red';
+                    document.getElementById('seconds').style.color = 'red';
+                }
             }
             else if (penaltyTime) {
                 seconds = seconds + 1;
             }
 
+            if ((!penaltyTime && minutes == 0 && seconds <= 10) || penaltyTime) {
+                if (seconds % 2 == 0) {
+                    document.getElementById('draft-clock-container').style.borderColor = "red";
+                }
+                else {
+                    document.getElementById('draft-clock-container').style.borderColor = "white";
+                }
+            }
+
             if (penaltyTime && (seconds == 0 || seconds == 30)) {
-                shotsRequired = shotsRequired + 1;
+                document.getElementById('shot-glass-container').innerHTML += "<img src=\"../../Images/shot-glass.png\" width=\"70\" height=\"70\" />";
             }
 
             document.getElementById('minutes').innerText = minutes;
@@ -90,8 +100,9 @@
     <input type="button" value="Test Draft" id="test-draft-player-button" />
     <hr />
 
-    <div class="draft-clock-container">
+    <div id="draft-clock-container" class="draft-clock-container">
         <span id="minutes">1</span>:<span id="seconds">30</span>
+        <div id="shot-glass-container"></div>
     </div>
     
     <div class="draft-container row">
