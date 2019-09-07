@@ -15,6 +15,12 @@
         }
         return el;
     }
+
+    var loadedVoice = null;
+    window.speechSynthesis.onvoiceschanged = function () {
+        loadedVoice = window.speechSynthesis.getVoices()[5];
+    };
+
     var txt = "innerText" in HTMLElement.prototype ? "innerText" : "textContent";
     var scannerLaser = Q(".scanner-laser"),
         imageUrl = new Q("#image-url"),
@@ -43,27 +49,44 @@
         flipHorizontalValue = Q("#flipHorizontal-value");
     var args = {
         autoBrightnessValue: 100,
+        
         resultFunction: function(res) {
             
-            document.getElementById('SelectedPlayerId').value = res.code;
+            if (document.getElementById('DraftingLocked').value == 'False') {
+                document.getElementById('SelectedPlayerId').value = res.code;
+                document.getElementById('DraftingLocked').value = 'True';
 
-            $.ajax({
-                type: "POST",
-                url: '/Draft/DraftPlayer',
-                data: $('#draft-room-form').serialize(),
-                dataType: 'html',
-                success: function (result) {
-                    console.log('Player successfully drafted!');
-                    $('#draft-board-container').html(result);
-                    $("#warning-message").delay(3000).fadeOut("slow");
-                    $("#success-message").delay(3000).fadeOut("slow");
-                },
-                error: function (xhr, status, error) {
-                    console.log("There was an error drafting a player.");
-                    console.log(status);
-                    console.log(error);
-                }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: '/Draft/DraftPlayer',
+                    data: $('#draft-room-form').serialize(),
+                    dataType: 'html',
+                    success: function (result) {
+                        if (document.getElementById('IsErrorMessage').value == 'False') {
+                            ResetTimer();
+                        }
+
+                        console.log('Player successfully drafted!');
+                        $('#draft-board-container').html(result);
+                        document.getElementById('DraftingLocked').value = 'False';
+
+                        if (document.getElementById('IsErrorMessage').value == 'False') {
+                            var message = new SpeechSynthesisUtterance(document.getElementById('Message').value);
+                            message.voice = loadedVoice;
+                            speechSynthesis.speak(message);
+                        }
+
+                        $("#warning-message").delay(3000).fadeOut("slow");
+                        $("#success-message").delay(3000).fadeOut("slow");
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("There was an error drafting a player.");
+                        document.getElementById('DraftingLocked').value = 'False';
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
         },
         getDevicesError: function(error) {
             var p, message = "Error detected with the following parameters:\n";

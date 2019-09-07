@@ -1,3 +1,5 @@
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\Json Data\teams.json
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\Json Data\players.json
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\fftoolkit.Logic.dll.config
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\fftoolkit.Logic.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\fftoolkit.Logic.pdb
@@ -21,5 +23,3 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Release\fftoolkit.Log
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Release\fftoolkit.Logic.csproj.CopyComplete
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Release\fftoolkit.Logic.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\obj\Release\fftoolkit.Logic.pdb
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\Json Data\teams.json
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Logic\bin\Release\Json Data\players.json

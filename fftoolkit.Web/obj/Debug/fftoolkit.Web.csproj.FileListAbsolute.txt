@@ -132,3 +132,4 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.csp
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.dll
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\obj\Debug\fftoolkit.Web.pdb
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.Web\bin\audio\chime.mp3
