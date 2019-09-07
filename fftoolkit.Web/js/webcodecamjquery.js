@@ -57,7 +57,7 @@
             flipVertical: false,
             flipHorizontal: false,
             zoom: 0,
-            beep: '../../audio/beep.mp3',
+            beep: '../../audio/chime.mp3',
             decoderWorker: '../../js/DecoderWorker.js',
             brightness: 0,
             autoBrightnessValue: 0,

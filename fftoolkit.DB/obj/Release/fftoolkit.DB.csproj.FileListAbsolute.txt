@@ -13,11 +13,6 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Mig
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.cleaningupproperties.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingteammapping.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingunmatchedplayers.resources
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.GenerateResource.cache
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.CoreCompileInputs.cache
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.CopyComplete
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.dll
-C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.pdb
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingdraftstuff.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.updatingusertogetdrafts.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.moredraftstuff.resources
@@ -32,3 +27,10 @@ C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Mig
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingdraftpicks.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingdraftpickstake2.resources
 C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingplayerrelationfordraftpick.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.addingwritein.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.Migrations.makingplayernullableondraftpick.resources
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.GenerateResource.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.CoreCompileInputs.cache
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.csproj.CopyComplete
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.dll
+C:\Users\Collin\Source\Repos\fftoolkit\fftoolkit.DB\obj\Release\fftoolkit.DB.pdb

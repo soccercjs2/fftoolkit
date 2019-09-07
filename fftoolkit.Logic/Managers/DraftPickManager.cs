@@ -22,12 +22,12 @@ namespace fftoolkit.Logic.Managers
             _draftPickWorker.Add(draftPick);
         }
 
-        public DraftPick Add(int draftId, int playerId, int round, int pick)
+        public DraftPick Add(int draftId, int draftedPlayerId, int round, int pick)
         {
             DraftPick draftPick = new DraftPick()
             {
                 DraftId = draftId,
-                PlayerId = playerId,
+                PlayerId = draftedPlayerId,
                 Round = round,
                 Pick = pick
             };

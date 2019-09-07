@@ -308,9 +308,18 @@ namespace fftoolkit.Controllers
                     draftRoomViewModel.CurrentPick);
                 draftPick.Player = draftedPlayer;
 
-                draftRoomViewModel.Message = string.Format("{0} has successfully drafted {1}!",
+                string draftPickText = (draftRoomViewModel.DraftPicks == null) ? "1" : (draftRoomViewModel.DraftPicks.Count + 1).ToString();
+                if (draftPickText[draftPickText.Length - 1] == '1') { draftPickText += "st"; }
+                else if (draftPickText[draftPickText.Length - 1] == '2') { draftPickText += "nd"; }
+                else if (draftPickText[draftPickText.Length - 1] == '3') { draftPickText += "rd"; }
+                else { draftPickText += "th"; }
+
+                string draftedPlayerMessage = string.Format("With the {0} pick in the draft, {1} has drafted {2}.",
+                    draftPickText,
                     draftRoomViewModel.Draft.DraftParticipants[draftRoomViewModel.CurrentPick - 1].Name,
-                    string.Format("{0} ({1}, {2})", draftedPlayer.Name, draftedPlayer.Position, draftedPlayer.Team));
+                    draftedPlayer.Name);
+
+                draftRoomViewModel.Message = draftedPlayerMessage;
                 draftRoomViewModel.IsErrorMessage = false;
             }
             else
